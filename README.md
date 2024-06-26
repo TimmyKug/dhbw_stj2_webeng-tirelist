@@ -1,2 +1,3 @@
-# tirelist
-tires are listed plus hehe
+# Autoren
+ Nico Amann & Timothy Kugler
+
