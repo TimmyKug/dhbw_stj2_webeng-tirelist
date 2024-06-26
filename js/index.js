@@ -2,15 +2,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetch('https://lukas.rip/api/users', {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
             "group-key": GROUP_KEY,
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            username: "Ncio",
-            password: "Ncio123",
+            username: "Tmimy",
+            password: "Tmimy123",
             profile: {
-                displayName: "Ncioo",
-                description: "Ncio ist schön",
+                displayName: "Timmeee",
+                description: "Timmy... naja",
             }
         })
     })
@@ -26,4 +26,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-const GROUP_KEY = '2ujgh9kh'
+const GROUP_KEY = '2ujgh9kh';
