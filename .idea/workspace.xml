@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="change index to login">
-      <change afterPath="$PROJECT_DIR$/register.html" afterDir="false" />
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="extras directory">
+      <change afterPath="$PROJECT_DIR$/css/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/global.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extras/test.md" beforeDir="false" afterPath="$PROJECT_DIR$/css/global.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -36,9 +46,13 @@
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
     "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.login.html.executor": "Run",
+    "JavaScript Debug.register.html.executor": "Run",
+    "Node.js.global.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,6 +67,12 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/extras" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="tirelist" />
@@ -195,7 +215,7 @@
       <workItem from="1719405667460" duration="1986000" />
       <workItem from="1719410045593" duration="258000" />
       <workItem from="1719410311569" duration="58000" />
-      <workItem from="1719410373856" duration="339000" />
+      <workItem from="1719410373856" duration="4539000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -285,7 +305,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719410610401</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="extras directory">
+      <option name="closed" value="true" />
+      <created>1719411008157</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719411008157</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +335,7 @@
     <MESSAGE value="test api" />
     <MESSAGE value="change index.js to login.js" />
     <MESSAGE value="change index to login" />
-    <option name="LAST_COMMIT_MESSAGE" value="change index to login" />
+    <MESSAGE value="extras directory" />
+    <option name="LAST_COMMIT_MESSAGE" value="extras directory" />
   </component>
 </project>
