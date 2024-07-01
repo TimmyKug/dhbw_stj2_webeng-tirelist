@@ -5,8 +5,8 @@
     <title>Register</title>
     <link rel="stylesheet" href="./css/register.css" >
     <link rel="stylesheet" href="./css/global.css">
-    <script src="js/register.js"></script>
-    <script src="./js/global.js"></script>
+    <script src="js/register.js" type="module"></script>
+    <script src="./js/global.js" type="module"></script>
 </head>
 <body>
     <div class="main-container">
@@ -18,9 +18,17 @@
             <label for="display-name">Display Name: </label>
             <input id="display-name" type="text" required placeholder="Display Name">
         </div>
-        ...
+        <div id="password-container">
+            <label for="password">Password: </label>
+            <input id="password" type="password" required placeholder="Your Password">
+        </div>
+        <div id="description-container">
+            <label for="description">Description: </label>
+            <textarea id="description"> </textarea>
+        </div>
         <button id="register">Register</button>
-        <button class="to-login">I already have an account</button>
+
+        <a href="login.html">I already have an account</a>
     </div>
 </body>
 </html>
