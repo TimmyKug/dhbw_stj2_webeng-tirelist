@@ -1,3 +1,5 @@
+import { GROUP_KEY } from './global.js'
+
 document.getElementById("register").addEventListener('click', () => {
     const name = document.getElementById("name").value;
     const displayName = document.getElementById("display-name").value;
@@ -6,8 +8,11 @@ document.getElementById("register").addEventListener('click', () => {
 
     registerUser(name, displayName, password, description);
 
-    localStorage.setItem("name", name);
+    localStorage.setItem("username", name);
     localStorage.setItem("password", password);
+
+    console.log(localStorage.getItem("username"));
+    console.log(localStorage.getItem("password"));
 
     window.location.href = "main.html";
 })
