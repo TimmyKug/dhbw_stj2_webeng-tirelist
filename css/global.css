@@ -7,64 +7,45 @@ html, body {
     --accent-color-2: #03DAC6;
     --link-color: #8AB4F8;
     --button-background-color: #333333;
-    --button-text-color: #FFFFFF;
+    --button-text-color: white;
     --border-color: #444444;
+    --error-color: red;
 
     height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: var(--background-color);
     color: var(--primary-text-color);
 }
 
 a {
-     color: var(--primary-text-color);
+     color: var(--link-color);
 }
 
-#global-nav-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--navbar-color);
-}
+
 #global-grid {
     display: grid;
     grid-template-rows: 10% 90%;
-    flex: 1;
     height: 100%;
 }
 
-
-
-#icon {
-    background-image: url("../assets/icon.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 50px;
-    width: 210px;
-    margin: 10px;
+.invalid {
+    border: 2px solid var(--error-color) !important;
 }
-#search-bar {
-    margin: 10px;
-    color: var(--primary-text-color);
-    background-color: var(--navbar-color);
-    border: none;
-    border-bottom: 1px solid var(--primary-text-color);
-    min-width: 15%;
+.invalid:focus-visible {
+    border: 2px solid var(--error-color) !important;
 }
-#search-bar:focus-visible {
-    outline: none;
-    border-bottom: 2px solid var(--primary-text-color);
+.input-field {
+    border: 2px solid var(--button-text-color);
+}
+.input-field:focus-visible {
+    border: 2px solid var(--button-text-color);
 }
 
-#avatar {
-    background-color: var(--accent-color-1);
-    padding: 12px 16px;
-    border-radius: 20px;
-    margin: 10px;
+.error-field {
+    color: var(--error-color);
+}
+.invisible {
+    visibility: hidden;
 }

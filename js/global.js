@@ -4,7 +4,7 @@ if ((!localStorage.getItem("username") || !localStorage.getItem("password")) && 
     location.href = "login.html";
 }
 const username = localStorage.getItem('username')
-document.getElementById('global-nav-bar').innerHTML = `
+document.getElementById('nav-bar').innerHTML = `
     <div id="icon"></div>
     <input id="search-bar" list="users" placeholder="🔎 Search for users...">
     <datalist id="users"></datalist>
@@ -14,15 +14,14 @@ document.getElementById('global-nav-bar').innerHTML = `
                          <div id="profile"></div>
                          <div id="log-out"></div>                      
                      </div>
-                  </div>` : ''}
-    `
+                  </div>` : ''}`
 
 document.getElementById('search-bar').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         console.log(document.getElementById('search-bar').value);
     }
 })
-document.getElementById('avatar').addEventListener('click', () => {
+document.getElementById('avatar')?.addEventListener('click', () => {
 
 })
 
