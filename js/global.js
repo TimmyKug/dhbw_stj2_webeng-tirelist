@@ -3,27 +3,46 @@ if ((!localStorage.getItem("username") || !localStorage.getItem("password")) && 
     alert('Please log in first');
     location.href = "login.html";
 }
-const username = localStorage.getItem('username')
+const username = localStorage.getItem('username');
 document.getElementById('nav-bar').innerHTML = `
     <div id="icon"></div>
     <input id="search-bar" list="users" placeholder="🔎 Search for users...">
     <datalist id="users"></datalist>
     ${username ? `<div id="profile-actions">
                      <div id="avatar">${username.at(0).toUpperCase()}</div>
-                     <div id="drop-down">
-                         <div id="profile"></div>
-                         <div id="log-out"></div>                      
+                     <div id="drop-down" class="invisible">
+                         <div id="profile" class="drop-down-item">Profile</div>
+                         <div id="log-out" class="drop-down-item">Log Out</div>       
+                         <div id="delete-account" class="drop-down-item">Delete my account</div>              
                      </div>
                   </div>` : ''}`
+
+document.getElementById('icon').onclick = () => {
+    location = 'main.html';
+};
 
 document.getElementById('search-bar').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         console.log(document.getElementById('search-bar').value);
     }
-})
-document.getElementById('avatar')?.addEventListener('click', () => {
+});
 
-})
+document.getElementById('avatar')?.addEventListener('click', () => {
+    document.getElementById('drop-down').classList.toggle('invisible');
+});
+
+document.getElementById('log-out')?.addEventListener('click', () => {
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    location.href = "login.html";
+});
+
+document.getElementById('delete-account')?.addEventListener('click', async () => {
+    await deleteUser(localStorage.getItem('username'), localStorage.getItem('password'));
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    location.href = "login.html";
+});
 
 getUsers();
 
@@ -43,4 +62,15 @@ async function getUsers() {
         option.value = user.username;
         userDataList.appendChild(option);
     }
+}
+
+async function deleteUser(userName, password) {
+    await fetch('https://lukas.rip/api/users/' + userName, {
+        method: 'DELETE',
+        headers: {
+            'group-key': GROUP_KEY,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`,
+        }
+    })
+    console.log("deleted user: " + userName)
 }

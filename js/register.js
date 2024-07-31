@@ -1,6 +1,11 @@
 import { GROUP_KEY } from './global.js';
 
-const inputElements = document.querySelectorAll('input');
+if (localStorage.getItem('username') != null) {
+    location.href = 'main.html';
+}
+
+
+const inputElements = document.getElementsByClassName('input-field');
 
 for (const inputElement of inputElements) {
     inputElement.addEventListener('input', (e) => {
@@ -29,6 +34,7 @@ function isValid(input, id) {
         case 'description':
             isValid = input.length <= 300;
             break;
+        default: isValid = true;
     }
     return isValid;
 }
@@ -55,7 +61,7 @@ document.getElementById("register").addEventListener('click', async () => {
 async function registerUser(name, password, displayName, description) {
     const response = await fetch('https://lukas.rip/api/users', {
         method: 'POST', headers: {
-            "group-key": localStorage.getItem('group-key'),
+            "group-key": GROUP_KEY,
             "Content-Type": "application/json",
         }, body: JSON.stringify({
             username: name,
