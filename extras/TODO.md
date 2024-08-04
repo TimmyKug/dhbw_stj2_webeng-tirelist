@@ -4,5 +4,3 @@
 - Profile
 - Tierlist Preview / Creator
 - random 10 view / main view
-
-- test 123
