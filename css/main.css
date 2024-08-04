@@ -1,0 +1,16 @@
+#ranking-grid {
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    height: 100%;
+}
+
+#ranking {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 200px;
+    width: 150px;
+    margin: 50px;
+    border-radius: 10%;
+    background-color: var(--navbar-color);;
+}

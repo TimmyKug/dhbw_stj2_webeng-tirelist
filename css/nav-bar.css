@@ -35,7 +35,7 @@
     cursor: pointer;
 }
 
-#new-list-button {
+#new-ranking-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@
     cursor: pointer;
 }
 
-#new-list-button img {
+#new-ranking-button img {
     margin-right: 8px; 
     width: 15px; 
     height: 15px; 

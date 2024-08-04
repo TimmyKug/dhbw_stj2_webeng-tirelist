@@ -9,9 +9,9 @@ document.getElementById('nav-bar').innerHTML = `
      <input id="search-bar" list="users" placeholder="🔎 Search for users...">
      <datalist id="users"></datalist>
      <div id="right-container">
-        <button id="new-list-button">
+        <button id="new-ranking-button">
             <img src="../assets/plus-icon.png" alt="Icon">
-            New List
+            New Ranking
         </button>
         ${username ? `<div id="profile-actions">
             <div id="avatar">${username.at(0).toUpperCase()}</div>
@@ -34,8 +34,8 @@ document.getElementById('search-bar').addEventListener('keydown', (event) => {
     }
 });
 
-document.getElementById('new-list-button').addEventListener('click', () => {
-    location.href = 'list.html';
+document.getElementById('new-ranking-button').addEventListener('click', () => {
+    location.href = 'ranking.html';
 })
 
 document.getElementById('avatar')?.addEventListener('click', () => {
