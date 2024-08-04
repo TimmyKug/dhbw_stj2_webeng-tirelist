@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             "group-key": GROUP_KEY
         }
     })
+    
     const rankings = await rankingsResponse.json();
-   
-    for (const ranking of rankings) {
+    const lastTenRankings = rankings.slice(-10);
+
+    for (const ranking of lastTenRankings) {
         let newDiv = document.createElement("div");
         newDiv.id = "ranking";
         newDiv.textContent = ranking.title;

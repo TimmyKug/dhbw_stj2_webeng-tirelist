@@ -92,8 +92,10 @@ async function createRanking(title, description) {
         })
     })
     tiers = [];
+
     console.log(response.status);
     if (response.status === 201) {
+        location.href = "main.html";
         return true;
     } else if (response.status === 400) {
         alert("invalid entries");
