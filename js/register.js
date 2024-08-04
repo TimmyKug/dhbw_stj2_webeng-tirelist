@@ -9,14 +9,21 @@ const inputElements = document.getElementsByClassName('input-field');
 
 for (const inputElement of inputElements) {
     inputElement.addEventListener('input', (e) => {
-        if (isValid(e.target.value, e.target.id)) {
-            inputElement.classList.remove('invalid');
-            document.getElementById(e.target.id + "-error-field").classList.add('invisible');
-        } else {
-            inputElement.classList.add('invalid');
-            document.getElementById(e.target.id + "-error-field").classList.remove('invisible');
-        }
+        checkValidity(e.target);
     })
+}
+
+function checkValidity(target) {
+    console.log(target);
+    if (isValid(target.value, target.id)) {
+        target.classList.remove('invalid');
+        document.getElementById(target.id + "-error-field").classList.add('invisible');
+        return true;
+    } else {
+        target.classList.add('invalid');
+        document.getElementById(target.id + "-error-field").classList.remove('invisible');
+        return false;
+    }
 }
 
 function isValid(input, id) {
@@ -44,6 +51,17 @@ document.getElementById("register").addEventListener('click', async () => {
     const password = document.getElementById('password').value;
     const displayName = document.getElementById('display-name').value;
     const description = document.getElementById('description').value;
+
+    let valid = true;
+    for (const inputElement of inputElements) {
+        if (checkValidity(inputElement) && valid) {
+            valid = false;
+        }
+    }
+    if (!valid) {
+        console.log("invalid")
+        return;
+    }
 
     const wasSuccessful = await registerUser(name, password, displayName, description);
     if (!wasSuccessful) {
