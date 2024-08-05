@@ -1,33 +1,58 @@
 import { GROUP_KEY } from './global.js';
+export let RANKING_ID = "0";
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const rankingsResponse = await fetch('https://lukas.rip/api/rankings', {
-        method: 'GET',
+loadLastTenRankings();
+
+function loadLastTenRankings() {
+    document.addEventListener("DOMContentLoaded", async () => {
+        const rankingsResponse = await fetch('https://lukas.rip/api/rankings', {
+            method: 'GET',
+            headers: {
+                "group-key": GROUP_KEY
+            }
+        })
+        
+        const lastTenRankings = await rankingsResponse.json();
+        console.log(lastTenRankings);
+    
+        for (const ranking of lastTenRankings) {
+            let rankingDiv = document.createElement("div");
+            rankingDiv.classList.add("ranking-preview-container");
+            let gridDiv = document.getElementById("ranking-preview-grid");
+            gridDiv.appendChild(rankingDiv);
+    
+            let bottomDiv = document.createElement("div");
+            bottomDiv.classList.add("bottom-container");
+            rankingDiv.appendChild(bottomDiv);
+    
+            let titleDiv = document.createElement("div");
+            titleDiv.classList.add("title");
+            titleDiv.textContent = ranking.title;
+            bottomDiv.appendChild(titleDiv);
+    
+            rankingDiv.addEventListener("click", () => {
+                RANKING_ID = ranking.id;
+                getRanking();
+            })
+        }
+    })
+}
+
+async function getRanking() {
+    const response = await fetch('https://lukas.rip/api/rankings/' + RANKING_ID, {
+        method: 'GET', 
         headers: {
             "group-key": GROUP_KEY
         }
     })
-    
-    const rankings = await rankingsResponse.json();
-    const lastTenRankings = rankings.slice(-10);
 
-    for (const ranking of lastTenRankings) {
-        let rankingDiv = document.createElement("div");
-        rankingDiv.classList.add("ranking-container");
-        let gridDiv = document.getElementById("ranking-grid");
-        gridDiv.appendChild(rankingDiv);
+    const ranking = await response.json();
 
-        let bottomDiv = document.createElement("div");
-        bottomDiv.classList.add("bottom-container");
-        rankingDiv.appendChild(bottomDiv);
-
-        let titleDiv = document.createElement("div");
-        titleDiv.classList.add("title");
-        titleDiv.textContent = ranking.title;
-        bottomDiv.appendChild(titleDiv);
-
-        rankingDiv.addEventListener("click", () => {
-            location.href = "ranking.html";
-        })
+    if (response.status === 200) {
+        location.href = "ranking-overview.html";
+        return ranking;
+    } else {
+        console.log("can't find ranking: " + response.status);
+        return;
     }
-})
+}

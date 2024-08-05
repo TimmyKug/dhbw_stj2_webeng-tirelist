@@ -14,7 +14,7 @@ for (const inputElement of inputElements) {
 }
 
 function checkValidity(target) {
-    console.log(target);
+    
     if (isValid(target.value, target.id)) {
         target.classList.remove('invalid');
         document.getElementById(target.id + "-error-field").classList.add('invisible');
@@ -54,7 +54,7 @@ document.getElementById("register").addEventListener('click', async () => {
 
     let valid = true;
     for (const inputElement of inputElements) {
-        if (checkValidity(inputElement) && valid) {
+        if (!checkValidity(inputElement) && valid) {
             valid = false;
         }
     }

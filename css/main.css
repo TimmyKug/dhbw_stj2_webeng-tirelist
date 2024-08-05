@@ -1,11 +1,11 @@
-#ranking-grid {
+#ranking-preview-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin: 20px;
 }
 
-.ranking-container {
+.ranking-preview-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

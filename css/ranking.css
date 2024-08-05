@@ -1,0 +1,4 @@
+#ranking-grid {
+    display: flex;
+    grid-template-rows: 100%;
+}
