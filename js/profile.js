@@ -3,8 +3,9 @@ import { GROUP_KEY } from './global.js';
 document.addEventListener("DOMContentLoaded", loadAllUserRankings);
 
 async function loadAllUserRankings() {
-    const profilename = localStorage.getItem('profilename');
-    const response = await fetch('https://lukas.rip/api/users/' + profilename + '/rankings', {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const response = await fetch('https://lukas.rip/api/users/' + user.username + '/rankings', {
         method: 'GET',
         headers: {
             "group-key": GROUP_KEY
@@ -14,6 +15,12 @@ async function loadAllUserRankings() {
     const allUserRankings = await response.json();
     console.log(allUserRankings);
 
+    const header = document.getElementById("header");
+    const description = document.getElementById("description");
+    const dateCreated = document.getElementById("dateCreated");
+    header.textContent = user.username + "'s Rankings";
+    description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
+    dateCreated.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('T')[0];
     if (allUserRankings.length === 0) {
         const container = document.getElementById("main");
         const message = document.createElement("p");

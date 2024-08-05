@@ -8,3 +8,15 @@
     height: 80%;
     font-size: x-large;
 }
+
+#header {
+    margin: 20px;
+}
+
+#description {
+    margin: 20px;
+}
+
+#dateCreated {
+    margin: 20px;
+}

@@ -44,9 +44,10 @@ document.getElementById('avatar')?.addEventListener('click', () => {
     document.getElementById('drop-down').classList.toggle('invisible');
 });
 
-document.getElementById('profile')?.addEventListener('click', () => {
+document.getElementById('profile')?.addEventListener('click', async () => {
     const userName = localStorage.getItem("username");
-    localStorage.setItem("profilename", userName);
+    const user = await getUser(userName);
+    localStorage.setItem("user", JSON.stringify(user));
     location.href = 'profile.html';
 });
 
@@ -81,6 +82,17 @@ async function getUsers() {
         option.value = user.username;
         userDataList.appendChild(option);
     }
+}
+
+async function getUser(username) {
+    const userResponse = await fetch('https://lukas.rip/api/users/' + username, {
+        method: 'GET', headers: {
+            "group-key": GROUP_KEY
+        }
+    })
+    const user = await userResponse.json();
+    console.log(user);
+    return user;
 }
 
 async function deleteUser(userName, password) {

@@ -47,8 +47,9 @@ async function loadLastTenRankings() {
             titleDiv.textContent = ranking.title;
             bottomDiv.appendChild(titleDiv);
     
-            userNameDiv.addEventListener("click", () => {
-                localStorage.setItem("profilename", ranking.username);
+            userNameDiv.addEventListener("click", async () => {
+                const user = await getUser(ranking.username);
+                localStorage.setItem("user", JSON.stringify(user));
                 location = 'profile.html';
             })
         }
@@ -90,4 +91,15 @@ async function deleteRanking(rankingId) {
         console.log("not your ranking to delete");
         return false;
     }
+}
+
+async function getUser(username) {
+    const userResponse = await fetch('https://lukas.rip/api/users/' + username, {
+        method: 'GET', headers: {
+            "group-key": GROUP_KEY
+        }
+    })
+    const user = await userResponse.json();
+    console.log(user);
+    return user;
 }
