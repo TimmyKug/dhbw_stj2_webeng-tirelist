@@ -54,6 +54,7 @@ document.getElementById('profile')?.addEventListener('click', async () => {
 document.getElementById('log-out')?.addEventListener('click', () => {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    localStorage.removeItem('user');
     location.href = "login.html";
 });
 
@@ -61,6 +62,7 @@ document.getElementById('delete-account')?.addEventListener('click', async () =>
     await deleteUser(localStorage.getItem('username'), localStorage.getItem('password'));
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    localStorage.removeItem('user');
     location.href = "login.html";
 });
 

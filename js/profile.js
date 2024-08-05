@@ -21,6 +21,7 @@ async function loadAllUserRankings() {
     header.textContent = user.username + "'s Rankings";
     description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
     dateCreated.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('T')[0];
+    //as own function tmr
     if (allUserRankings.length === 0) {
         const container = document.getElementById("main");
         const message = document.createElement("p");
