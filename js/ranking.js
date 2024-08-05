@@ -102,13 +102,3 @@ async function createRanking(title, description) {
         return false;
     }
 }
-
-document.getElementById("get-ranking").addEventListener("click", async () => {
-    const rankingsResponse = await fetch('https://lukas.rip/api/rankings', {
-        method: 'GET', headers: {
-            "group-key": GROUP_KEY
-        }
-    })
-    const rankings = await rankingsResponse.json();
-    alert(rankings[rankings.length-1].title);
-})

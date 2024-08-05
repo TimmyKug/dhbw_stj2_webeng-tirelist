@@ -20,6 +20,7 @@ document.getElementById("login").addEventListener('click', async () => {
 
     window.location.href = "main.html";
 })
+
 async function loginUser(name, password) {
     console.log(`${name}: ${password}`);
     const response = await fetch('https://lukas.rip/api/users/login', {
