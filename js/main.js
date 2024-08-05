@@ -1,6 +1,9 @@
 import { GROUP_KEY } from './global.js';
 export const RANKING_ID = "";
 
+const userName = localStorage.getItem('username');
+const password = localStorage.getItem('password');
+
 document.addEventListener("DOMContentLoaded", loadLastTenRankings);
 
 async function loadLastTenRankings() {
@@ -31,6 +34,12 @@ async function loadLastTenRankings() {
         const gridDiv = document.getElementById("rankings-grid");
         gridDiv.appendChild(rankingDiv);
     
+        const userNameDiv = document.createElement("div");
+        userNameDiv.classList.add("username");
+        userNameDiv.textContent = ranking.username;
+        userNameDiv.style.backgroundColor = ranking.username === userName ? "var(--accent-color-1)" : null;
+        rankingDiv.appendChild(userNameDiv);
+
         const bottomDiv = document.createElement("div");
         bottomDiv.classList.add("bottom-container");
         rankingDiv.appendChild(bottomDiv);
@@ -39,7 +48,7 @@ async function loadLastTenRankings() {
         titleDiv.classList.add("title");
         titleDiv.textContent = ranking.title;
         bottomDiv.appendChild(titleDiv);
-    
+
         rankingDiv.addEventListener("click", () => {
             deleteRanking(ranking.id);
         })
@@ -66,9 +75,6 @@ async function getRanking() {
 }
 
 async function deleteRanking(rankingId) {
-    const userName = localStorage.getItem('username');
-    const password = localStorage.getItem('password');
-
     const response = await fetch('https://lukas.rip/api/rankings/' + rankingId, {
         method: 'DELETE',
         headers: {
