@@ -1,7 +1,6 @@
 import { GROUP_KEY } from './global.js';
 
-let username = localStorage.getItem('username');
-
+const username = localStorage.getItem('username');
 loadAllUserRankings();
 
 function loadAllUserRankings() {
@@ -15,11 +14,19 @@ function loadAllUserRankings() {
         
         const allUserRankings = await response.json();
         console.log(allUserRankings);
+
+        if (allUserRankings.length === 0) {
+            const container = document.getElementById("main");
+            const message = document.createElement("p");
+            message.id ="no-ranking-message";
+            message.textContent = "It looks like you haven’t created a ranking yet... ";
+            container.appendChild(message);
+        }
     
         for (const ranking of allUserRankings) {
             let rankingDiv = document.createElement("div");
-            rankingDiv.classList.add("ranking-preview-container");
-            let gridDiv = document.getElementById("ranking-preview-grid");
+            rankingDiv.classList.add("ranking-container");
+            let gridDiv = document.getElementById("rankings-grid");
             gridDiv.appendChild(rankingDiv);
     
             let bottomDiv = document.createElement("div");

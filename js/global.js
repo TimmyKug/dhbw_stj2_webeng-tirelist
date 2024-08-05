@@ -37,7 +37,7 @@ document.getElementById('search-bar').addEventListener('keydown', (event) => {
 });
 
 document.getElementById('new-ranking-button').addEventListener('click', () => {
-    location.href = 'ranking.html';
+    location.href = 'ranking-new.html';
 })
 
 document.getElementById('avatar')?.addEventListener('click', () => {

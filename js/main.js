@@ -1,5 +1,5 @@
 import { GROUP_KEY } from './global.js';
-export let RANKING_ID = "0";
+export const RANKING_ID = "";
 
 loadLastTenRankings();
 
@@ -17,8 +17,8 @@ function loadLastTenRankings() {
     
         for (const ranking of lastTenRankings) {
             let rankingDiv = document.createElement("div");
-            rankingDiv.classList.add("ranking-preview-container");
-            let gridDiv = document.getElementById("ranking-preview-grid");
+            rankingDiv.classList.add("ranking-container");
+            let gridDiv = document.getElementById("rankings-grid");
             gridDiv.appendChild(rankingDiv);
     
             let bottomDiv = document.createElement("div");
