@@ -26,32 +26,32 @@ async function loadLastTenRankings() {
         message.id ="no-ranking-message";
         message.textContent = "Hey, it looks like you will be the first person to create a ranking ;)";
         container.appendChild(message);
-    }
-
-    for (const ranking of lastTenRankings) {
-        const rankingDiv = document.createElement("div");
-        rankingDiv.classList.add("ranking-container");
-        const gridDiv = document.getElementById("rankings-grid");
-        gridDiv.appendChild(rankingDiv);
+    } else {
+        for (const ranking of lastTenRankings) {
+            const rankingDiv = document.createElement("div");
+            rankingDiv.classList.add("ranking-container");
+            const gridDiv = document.getElementById("rankings-grid");
+            gridDiv.appendChild(rankingDiv);
+        
+            const userNameDiv = document.createElement("div");
+            userNameDiv.classList.add("username");
+            userNameDiv.textContent = ranking.username;
+            rankingDiv.appendChild(userNameDiv);
     
-        const userNameDiv = document.createElement("div");
-        userNameDiv.classList.add("username");
-        userNameDiv.textContent = ranking.username;
-        userNameDiv.style.backgroundColor = ranking.username === userName ? "var(--accent-color-1)" : null;
-        rankingDiv.appendChild(userNameDiv);
-
-        const bottomDiv = document.createElement("div");
-        bottomDiv.classList.add("bottom-container");
-        rankingDiv.appendChild(bottomDiv);
+            const bottomDiv = document.createElement("div");
+            bottomDiv.classList.add("bottom-container");
+            rankingDiv.appendChild(bottomDiv);
+        
+            const titleDiv = document.createElement("div");
+            titleDiv.classList.add("title");
+            titleDiv.textContent = ranking.title;
+            bottomDiv.appendChild(titleDiv);
     
-        const titleDiv = document.createElement("div");
-        titleDiv.classList.add("title");
-        titleDiv.textContent = ranking.title;
-        bottomDiv.appendChild(titleDiv);
-
-        rankingDiv.addEventListener("click", () => {
-            deleteRanking(ranking.id);
-        })
+            userNameDiv.addEventListener("click", () => {
+                localStorage.setItem("profilename", ranking.username);
+                location = 'profile.html';
+            })
+        }
     }
 }
 

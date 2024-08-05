@@ -45,6 +45,8 @@ document.getElementById('avatar')?.addEventListener('click', () => {
 });
 
 document.getElementById('profile')?.addEventListener('click', () => {
+    const userName = localStorage.getItem("username");
+    localStorage.setItem("profilename", userName);
     location.href = 'profile.html';
 });
 

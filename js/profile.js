@@ -3,8 +3,8 @@ import { GROUP_KEY } from './global.js';
 document.addEventListener("DOMContentLoaded", loadAllUserRankings);
 
 async function loadAllUserRankings() {
-    const username = localStorage.getItem('username');
-    const response = await fetch('https://lukas.rip/api/users/' + username + '/rankings', {
+    const profilename = localStorage.getItem('profilename');
+    const response = await fetch('https://lukas.rip/api/users/' + profilename + '/rankings', {
         method: 'GET',
         headers: {
             "group-key": GROUP_KEY
@@ -19,29 +19,24 @@ async function loadAllUserRankings() {
         const message = document.createElement("p");
 
         message.id ="no-ranking-message";
-        message.textContent = "It looks like you haven’t created a ranking yet...";
+        message.textContent = "It looks like there is no ranking yet...";
         container.appendChild(message);
-    }
+    } else {
+        for (const ranking of allUserRankings) {
+            const rankingDiv = document.createElement("div");
+            rankingDiv.classList.add("ranking-container");
+            const gridDiv = document.getElementById("rankings-grid");
+            gridDiv.appendChild(rankingDiv);
+        
+            const bottomDiv = document.createElement("div");
+            bottomDiv.classList.add("bottom-container");
+            rankingDiv.appendChild(bottomDiv);
     
-    for (const ranking of allUserRankings) {
-        const rankingDiv = document.createElement("div");
-        rankingDiv.classList.add("ranking-container");
-        const gridDiv = document.getElementById("rankings-grid");
-        gridDiv.appendChild(rankingDiv);
-    
-        const bottomDiv = document.createElement("div");
-        bottomDiv.classList.add("bottom-container");
-        rankingDiv.appendChild(bottomDiv);
-
-        const titleDiv = document.createElement("div");
-        titleDiv.classList.add("title");
-        titleDiv.textContent = ranking.title;
-        bottomDiv.appendChild(titleDiv);
-
-        rankingDiv.addEventListener("click", () => {
-         deleteRanking(ranking.id);
-            window.location.reload();
-        })
+            const titleDiv = document.createElement("div");
+            titleDiv.classList.add("title");
+            titleDiv.textContent = ranking.title;
+            bottomDiv.appendChild(titleDiv);
+        }
     }
 }
 
