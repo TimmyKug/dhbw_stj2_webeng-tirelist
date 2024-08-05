@@ -80,12 +80,15 @@ document.getElementById("create").addEventListener("click", async () => {
 })
 
 async function createRanking(title, description) {
+    const userName = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+
     const response = await fetch('https://lukas.rip/api/rankings', {
         method: 'POST', 
         headers: {
             "group-key": GROUP_KEY,
             "Content-Type": "application/json",
-            'authorization': `Basic ${btoa(`${localStorage.getItem('username')}:${localStorage.getItem('password')}`)}`,
+            'authorization': `Basic ${btoa(`${userName}:${password}`)}`,
         }, body: JSON.stringify({
             title: title,
             description: description,

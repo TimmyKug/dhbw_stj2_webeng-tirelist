@@ -18,8 +18,9 @@ function loadAllUserRankings() {
         if (allUserRankings.length === 0) {
             const container = document.getElementById("main");
             const message = document.createElement("p");
+
             message.id ="no-ranking-message";
-            message.textContent = "It looks like you haven’t created a ranking yet... ";
+            message.textContent = "It looks like you haven’t created a ranking yet...";
             container.appendChild(message);
         }
     

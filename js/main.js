@@ -15,6 +15,17 @@ function loadLastTenRankings() {
         const lastTenRankings = await rankingsResponse.json();
         console.log(lastTenRankings);
     
+        if (lastTenRankings.length === 0) {
+            const header = document.getElementById("header");
+            const container = document.getElementById("main");
+            const message = document.createElement("p");
+
+            header.textContent = "";
+            message.id ="no-ranking-message";
+            message.textContent = "Hey, it looks like you will be the first person to create a ranking ;)";
+            container.appendChild(message);
+        }
+
         for (const ranking of lastTenRankings) {
             let rankingDiv = document.createElement("div");
             rankingDiv.classList.add("ranking-container");
@@ -31,8 +42,8 @@ function loadLastTenRankings() {
             bottomDiv.appendChild(titleDiv);
     
             rankingDiv.addEventListener("click", () => {
-                RANKING_ID = ranking.id;
-                getRanking();
+                //RANKING_ID = ranking.id;
+                deleteRanking(ranking.id);
             })
         }
     })
@@ -55,4 +66,18 @@ async function getRanking() {
         console.log("can't find ranking: " + response.status);
         return;
     }
+}
+
+async function deleteRanking(rankingId) {
+    const userName = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+
+    await fetch('https://lukas.rip/api/rankings/' + rankingId, {
+        method: 'DELETE',
+        headers: {
+            'group-key': GROUP_KEY,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`,
+        }
+    })
+    console.log("deleted ranking");
 }
