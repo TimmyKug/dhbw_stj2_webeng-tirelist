@@ -23,3 +23,13 @@
     padding: 30%;
     word-wrap: break-word;
 }
+
+#delete-ranking {
+    color: var(--error-color);
+    cursor: pointer;
+}
+
+#delete-ranking:hover {
+    color: var(--error-color);
+    text-decoration: underline;
+}

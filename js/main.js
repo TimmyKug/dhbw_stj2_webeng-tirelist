@@ -81,24 +81,6 @@ async function getRanking() {
     }
 }
 
-async function deleteRanking(rankingId) {
-    const response = await fetch('https://lukas.rip/api/rankings/' + rankingId, {
-        method: 'DELETE',
-        headers: {
-            'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`,
-        }
-    })
-
-    if (response.status === 200) {
-        console.log("deleted ranking");
-        return true;
-    } else {
-        console.log("not your ranking to delete");
-        return false;
-    }
-}
-
 async function getUser(username) {
     const userResponse = await fetch('https://lukas.rip/api/users/' + username, {
         method: 'GET', headers: {
