@@ -31,8 +31,9 @@ function buildRankingGrid(ranking) {
             longestTier = currentTierLength;
         }
     }
+    longestTier += 1;
 
-    let gridTemplateColumns = `repeat(${longestTier}, 1fr)`;
+    let gridTemplateColumns = `0.5fr repeat(${longestTier - 1}, 1fr)`;
     let gridTemplateRows = `repeat(${tiersLength}, 1fr)`;
 
     const grid = document.getElementById('ranking-grid');
@@ -42,7 +43,13 @@ function buildRankingGrid(ranking) {
 
     for (let i = 0; i < tiersLength; i++) {
         let tier = ranking.tiers[i];
-        let count = 0;
+        let count = 1;
+
+        const gridItem = document.createElement('div');
+        gridItem.className = 'color-item';
+        gridItem.textContent = tier.title;
+        gridItem.style.backgroundColor = tier.color;
+        grid.appendChild(gridItem);
 
         for (const item of tier.content) {
             const gridItem = document.createElement('div');
@@ -54,8 +61,7 @@ function buildRankingGrid(ranking) {
 
         while (count < longestTier) {
             const blankItem = document.createElement('div');
-            blankItem.className = 'grid-item-blank';
-            blankItem.textContent = '';
+            blankItem.className = 'grid-item';
             grid.appendChild(blankItem);
             count++;
         }

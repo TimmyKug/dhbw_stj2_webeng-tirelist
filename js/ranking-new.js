@@ -55,13 +55,18 @@ function showItems() {
     });
 }
 
+const colorPicker = document.getElementById('colorPicker');
+colorPicker.addEventListener('input', () => {
+    console.log(colorPicker.value);
+})
+
 document.getElementById("add-tier").addEventListener("click", () => {
     const tierTitle = document.getElementById('tier-title').value;
 
     tiers.push({
         title: tierTitle,
         content: items,
-        color: "red"
+        color: colorPicker.value
     });
 
     document.getElementById('tier-title').value = "";

@@ -7,10 +7,19 @@
 
 #ranking-grid {
     display: grid;
-    justify-content: start;
-    border: 1px solid var(--border-color);
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;    
 }
 
 .grid-item {
     border: 1px solid var(--border-color);
+    padding: 15%;
+    word-wrap: break-word;
+}
+
+.color-item {
+    border: 1px solid var(--border-color);
+    padding: 30%;
+    word-wrap: break-word;
 }
