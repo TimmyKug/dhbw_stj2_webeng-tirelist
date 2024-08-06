@@ -1,19 +1,18 @@
 import { GROUP_KEY } from './global.js';
 
+const userName = localStorage.getItem("username");
+const password = localStorage.getItem("password");
+
+const ranking = JSON.parse(localStorage.getItem("ranking"));
+
 document.addEventListener("DOMContentLoaded", loadRanking);
 
 async function loadRanking() {
-    const userName = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const ranking = JSON.parse(localStorage.getItem("ranking"));
-
-    buildRankingDescription(userName, password, ranking);
+    buildRankingDescription(ranking);
     buildRankingGrid(ranking);
 }
 
-function buildRankingDescription(userName, password, ranking) {
+function buildRankingDescription(ranking) {
     const title = document.getElementById("title");
     const description = document.getElementById("description");
     const createdAt = document.getElementById("created-at");
@@ -22,7 +21,7 @@ function buildRankingDescription(userName, password, ranking) {
 
     remove.innerHTML = userName === ranking.username ? "DELETE-RANKING" : null;
     remove.addEventListener("click", async () => {
-        await deleteRanking(userName, password, ranking.id);
+        await deleteRanking(ranking.id);
         location.href = "main.html";
     });
 
@@ -33,6 +32,7 @@ function buildRankingDescription(userName, password, ranking) {
 }
 
 function buildRankingGrid(ranking) {
+    console.log(ranking.id);
     let tiersLength = ranking.tiers.length;
     let longestTier = 1;
 
@@ -66,6 +66,13 @@ function buildRankingGrid(ranking) {
             const gridItem = document.createElement('div');
             gridItem.className = 'grid-item';
             gridItem.textContent = item;
+            gridItem.draggable = ranking.username === userName ? true : false;
+            gridItem.ondragstart = dragStart;
+            gridItem.ondragover = dragOver;
+            gridItem.ondragleave = dragLeave;
+            gridItem.ondrop = drop;
+            gridItem.dataset.tierIndex = i;
+            gridItem.dataset.itemIndex = count - 1;
             grid.appendChild(gridItem);
             count++;
         }
@@ -79,20 +86,76 @@ function buildRankingGrid(ranking) {
     }
 }
 
-async function deleteRanking(userName, password, id) {
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.dataset.tierIndex + ',' + e.target.dataset.itemIndex);
+    e.currentTarget.style.backgroundColor = '';
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    e.currentTarget.style.backgroundColor = 'var(--accent-color-2)';
+}
+
+function dragLeave(e) {
+    e.currentTarget.style.backgroundColor = '';
+}
+
+async function drop(e) {
+    e.preventDefault();
+    e.currentTarget.style.backgroundColor = '';
+
+    const data = e.dataTransfer.getData('text/plain').split(',');
+    const [fromTierIndex, fromItemIndex] = data.map(Number);
+    const toTierIndex = e.target.dataset.tierIndex;
+    const toItemIndex = e.target.dataset.itemIndex;
+
+    if (toTierIndex === undefined || toItemIndex === undefined) return;
+
+    const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
+    ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
+
+    document.getElementById('ranking-grid').innerHTML = '';
+
+    const newRanking = await updateRanking(ranking.id);
+    localStorage.setItem('ranking', JSON.stringify(newRanking));
+
+    buildRankingGrid(ranking);
+}
+
+async function deleteRanking(id) {
     const response = await fetch('https://lukas.rip/api/rankings/' + id, {
         method: 'DELETE',
         headers: {
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`
         }
-    })
+    });
 
-    if (response.status === 200) {
+    if (response.status === 204) {
         console.log("deleted ranking");
         return true;
     } else {
-        alert('Can´t delete this ranking');
+        alert('Can’t delete this ranking, errror:' + response.status);
+        return false;
+    }
+}
+
+async function updateRanking(id) {
+    const response = await fetch('https://lukas.rip/api/rankings/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'group-key': GROUP_KEY,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`
+        },
+        body: JSON.stringify(ranking)
+    });
+
+    if (response.status === 200) {
+        console.log("updated ranking");
+        return ranking;
+    } else {
+        alert('Can’t update this ranking');
         return false;
     }
 }

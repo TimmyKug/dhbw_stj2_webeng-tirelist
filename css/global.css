@@ -62,6 +62,10 @@ a {
     background-color: var(--navbar-color);
 }
 
+.bottom-container:hover {
+    background-color: var(--border-color);
+}
+
 .invalid {
     border: 2px solid var(--error-color) !important;
 }

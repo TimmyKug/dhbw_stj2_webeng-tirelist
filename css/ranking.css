@@ -22,7 +22,7 @@
     border: 1px solid var(--border-color);
     color: var(--background-color);
     font-weight: bold;
-    padding: 30%;
+    padding-top: 30%;
     word-wrap: break-word;
 }
 
