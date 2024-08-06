@@ -35,3 +35,31 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+#edit-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+#save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: none;
+    border-radius: 7px;
+    min-height: 25%;
+    padding: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#save-button:active {
+    opacity: 0.7;
+}

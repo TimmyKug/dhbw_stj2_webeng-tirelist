@@ -116,10 +116,22 @@ async function drop(e) {
 
     document.getElementById('ranking-grid').innerHTML = '';
 
-    const newRanking = await updateRanking(ranking.id);
-    localStorage.setItem('ranking', JSON.stringify(newRanking));
-
     buildRankingGrid(ranking);
+    saveRanking();
+}
+
+function saveRanking() {
+    const saveButton = document.getElementById('save-button');
+    saveButton.style.backgroundColor = "var(--accent-color-2)";
+
+    const handleClick = async () => {
+        const newRanking = await updateRanking(ranking.id);
+        localStorage.setItem('ranking', JSON.stringify(newRanking));
+        saveButton.style.backgroundColor = "var(--border-color)";
+        saveButton.removeEventListener("click", handleClick);
+    };
+    saveButton.removeEventListener("click", handleClick);
+    saveButton.addEventListener("click", handleClick);
 }
 
 async function deleteRanking(id) {
