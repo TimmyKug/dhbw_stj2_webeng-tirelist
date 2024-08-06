@@ -1,5 +1,4 @@
 import { GROUP_KEY } from './global.js';
-export const RANKING_ID = "";
 
 const userName = localStorage.getItem('username');
 const password = localStorage.getItem('password');
@@ -51,6 +50,13 @@ async function loadLastTenRankings() {
                 const user = await getUser(ranking.username);
                 localStorage.setItem("user", JSON.stringify(user));
                 location = 'profile.html';
+            })
+
+            bottomDiv.addEventListener("click", async () => {
+                const user = await getUser(ranking.username);
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("ranking", JSON.stringify(ranking));
+                location = 'ranking-edit.html';
             })
         }
     }

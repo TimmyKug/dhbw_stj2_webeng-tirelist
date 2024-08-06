@@ -15,13 +15,8 @@ async function loadAllUserRankings() {
     const allUserRankings = await response.json();
     console.log(allUserRankings);
 
-    const header = document.getElementById("header");
-    const description = document.getElementById("description");
-    const dateCreated = document.getElementById("dateCreated");
-    header.textContent = user.username + "'s Rankings";
-    description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
-    dateCreated.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('T')[0];
-    //as own function tmr
+    buildProfileDescription(user);
+
     if (allUserRankings.length === 0) {
         const container = document.getElementById("main");
         const message = document.createElement("p");
@@ -46,6 +41,15 @@ async function loadAllUserRankings() {
             bottomDiv.appendChild(titleDiv);
         }
     }
+}
+
+function buildProfileDescription(user) {
+    const username = document.getElementById("username");
+    const description = document.getElementById("description");
+    const createdAt = document.getElementById("createdAt");
+    username.textContent = user.username + "'s Rankings";
+    description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
+    createdAt.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('T')[0];
 }
 
 async function deleteRanking(rankingId) {
