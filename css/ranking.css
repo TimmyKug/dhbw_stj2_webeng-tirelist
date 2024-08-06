@@ -20,16 +20,18 @@
 
 .color-item {
     border: 1px solid var(--border-color);
+    color: var(--background-color);
+    font-weight: bold;
     padding: 30%;
     word-wrap: break-word;
 }
 
 #delete-ranking {
     color: var(--error-color);
-    cursor: pointer;
 }
 
 #delete-ranking:hover {
     color: var(--error-color);
     text-decoration: underline;
+    cursor: pointer;
 }
