@@ -36,7 +36,8 @@ function buildRankingDescription(ranking) {
 }
 
 function buildRankingGrid(ranking) {
-    console.log(ranking.id);
+    document.getElementById('ranking-grid').innerHTML = '';
+
     let tiersLength = ranking.tiers.length;
     let longestTier = 1;
 
@@ -52,7 +53,6 @@ function buildRankingGrid(ranking) {
     let gridTemplateRows = `repeat(${tiersLength}, 1fr)`;
 
     const grid = document.getElementById('ranking-grid');
-    grid.style.display = 'grid';
     grid.style.gridTemplateColumns = gridTemplateColumns;
     grid.style.gridTemplateRows = gridTemplateRows;
 
@@ -60,63 +60,128 @@ function buildRankingGrid(ranking) {
         let tier = ranking.tiers[i];
         let count = 1;
 
-        const gridItem = document.createElement('input');
-        gridItem.type = "text";
-        gridItem.className = 'color-item';
-        gridItem.value = tier.title;
-        gridItem.style.backgroundColor = tier.color;
-        gridItem.readOnly = (userName === ranking.username) ? false : true;
-        grid.appendChild(gridItem);
+        const colorItem = document.createElement('input');
+        colorItem.type = "text";
+        colorItem.className = 'color-item';
+        colorItem.value = tier.title;
+        colorItem.style.backgroundColor = tier.color;
+        colorItem.readOnly = (userName === ranking.username) ? false : true;
+        grid.appendChild(colorItem);
 
-        gridItem.addEventListener('click', () => {
-            gridItem.style.zIndex = 1;
+        colorItem.addEventListener('click', () => {
+            colorItem.style.zIndex = 1;
         })
 
-        gridItem.addEventListener('keydown', (event) => {
+        colorItem.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                gridItem.blur();
+                colorItem.blur();
             }
         });
 
-        gridItem.addEventListener("blur", () => {
-            gridItem.style.zIndex = "auto";
-            if (tier.title != gridItem.value) {
-                tier.title = gridItem.value;
+        colorItem.addEventListener("blur", () => {
+            colorItem.style.zIndex = "auto";
+            if (tier.title != colorItem.value) {
+                tier.title = colorItem.value;
                 saveRanking();
             }
         });
 
         for (let j = 0; j < tier.content.length; j++) {
             const item = tier.content[j];
-            const gridItem = document.createElement('input');
-            gridItem.type = "text";
-            gridItem.className = 'grid-item';
-            gridItem.value = item;
-            gridItem.readOnly = (userName === ranking.username) ? false : true;
-            gridItem.draggable = (userName === ranking.username) ? true : false;
-            gridItem.ondragstart = dragStart;
-            gridItem.ondragover = dragOver;
-            gridItem.ondragleave = dragLeave;
-            gridItem.ondrop = drop;
-            gridItem.dataset.tierIndex = i;
-            gridItem.dataset.itemIndex = j;
-            grid.appendChild(gridItem);
+
+            const itemContainer = document.createElement('div');
+            const textItem = document.createElement('input');
+            const dropDownIcon = document.createElement('div');
+            const dropDown = document.createElement('div');
+            const deleteItem = document.createElement('div');
+            const editItem = document.createElement('div');
+            const addItem = document.createElement('div');
+
+            textItem.className = 'grid-item';
+            textItem.type = "text";
+            textItem.value = item;
+            textItem.readOnly = true;
+            textItem.style.pointerEvents = "none";
+
+            dropDownIcon.classList = 'ranking-drop-down-icon';
+            dropDownIcon.textContent = '...';
+            
+            dropDown.classList = 'ranking-drop-down';
+            dropDown.classList = 'invisible';
+
+            deleteItem.classList = 'ranking-drop-down-item';
+            deleteItem.textContent = 'delete';
+
+            editItem.classList = 'ranking-drop-down-item';
+            editItem.textContent = 'edit';
+
+            addItem.classList = 'ranking-drop-down-item';
+            addItem.textContent = 'add';
+
+            itemContainer.className = "item-container";
+            itemContainer.draggable = (userName === ranking.username) ? true : false;
+            itemContainer.ondragstart = dragStart;
+            itemContainer.ondragover = dragOver;
+            itemContainer.ondragleave = dragLeave;
+            itemContainer.ondrop = drop;
+            itemContainer.dataset.tierIndex = i;
+            itemContainer.dataset.itemIndex = j;
+
+            itemContainer.appendChild(textItem);
+            itemContainer.appendChild(dropDownIcon);
+            dropDownIcon.appendChild(dropDown);
+            dropDown.appendChild(deleteItem);
+            dropDown.appendChild(editItem);
+            dropDown.appendChild(addItem);
+
+            grid.appendChild(itemContainer);
             count++;
 
-            gridItem.addEventListener('click', () => {
-                gridItem.style.zIndex = 1;
-            })
+            dropDownIcon.addEventListener('click', () => {
+                dropDown.classList.toggle('invisible');
+            });
 
-            gridItem.addEventListener('keydown', (event) => {
+            deleteItem.addEventListener('click', () => {
+                if (tier.content.length <= 1) {
+                    alert("A ranking must contain at least one item!");
+                    return;
+                }
+                tier.content.splice(j, 1)[0];
+                buildRankingGrid(ranking);
+                saveRanking();
+            });
+
+            editItem.addEventListener('click', () => {
+                textItem.readOnly = false;
+                textItem.style.pointerEvents = "auto";
+                itemContainer.draggable = false;
+
+                textItem.focus();
+                textItem.select();
+            });
+
+            textItem.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
-                    gridItem.blur();
+                    textItem.blur();
                 }
             });
 
-            gridItem.addEventListener("blur", () => {
-                gridItem.style.zIndex = "auto";
-                if (tier.content[j] != gridItem.value) {
-                    tier.content[j] = gridItem.value;
+            textItem.addEventListener("blur", () => {
+                textItem.readOnly = true;
+                textItem.style.pointerEvents = "none";
+                itemContainer.draggable = true;
+
+                if (tier.content[j] != textItem.value) {
+                    tier.content[j] = textItem.value;
+                    saveRanking();
+                }
+            });
+
+            addItem.addEventListener("click", () => {
+                const newItem = prompt("Enter new item:");
+                if (newItem) {
+                    tier.content.push(newItem);
+                    buildRankingGrid(ranking);
                     saveRanking();
                 }
             });
@@ -125,6 +190,12 @@ function buildRankingGrid(ranking) {
         while (count < longestTier) {
             const blankItem = document.createElement('div');
             blankItem.className = 'grid-item';
+            blankItem.dataset.tierIndex = i;
+            blankItem.dataset.itemIndex = count - 1;
+
+            blankItem.ondragover = dragOver;
+            blankItem.ondragleave = dragLeave;
+            blankItem.ondrop = drop;
             grid.appendChild(blankItem);
             count++;
         }
@@ -145,7 +216,7 @@ function dragLeave(e) {
     e.currentTarget.style.backgroundColor = '';
 }
 
-async function drop(e) {
+function drop(e) {
     e.preventDefault();
     e.currentTarget.style.backgroundColor = '';
 
@@ -156,14 +227,18 @@ async function drop(e) {
 
     if (toTierIndex === undefined || toItemIndex === undefined) return;
 
+    if (ranking.tiers[fromTierIndex].content.length <= 1) {
+        alert("A ranking must contain at least one item!");
+        return;
+    }
+
     const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
     ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
-
-    document.getElementById('ranking-grid').innerHTML = '';
-
+    
     buildRankingGrid(ranking);
 
     if ((fromTierIndex != toTierIndex) || (fromItemIndex != toItemIndex)) saveRanking();
+    
 }
 
 function saveRanking() {

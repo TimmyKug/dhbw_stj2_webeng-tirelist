@@ -7,15 +7,40 @@
 
 #ranking-grid {
     display: grid;
-    width: 50%;
+    min-width: 50%;
     margin: 0 auto;
 }
 
-.grid-item {
+.item-container {
     border: 1px solid var(--border-color);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.ranking-drop-down-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.ranking-drop-down {
+    position: absolute;
+}
+
+.ranking-drop-down-item {
+    background-color: var(--border-color);
+    cursor: pointer;
+}
+
+.ranking-drop-down-item:hover {
+    background-color: var(--accent-color-2);
+}
+
+.grid-item {
     color: var(--primary-text-color);
-    background-color: var(--background-color);
-    padding: 15%;
+    background-color: transparent;
+    border: none;
     text-align: center;
 }
 
