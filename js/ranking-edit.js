@@ -80,8 +80,10 @@ function buildRankingGrid(ranking) {
 
         gridItem.addEventListener("blur", () => {
             gridItem.style.zIndex = "auto";
-            tier.title = gridItem.value;
-            saveRanking();
+            if (tier.title != gridItem.value) {
+                tier.title = gridItem.value;
+                saveRanking();
+            }
         });
 
         for (let j = 0; j < tier.content.length; j++) {
@@ -113,8 +115,10 @@ function buildRankingGrid(ranking) {
 
             gridItem.addEventListener("blur", () => {
                 gridItem.style.zIndex = "auto";
-                tier.content[j] = gridItem.value;
-                saveRanking();
+                if (tier.content[j] != gridItem.value) {
+                    tier.content[j] = gridItem.value;
+                    saveRanking();
+                }
             });
         }
 
@@ -159,7 +163,7 @@ async function drop(e) {
 
     buildRankingGrid(ranking);
 
-    saveRanking();
+    if ((fromTierIndex != toTierIndex) || (fromItemIndex != toItemIndex)) saveRanking();
 }
 
 function saveRanking() {
