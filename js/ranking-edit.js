@@ -91,7 +91,8 @@ function buildRankingGrid(ranking) {
 
             const itemContainer = document.createElement('div');
             const textItem = document.createElement('input');
-            const dropDownIcon = document.createElement('div');
+            const dropDownContainer = document.createElement('div');
+            const dropDownIcon = document.createElement('img');
             const dropDown = document.createElement('div');
             const deleteItem = document.createElement('div');
             const editItem = document.createElement('div');
@@ -103,11 +104,16 @@ function buildRankingGrid(ranking) {
             textItem.readOnly = true;
             textItem.style.pointerEvents = "none";
 
+            dropDownContainer.classList = 'drop-down-container';
+            if (userName != ranking.username) {
+                dropDownContainer.style.visibility = 'hidden';
+            }
+
             dropDownIcon.classList = 'ranking-drop-down-icon';
-            dropDownIcon.textContent = '...';
+            dropDownIcon.src = "../assets/edit-icon.png";
+            dropDownIcon.alt = 'Icon';
             
-            dropDown.classList = 'ranking-drop-down';
-            dropDown.classList = 'invisible';
+            dropDown.classList = 'ranking-drop-down invisible';
 
             deleteItem.classList = 'ranking-drop-down-item';
             deleteItem.textContent = 'delete';
@@ -128,8 +134,9 @@ function buildRankingGrid(ranking) {
             itemContainer.dataset.itemIndex = j;
 
             itemContainer.appendChild(textItem);
-            itemContainer.appendChild(dropDownIcon);
-            dropDownIcon.appendChild(dropDown);
+            itemContainer.appendChild(dropDownContainer);
+            dropDownContainer.appendChild(dropDownIcon);
+            dropDownContainer.appendChild(dropDown);
             dropDown.appendChild(deleteItem);
             dropDown.appendChild(editItem);
             dropDown.appendChild(addItem);

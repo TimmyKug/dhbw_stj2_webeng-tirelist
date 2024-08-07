@@ -18,14 +18,16 @@
     position: relative;
 }
 
-.ranking-drop-down-icon {
+.drop-down-container {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 12px;
+    right: 0px;
+    z-index: 1;
 }
 
-.ranking-drop-down {
-    position: absolute;
+.ranking-drop-down-icon {
+    width: 15px;
+    height: 15px;
 }
 
 .ranking-drop-down-item {
