@@ -9,21 +9,21 @@
     display: grid;
     width: 50%;
     margin: 0 auto;
-    text-align: center;    
 }
 
 .grid-item {
     border: 1px solid var(--border-color);
+    color: var(--primary-text-color);
+    background-color: var(--background-color);
     padding: 15%;
-    word-wrap: break-word;
+    text-align: center;
 }
 
 .color-item {
     border: 1px solid var(--border-color);
     color: var(--background-color);
+    text-align: center;
     font-weight: bold;
-    padding-top: 30%;
-    word-wrap: break-word;
 }
 
 #delete-ranking {
@@ -58,8 +58,4 @@
     padding: 10px;
     margin-left: 20px;
     cursor: pointer;
-}
-
-#save-button:active {
-    opacity: 0.7;
 }

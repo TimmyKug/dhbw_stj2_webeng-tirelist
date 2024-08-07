@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", loadRanking);
 async function loadRanking() {
     buildRankingDescription(ranking);
     buildRankingGrid(ranking);
+
+    if (userName === ranking.username) {
+        document.getElementById("edit-container").style.visibility = "visible";
+    }
 }
 
 function buildRankingDescription(ranking) {
@@ -56,25 +60,62 @@ function buildRankingGrid(ranking) {
         let tier = ranking.tiers[i];
         let count = 1;
 
-        const gridItem = document.createElement('div');
+        const gridItem = document.createElement('input');
+        gridItem.type = "text";
         gridItem.className = 'color-item';
-        gridItem.textContent = tier.title;
+        gridItem.value = tier.title;
         gridItem.style.backgroundColor = tier.color;
+        gridItem.readOnly = (userName === ranking.username) ? false : true;
         grid.appendChild(gridItem);
 
-        for (const item of tier.content) {
-            const gridItem = document.createElement('div');
+        gridItem.addEventListener('click', () => {
+            gridItem.style.zIndex = 1;
+        })
+
+        gridItem.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                gridItem.blur();
+            }
+        });
+
+        gridItem.addEventListener("blur", () => {
+            gridItem.style.zIndex = "auto";
+            tier.title = gridItem.value;
+            saveRanking();
+        });
+
+        for (let j = 0; j < tier.content.length; j++) {
+            const item = tier.content[j];
+            const gridItem = document.createElement('input');
+            gridItem.type = "text";
             gridItem.className = 'grid-item';
-            gridItem.textContent = item;
-            gridItem.draggable = ranking.username === userName ? true : false;
+            gridItem.value = item;
+            gridItem.readOnly = (userName === ranking.username) ? false : true;
+            gridItem.draggable = (userName === ranking.username) ? true : false;
             gridItem.ondragstart = dragStart;
             gridItem.ondragover = dragOver;
             gridItem.ondragleave = dragLeave;
             gridItem.ondrop = drop;
             gridItem.dataset.tierIndex = i;
-            gridItem.dataset.itemIndex = count - 1;
+            gridItem.dataset.itemIndex = j;
             grid.appendChild(gridItem);
             count++;
+
+            gridItem.addEventListener('click', () => {
+                gridItem.style.zIndex = 1;
+            })
+
+            gridItem.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    gridItem.blur();
+                }
+            });
+
+            gridItem.addEventListener("blur", () => {
+                gridItem.style.zIndex = "auto";
+                tier.content[j] = gridItem.value;
+                saveRanking();
+            });
         }
 
         while (count < longestTier) {
@@ -117,6 +158,7 @@ async function drop(e) {
     document.getElementById('ranking-grid').innerHTML = '';
 
     buildRankingGrid(ranking);
+
     saveRanking();
 }
 
@@ -147,7 +189,7 @@ async function deleteRanking(id) {
         console.log("deleted ranking");
         return true;
     } else {
-        alert('Can’t delete this ranking, errror:' + response.status);
+        alert('Can’t delete this ranking, error:' + response.status);
         return false;
     }
 }
