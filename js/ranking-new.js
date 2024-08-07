@@ -29,9 +29,6 @@ function isValid(input, id) {
         case 'item':
             isValid = input.length > 0;
             break;
-        case 'tier-color':
-            isValid = input.length <= 300;
-            break;
         default: isValid = true;
     }
     return isValid;
