@@ -11,9 +11,8 @@ async function loadRanking() {
     buildRankingDescription(ranking);
     buildRankingGrid(ranking);
 
-    if (userName === ranking.username) {
-        document.getElementById("edit-container").style.visibility = "visible";
-    }
+    setVisibility(document.getElementById("edit-container"));
+    setVisibility(document.getElementById("delete-ranking"));
 }
 
 function buildRankingDescription(ranking) {
@@ -23,7 +22,7 @@ function buildRankingDescription(ranking) {
     const username = document.getElementById("username");
     const remove = document.getElementById("delete-ranking");
 
-    remove.innerHTML = userName === ranking.username ? "DELETE-RANKING" : null;
+    remove.innerHTML = "DELETE-RANKING";
     remove.addEventListener("click", async () => {
         await deleteRanking(ranking.id);
         location.href = "main.html";
@@ -38,265 +37,37 @@ function buildRankingDescription(ranking) {
 function buildRankingGrid(ranking) {
     document.getElementById('ranking-grid').innerHTML = '';
 
-    let tiersLength = ranking.tiers.length;
+    const tiersLength = ranking.tiers.length;
     let longestTier = 1;
 
     for (let i = 0; i < tiersLength; i++) {
-        let currentTierLength = ranking.tiers[i].content.length;
+        const currentTierLength = ranking.tiers[i].content.length;
         if (currentTierLength > longestTier) {
             longestTier = currentTierLength;
         }
     }
     longestTier += 1;
 
-    let gridTemplateColumns = `0.5fr repeat(${longestTier - 1}, 1fr)`;
-    let gridTemplateRows = `repeat(${tiersLength}, 1fr)`;
+    const gridTemplateColumns = `0.5fr repeat(${longestTier - 1}, 1fr)`;
+    const gridTemplateRows = `repeat(${tiersLength}, 1fr)`;
 
     const grid = document.getElementById('ranking-grid');
     grid.style.gridTemplateColumns = gridTemplateColumns;
     grid.style.gridTemplateRows = gridTemplateRows;
 
     for (let i = 0; i < tiersLength; i++) {
-        let tier = ranking.tiers[i];
+        const tier = ranking.tiers[i];
         let count = 1;
 
-        const itemContainer = document.createElement('div');
-        const colorItem = document.createElement('input');
-        const dropDownContainer = document.createElement('div');
-        const dropDownIcon = document.createElement('img');
-        const dropDown = document.createElement('div');
-        const deleteItem = document.createElement('div');
-        const editItem = document.createElement('div');
-        const addItem = document.createElement('div');
-        const colorPicker = document.createElement('input');
-
-        colorItem.className = 'color-item';
-        colorItem.type = "text";
-        colorItem.value = tier.title;
-        colorItem.readOnly = true;
-        colorItem.style.pointerEvents = "none";
-        colorItem.style.backgroundColor = tier.color;
-
-        dropDownContainer.classList = 'drop-down-container';
-        dropDownContainer.style.zIndex = '0';
-
-        if (userName != ranking.username) {
-            dropDownContainer.style.visibility = 'hidden';
-        }
-
-        dropDownIcon.classList = 'ranking-drop-down-icon';
-        dropDownIcon.src = "../assets/edit-icon.png";
-        dropDownIcon.alt = 'Icon';
-            
-        dropDown.classList = 'ranking-drop-down invisible';
-
-        deleteItem.classList = 'ranking-drop-down-item';
-        deleteItem.textContent = 'Delete Tier';
-
-        editItem.classList = 'ranking-drop-down-item';
-        editItem.textContent = 'Edit Tier';
-
-        addItem.classList = 'ranking-drop-down-item';
-        addItem.textContent = 'Add Tier';
-
-        colorPicker.classList = 'ranking-color-picker';
-        colorPicker.type = 'color';
-        colorPicker.value = tier.color;
-        colorPicker.style.visibility = 'hidden';
-
-        itemContainer.className = "item-container";
-        itemContainer.draggable = false;
-        itemContainer.style.backgroundColor = tier.color;
-
-        itemContainer.appendChild(colorItem);
-        itemContainer.appendChild(colorPicker);
-        itemContainer.appendChild(dropDownContainer);
-        dropDownContainer.appendChild(dropDownIcon);
-        dropDownContainer.appendChild(dropDown);
-        dropDown.appendChild(deleteItem);
-        dropDown.appendChild(editItem);
-        dropDown.appendChild(addItem);
-        grid.appendChild(itemContainer);
-
-        dropDownIcon.addEventListener('click', () => {
-            dropDown.classList.toggle('invisible');
-            dropDownContainer.style.zIndex = dropDownContainer.style.zIndex === '1' ? '0' : '1';
-        });
-
-        deleteItem.addEventListener('click', () => {
-            if (ranking.tiers.length <= 2) {
-                alert("A ranking must contain at least two tiers!");
-                return;
-            }
-            ranking.tiers.splice(i, 1)[0];
-            buildRankingGrid(ranking);
-            saveRanking();
-        });
-
-        editItem.addEventListener('click', () => {
-            colorItem.readOnly = false;
-            colorItem.style.pointerEvents = "auto";
-            itemContainer.draggable = false;
-            dropDown.classList.toggle('invisible');
-
-            colorItem.focus();
-            colorItem.select();
-
-            colorPicker.style.visibility = 'visible';
-            
-        });
-
-        colorItem.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                colorItem.blur();
-            }
-        });
-
-        colorItem.addEventListener("blur", () => {
-            colorItem.readOnly = true;
-            colorItem.style.pointerEvents = "none";
-            itemContainer.draggable = true;
-
-            if (tier.title != colorItem.value) {
-                tier.title = colorItem.value;
-                saveRanking();
-            }
-        });
-
-        addItem.addEventListener("click", () => {
-            const newTierTitle = prompt("Enter new tier:");
-            const newItem1 = prompt("A rank requires at least two items. Enter first item:");
-            const newItem2 = prompt("A rank requires at least two items. Enter second item:");
-
-            if ((newTierTitle) && (newItem1) && (newItem2)) {
-                const newTier = {
-                    title: newTierTitle,
-                    color: 'var(--border-color)',
-                    content: [newItem1, newItem2]
-                };
-                ranking.tiers.push(newTier);
-                buildRankingGrid(ranking);
-                saveRanking();
-            }
-        });
-
-        colorPicker.addEventListener('blur', () => {
-            if (ranking.tiers[i].color != colorPicker.value) {
-                ranking.tiers[i].color = colorPicker.value;
-                buildRankingGrid(ranking);
-                saveRanking();
-            }
-        });
+        const tierTitleContainer = createItemContainer('tier-title', tier.title, tier.color, i, -1, tier, ranking);
+        grid.appendChild(tierTitleContainer.container);
 
         for (let j = 0; j < tier.content.length; j++) {
             const item = tier.content[j];
 
-            const itemContainer = document.createElement('div');
-            const textItem = document.createElement('input');
-            const dropDownContainer = document.createElement('div');
-            const dropDownIcon = document.createElement('img');
-            const dropDown = document.createElement('div');
-            const deleteItem = document.createElement('div');
-            const editItem = document.createElement('div');
-            const addItem = document.createElement('div');
-
-            textItem.className = 'grid-item';
-            textItem.type = "text";
-            textItem.value = item;
-            textItem.readOnly = true;
-            textItem.style.pointerEvents = "none";
-
-            dropDownContainer.classList = 'drop-down-container';
-            if (userName != ranking.username) {
-                dropDownContainer.style.visibility = 'hidden';
-            }
-
-            dropDownIcon.classList = 'ranking-drop-down-icon';
-            dropDownIcon.src = "../assets/edit-icon.png";
-            dropDownIcon.alt = 'Icon';
-            
-            dropDown.classList = 'ranking-drop-down invisible';
-            dropDownContainer.style.zIndex = '0';
-
-            deleteItem.classList = 'ranking-drop-down-item';
-            deleteItem.textContent = 'Delete Item';
-
-            editItem.classList = 'ranking-drop-down-item';
-            editItem.textContent = 'Edit Item';
-
-            addItem.classList = 'ranking-drop-down-item';
-            addItem.textContent = 'Add Item';
-
-            itemContainer.className = "item-container";
-            itemContainer.draggable = (userName === ranking.username) ? true : false;
-            itemContainer.ondragstart = dragStart;
-            itemContainer.ondragover = dragOver;
-            itemContainer.ondragleave = dragLeave;
-            itemContainer.ondrop = drop;
-            itemContainer.dataset.tierIndex = i;
-            itemContainer.dataset.itemIndex = j;
-
-            itemContainer.appendChild(textItem);
-            itemContainer.appendChild(dropDownContainer);
-            dropDownContainer.appendChild(dropDownIcon);
-            dropDownContainer.appendChild(dropDown);
-            dropDown.appendChild(deleteItem);
-            dropDown.appendChild(editItem);
-            dropDown.appendChild(addItem);
-
-            grid.appendChild(itemContainer);
+            const tierContentContainer = createItemContainer('tier-content', item, '', i, j, tier, ranking);
+            grid.appendChild(tierContentContainer.container);
             count++;
-
-            dropDownIcon.addEventListener('click', () => {
-                dropDown.classList.toggle('invisible');
-                dropDownContainer.style.zIndex = dropDownContainer.style.zIndex === '1' ? '0' : '1';
-            });
-
-            deleteItem.addEventListener('click', () => {
-                if (tier.content.length <= 1) {
-                    alert("A tier must contain at least one item!");
-                    return;
-                }
-                tier.content.splice(j, 1)[0];
-                buildRankingGrid(ranking);
-                saveRanking();
-            });
-
-            editItem.addEventListener('click', () => {
-                textItem.readOnly = false;
-                textItem.style.pointerEvents = "auto";
-                itemContainer.draggable = false;
-                dropDown.classList.toggle('invisible');
-
-                textItem.focus();
-                textItem.select();
-            });
-
-            textItem.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    textItem.blur();
-                }
-            });
-
-            textItem.addEventListener("blur", () => {
-                textItem.readOnly = true;
-                textItem.style.pointerEvents = "none";
-                itemContainer.draggable = true;
-
-                if (tier.content[j] != textItem.value) {
-                    tier.content[j] = textItem.value;
-                    saveRanking();
-                }
-            });
-
-            addItem.addEventListener("click", () => {
-                const newItem = prompt("Enter new item:");
-                if (newItem) {
-                    tier.content.push(newItem);
-                    buildRankingGrid(ranking);
-                    saveRanking();
-                }
-            });
         }
 
         while (count < longestTier) {
@@ -312,6 +83,176 @@ function buildRankingGrid(ranking) {
             count++;
         }
     }
+}
+
+function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ranking) {
+    const container = document.createElement('div');
+    const input = document.createElement('input');
+    const dropDownContainer = document.createElement('div');
+    const dropDownIcon = document.createElement('img');
+    const dropDown = document.createElement('div');
+    const deleteItem = document.createElement('div');
+    const editItem = document.createElement('div');
+    const addItem = document.createElement('div');
+    let colorPicker;
+
+    if (type === 'tier-title') {
+        input.className = 'color-item';
+        input.type = "text";
+        input.value = value;
+        input.readOnly = true;
+        input.style.pointerEvents = "none";
+        input.style.backgroundColor = color;
+
+        container.className = "item-container";
+        container.draggable = false;
+        container.style.backgroundColor = color;
+
+        colorPicker = document.createElement('input');
+        colorPicker.className = 'ranking-color-picker';
+        colorPicker.type = 'color';
+        colorPicker.value = color;
+        colorPicker.style.visibility = 'hidden';
+        container.appendChild(colorPicker);
+    } else {
+        input.className = 'grid-item';
+        input.type = "text";
+        input.value = value;
+        input.readOnly = true;
+        input.style.pointerEvents = "none";
+
+        container.className = "item-container";
+        container.draggable = isAuthenticated() ? true : false;
+        container.ondragstart = dragStart;
+        container.ondragover = dragOver;
+        container.ondragleave = dragLeave;
+        container.ondrop = drop;
+        container.dataset.tierIndex = tierIndex;
+        container.dataset.itemIndex = itemIndex;
+    }
+
+    dropDownContainer.classList = 'drop-down-container';
+    setVisibility(dropDownContainer);
+
+    dropDownIcon.classList = 'ranking-drop-down-icon';
+    dropDownIcon.src = "../assets/edit-icon.png";
+    dropDownIcon.alt = 'Icon';
+
+    dropDown.classList = 'ranking-drop-down invisible';
+    dropDownContainer.style.zIndex = '0';
+
+    deleteItem.classList = 'ranking-drop-down-item';
+    deleteItem.textContent = (type === 'tier-title') ? 'Delete Tier' : 'Delete Item';
+
+    editItem.classList = 'ranking-drop-down-item';
+    editItem.textContent = (type === 'tier-title') ? 'Edit Tier' : 'Edit Item';
+
+    addItem.classList = 'ranking-drop-down-item';
+    addItem.textContent = (type === 'tier-title') ? 'Add Tier' : 'Add Item';
+
+    dropDownIcon.addEventListener('click', () => {
+        dropDown.classList.toggle('invisible');
+        dropDownContainer.style.zIndex = dropDownContainer.style.zIndex === '1' ? '0' : '1';
+    });
+
+    deleteItem.addEventListener('click', () => {
+        if (type === 'tier-title') {
+            if (ranking.tiers.length <= 2) {
+                alert("A ranking must contain at least two tiers!");
+                return;
+            }
+            ranking.tiers.splice(tierIndex, 1)[0];
+        } else {
+            if (tier.content.length <= 1) {
+                alert("A tier must contain at least one item!");
+                return;
+            }
+            tier.content.splice(itemIndex, 1)[0];
+        }
+        buildRankingGrid(ranking);
+        saveButtonActive();
+    });
+
+    editItem.addEventListener('click', () => {
+        input.readOnly = false;
+        input.style.pointerEvents = "auto";
+        container.draggable = false;
+        dropDown.classList.toggle('invisible');
+        dropDownContainer.style.zIndex = '0';
+
+        input.focus();
+        input.select();
+
+        if (type === 'tier-title') {
+            colorPicker.style.visibility = 'visible';
+        }
+    });
+
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            input.blur();
+        }
+    });
+
+    input.addEventListener("blur", () => {
+        input.readOnly = true;
+        input.style.pointerEvents = "none";
+        container.draggable = (type == 'tier-title') ? false : true;
+
+        if ((type === 'tier-title') && (tier.title != input.value)) {
+            tier.title = input.value;
+            saveButtonActive();
+        } else if ((type === 'tier.content') && (tier.content[itemIndex] != input.value)) {
+            tier.content[itemIndex] = input.value;
+            saveButtonActive();
+        }
+    });
+
+    addItem.addEventListener("click", () => {
+        if (type === 'tier-title') {
+            const newTierTitle = prompt("Enter new tier:");
+            const newItem1 = prompt("A rank requires at least two items. Enter first item:");
+            const newItem2 = prompt("A rank requires at least two items. Enter second item:");
+
+            if ((newTierTitle) && (newItem1) && (newItem2)) {
+                const newTier = {
+                    title: newTierTitle,
+                    color: 'var(--border-color)',
+                    content: [newItem1, newItem2]
+                };
+                ranking.tiers.push(newTier);
+                buildRankingGrid(ranking);
+                saveButtonActive();
+            }
+        } else {
+            const newItem = prompt("Enter new item:");
+            if (newItem) { // -> here add validation
+                tier.content.push(newItem);
+                buildRankingGrid(ranking);
+                saveButtonActive();
+            }
+        }
+    });
+
+    if (type === 'tier-title') {
+        colorPicker.addEventListener('blur', () => {
+            if (ranking.tiers[tierIndex].color != colorPicker.value) {
+                ranking.tiers[tierIndex].color = colorPicker.value;
+                buildRankingGrid(ranking);
+                saveButtonActive();
+            }
+        });
+    }
+
+    container.appendChild(input);
+    container.appendChild(dropDownContainer);
+    dropDownContainer.appendChild(dropDownIcon);
+    dropDownContainer.appendChild(dropDown);
+    dropDown.appendChild(deleteItem);
+    dropDown.appendChild(editItem);
+    dropDown.appendChild(addItem);
+
+    return { container, colorPicker };
 }
 
 function dragStart(e) {
@@ -349,11 +290,23 @@ function drop(e) {
     
     buildRankingGrid(ranking);
 
-    if ((fromTierIndex != toTierIndex) || (fromItemIndex != toItemIndex)) saveRanking();
+    if ((fromTierIndex != toTierIndex) || (fromItemIndex != toItemIndex)) saveButtonActive();
     
 }
 
-function saveRanking() {
+function isAuthenticated() {
+    return (userName === ranking.username)
+}
+
+function setVisibility(element) {
+    if (isAuthenticated()) {
+        element.style.visibility = "visible";
+    } else {
+        element.style.visibility = "hidden";
+    }
+}
+
+function saveButtonActive() {
     const saveButton = document.getElementById('save-button');
     saveButton.style.backgroundColor = "var(--accent-color-2)";
 

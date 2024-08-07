@@ -1,6 +1,5 @@
-# Seiten, die wir noch brauchen:
-- Login
-- Register
-- Profile
-- Tierlist Preview / Creator
-- random 10 view / main view
+# Dinge, die wir noch brauchen:
+- Login schön machen
+- Register schön machen
+- Tierlist Edit zuende
+- Über Suche Profil Seite aufrufen

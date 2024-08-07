@@ -18,21 +18,24 @@
     position: relative;
 }
 
-.drop-down-container {
-    position: absolute;
-    top: 10px;
-    right: -20px;
-}
-
 .ranking-color-picker {
     position: absolute;
     bottom: 1px;
     left: 1px;
+    cursor: pointer;
+}
+
+.drop-down-container {
+    position: absolute;
+    visibility: hidden;
+    top: 10px;
+    right: -30px;
 }
 
 .ranking-drop-down-icon {
     width: 15px;
     height: 15px;
+    cursor: pointer;
 }
 
 .ranking-drop-down-item {
@@ -55,7 +58,7 @@
 .color-item {
     color: var(--primary-text-color);
     border: none;
-    font-weight: bold;
+    font-weight: bold
 }
 
 #delete-ranking {
