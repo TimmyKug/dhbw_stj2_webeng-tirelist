@@ -39,6 +39,11 @@ async function loadAllUserRankings() {
             titleDiv.classList.add("title");
             titleDiv.textContent = ranking.title;
             bottomDiv.appendChild(titleDiv);
+
+            bottomDiv.addEventListener("click", async () => {
+                localStorage.setItem("ranking", JSON.stringify(ranking));
+                location = 'ranking-edit.html';
+            });
         }
     }
 }

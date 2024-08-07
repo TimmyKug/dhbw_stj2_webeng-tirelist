@@ -50,34 +50,13 @@ async function loadLastTenRankings() {
                 const user = await getUser(ranking.username);
                 localStorage.setItem("user", JSON.stringify(user));
                 location = 'profile.html';
-            })
+            });
 
             bottomDiv.addEventListener("click", async () => {
-                const user = await getUser(ranking.username);
-                localStorage.setItem("user", JSON.stringify(user));
                 localStorage.setItem("ranking", JSON.stringify(ranking));
                 location = 'ranking-edit.html';
-            })
+            });
         }
-    }
-}
-
-async function getRanking() {
-    const response = await fetch('https://lukas.rip/api/rankings/' + RANKING_ID, {
-        method: 'GET', 
-        headers: {
-            "group-key": GROUP_KEY
-        }
-    })
-
-    const ranking = await response.json();
-
-    if (response.status === 200) {
-        location.href = "ranking-overview.html";
-        return ranking;
-    } else {
-        console.log("can't find ranking");
-        return false;
     }
 }
 
