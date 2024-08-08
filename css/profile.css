@@ -16,9 +16,21 @@
     gap: 20px;
 }
 
-#displayName, #profileName, #description {
-    display: flex;
-    flex-direction: row;
+
+#display-name, #display-name-label {
+    font-weight: bold;
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-size: 30px;
+    border: none;
+    gap: 20px;
+}
+
+#description {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+    border: none;
     gap: 20px;
 }
 

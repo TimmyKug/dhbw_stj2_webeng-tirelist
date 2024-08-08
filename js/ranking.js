@@ -31,7 +31,7 @@ function buildRankingDescription(ranking) {
     const description = document.getElementById("description");
     const createdAt = document.getElementById("created-at");
     const updatedAt = document.getElementById('updated-at');
-    const displayName = document.getElementById("displayName");
+    const username = document.getElementById("username");
     const remove = document.getElementById("delete-ranking");
     const editTitle = document.createElement('img');
     const editDescription = document.createElement('img');
@@ -49,7 +49,7 @@ function buildRankingDescription(ranking) {
     description.innerHTML = "DESCRIPTION<br>" + ranking.description;
     (ranking.id) ? createdAt.innerHTML = "CREATED-AT<br>" + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
     (ranking.id) ? updatedAt.innerHTML = "LAST-UPDATED<br>" + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
-    displayName.innerHTML = "BY<br>" + ranking.username;
+    username.innerHTML = "BY<br>" + ranking.username;
 
     editTitle.classList = 'edit-icon';
     editDescription.classList = 'edit-icon';
@@ -58,20 +58,20 @@ function buildRankingDescription(ranking) {
 
     editTitle.addEventListener('click', () => {
         const newTitle = prompt('Enter New Title:');
-        if (newTitle) {
-            ranking.title = newTitle;
-            buildRankingDescription(ranking);
-            saveButtonActive();
-        }
+        if (!isValid(newTitle, 'title')) return;
+
+        ranking.title = newTitle;
+        buildRankingDescription(ranking);
+        saveButtonActive();
     });
 
     editDescription.addEventListener('click', () => {
         const newDescription = prompt('Enter New Description:');
-        if (newDescription) {
-            ranking.description = newDescription;
-            buildRankingDescription(ranking);
-            saveButtonActive();
-        }
+        if (!isValid(newDescription, 'description')) return;
+
+        ranking.description = newDescription;
+        buildRankingDescription(ranking);
+        saveButtonActive();
     });
 }
 
@@ -140,7 +140,6 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         input.className = 'title-item';
         input.type = "text";
         input.value = value;
-        input.readOnly = true;
         input.style.pointerEvents = "none";
         input.style.backgroundColor = color;
 
@@ -158,7 +157,6 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         input.className = 'content-item';
         input.type = "text";
         input.value = value;
-        input.readOnly = true;
         input.style.pointerEvents = "none";
 
         container.className = "item-container";
@@ -195,16 +193,10 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
 
     deleteItem.addEventListener('click', () => {
         if (type === 'tier-title') {
-            if (ranking.tiers.length <= 2) {
-                alert("A ranking must contain at least two tiers!");
-                return;
-            }
+            if (!isValid(ranking.tiers, 'tiers')) return;
             ranking.tiers.splice(tierIndex, 1)[0];
         } else {
-            if (tier.content.length <= 1) {
-                alert("A tier must contain at least one item!");
-                return;
-            }
+            if (!isValid(tier.content, 'tier-content')) return;
             tier.content.splice(itemIndex, 1)[0];
         }
         buildRankingGrid(ranking);
@@ -212,7 +204,6 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     });
 
     editItem.addEventListener('click', () => {
-        input.readOnly = false;
         input.style.pointerEvents = "auto";
         container.draggable = false;
         dropDown.classList.toggle('invisible');
@@ -233,22 +224,30 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     });
 
     input.addEventListener("blur", () => {
-        input.readOnly = true;
         input.style.pointerEvents = "none";
         container.draggable = (type == 'tier-title') ? false : true;
 
         if ((type === 'tier-title') && (tier.title != input.value)) {
+            if (!isValid(input.value, 'tier-title')) {
+                buildRankingGrid(ranking);
+                return;
+            }
+            
             tier.title = input.value;
             saveButtonActive();
+
         } else if ((type === 'tier-content') && (tier.content[itemIndex] != input.value)) {
             tier.content[itemIndex] = input.value;
             saveButtonActive();
         }
+        buildRankingGrid(ranking);
     });
 
     addItem.addEventListener("click", () => {
         if (type === 'tier-title') {
             const newTierTitle = prompt("Enter new tier:");
+            if (!isValid(newTierTitle, 'tier-title')) return;
+
             const newItem1 = prompt("A rank requires at least two items. Enter first item:");
             const newItem2 = prompt("A rank requires at least two items. Enter second item:");
 
@@ -264,7 +263,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
             }
         } else {
             const newItem = prompt("Enter new item:");
-            if (newItem) { // -> here add validation
+            if (newItem) {
                 tier.content.splice(itemIndex + 1, 0, newItem);
                 buildRankingGrid(ranking);
                 saveButtonActive();
@@ -317,11 +316,7 @@ function drop(e) {
     const toItemIndex = e.target.dataset.itemIndex;
 
     if (toTierIndex === undefined || toItemIndex === undefined) return;
-
-    if (ranking.tiers[fromTierIndex].content.length <= 1) {
-        alert("A ranking must contain at least one item!");
-        return;
-    }
+    if (!isValid(ranking.tiers[fromTierIndex].content, 'tier-content')) return;
 
     const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
     ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
@@ -337,11 +332,7 @@ function isAuthenticated() {
 }
 
 function setVisibility(element) {
-    if (isAuthenticated()) {
-        element.style.visibility = "visible";
-    } else {
-        element.style.visibility = "hidden";
-    }
+    element.style.visibility = isAuthenticated() ? "visible" : "hidden";
 }
 
 function saveButtonActive() {
@@ -412,4 +403,30 @@ async function createRanking(ranking) {
         alert("can´t create ranking");
         return false;
     }
+}
+
+function isValid(input, id) {
+    let isValid;
+    switch (id) {
+        case 'title':
+        case 'tier-title':
+            isValid = (input.length >= 4) && (input.length <= 60);
+            break;
+
+        case 'description':
+            isValid = input.length <= 300;
+            break;
+        
+        case 'tiers':
+            isValid = input.length > 2;
+            break;
+        
+        case 'tier-content':
+            isValid = input.length > 1;
+            break;
+        
+        default: isValid = true;
+    }
+    if (!isValid) alert('This action is not valid');
+    return isValid;
 }

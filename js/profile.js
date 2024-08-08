@@ -49,63 +49,61 @@ async function loadAllUserRankings() {
 }
 
 function buildProfileDescription(user) {
-    const displayName = document.getElementById("displayName");
+    const displayName = document.getElementById("display-name");
     const userName = document.getElementById("userName");
     const description = document.getElementById("description");
     const createdAt = document.getElementById("created-at");
     const updatedAt = document.getElementById("updated-at");
-    const editDisplayName = document.createElement("img");
-    const editDescription = document.createElement("img");
+    const editDisplayName = document.getElementById('edit-display-name');
+    const editDescription = document.getElementById('edit-description');
 
-    displayName.innerHTML = user.profile.displayName + "'s Rankings";
-    userName.innerHTML = "USER-NAME<br>" + user.username;
-    description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
-    createdAt.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('.')[0].replace('T', ', ');
-    updatedAt.innerHTML = "LAST-UPDATED<br>" + user.createdAt.split('.')[0].replace('T', ', ');
-
-    editDisplayName.classList = 'edit-icon';
-    editDescription.classList = 'edit-icon';
+    displayName.value = user.profile.displayName;
+    userName.innerHTML = `USER-NAME<br>${user.username}`;
+    description.value = user.profile.description;
+    createdAt.innerHTML = `TIRELIST-MEMBER SINCE<br>${user.createdAt.split('.')[0].replace('T', ', ')}`;
+    updatedAt.innerHTML = `LAST-UPDATED<br>${user.updatedAt.split('.')[0].replace('T', ', ')}`;
 
     setVisibility(editDisplayName);
     setVisibility(editDescription);
 
-    displayName.appendChild(editDisplayName);
-    description.appendChild(editDescription);
+    displayName.style.pointerEvents = 'none';
 
     editDisplayName.addEventListener('click', async () => {
-        const newDisplayName = prompt('Enter New Display Name:');
-        if (newDisplayName) {
-            user.profile.displayName = newDisplayName;
+        displayName.style.pointerEvents = 'auto';
+        
+        displayName.focus();
+        displayName.select();
+
+        displayName.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                displayName.blur();
+            }
+        });
+
+        displayName.addEventListener("blur", async () => {
+            displayName.style.pointerEvents = "none";
+
+            if (!checkValidity(displayName)) {
+                displayName.value = user.profile.displayName;
+                return;
+            }
+
+            user.profile.displayName = displayName.value;
 
             const requestUser = {
                 password: localStorage.getItem("password"),
                 profile: user.profile,
                 createdAt: user.createdAt,
                 updatedAt: user.updatedAt
-            }
+            };
             
             await updateUser(requestUser, localStorage.getItem("username"), localStorage.getItem("password"));
             localStorage.setItem("user", JSON.stringify(user));
-            buildProfileDescription(user);
-        }
+        });
     });
 
     editDescription.addEventListener('click', async () => {
-        const newDescription = prompt('Enter New Description:');
-        if (newDescription) {
-            user.profile.description = newDescription;
-            
-            const requestUser = {
-                password: localStorage.getItem("password"),
-                profile: user.profile,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt
-            }
-            
-            await updateUser(requestUser, localStorage.getItem("username"), localStorage.getItem("password"));
-            localStorage.setItem("user", JSON.stringify(user));
-            buildProfileDescription(user);
-        }
+ 
     });
 }
 
@@ -120,10 +118,10 @@ async function updateUser(user, userName, password) {
         body: JSON.stringify(user)
     });
 
-    if (response.status === 200) {
-        console.log("updated user");
+    if (response.status === 201) {
+        console.log("Updated user successfully");
     } else {
-        console.log(user);
+        console.log("Failed to update user", response.status);
     }
 }
 
@@ -131,13 +129,44 @@ function isAuthenticated() {
     const userName = localStorage.getItem("username");
     const user = JSON.parse(localStorage.getItem("user"));
 
-    return (userName === user.username)
+    return (userName === user.username);
 }
 
 function setVisibility(element) {
-    if (isAuthenticated()) {
-        element.style.visibility = "visible";
+    element.style.visibility = isAuthenticated() ? "visible" : "hidden";
+}
+
+const inputElements = document.getElementsByClassName('input-field');
+
+for (const inputElement of inputElements) {
+    inputElement.addEventListener('input', (e) => {
+        checkValidity(e.target);
+    })
+}
+
+function checkValidity(target) {
+    
+    if (isValid(target.value, target.id)) {
+        target.classList.remove('invalid');
+        document.getElementById(target.id + "-error-field").classList.add('invisible');
+        return true;
     } else {
-        element.style.visibility = "hidden";
+        target.classList.add('invalid');
+        document.getElementById(target.id + "-error-field").classList.remove('invisible');
+        return false;
     }
+}
+
+function isValid(input, id) {
+    let isValid;
+    switch (id) {
+        case 'display-name':
+            isValid = input.length >= 4 && input.length <= 30;
+            break;
+        case 'description':
+            isValid = input.length <= 300;
+            break;
+        default: isValid = true;
+    }
+    return isValid;
 }
