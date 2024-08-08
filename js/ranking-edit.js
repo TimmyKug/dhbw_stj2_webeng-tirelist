@@ -13,6 +13,9 @@ async function loadRanking() {
 
     setVisibility(document.getElementById("edit-container"));
     setVisibility(document.getElementById("delete-ranking"));
+
+    const saveButton = document.getElementById('save-button');
+    saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
 }
 
 function buildRankingDescription(ranking) {
@@ -35,7 +38,8 @@ function buildRankingDescription(ranking) {
 }
 
 function buildRankingGrid(ranking) {
-    document.getElementById('ranking-grid').innerHTML = '';
+    const rankingContainer = document.getElementById('ranking-container'); 
+    rankingContainer.innerHTML = '';
 
     const tiersLength = ranking.tiers.length;
     let longestTier = 1;
@@ -48,38 +52,36 @@ function buildRankingGrid(ranking) {
     }
     longestTier += 1;
 
-    const gridTemplateColumns = `0.5fr repeat(${longestTier - 1}, 1fr)`;
-    const gridTemplateRows = `repeat(${tiersLength}, 1fr)`;
-
-    const grid = document.getElementById('ranking-grid');
-    grid.style.gridTemplateColumns = gridTemplateColumns;
-    grid.style.gridTemplateRows = gridTemplateRows;
-
     for (let i = 0; i < tiersLength; i++) {
+        
+        const tierGrid = document.createElement('div');
+        tierGrid.className = 'tier-grid';
+        rankingContainer.appendChild(tierGrid);
+
         const tier = ranking.tiers[i];
         let count = 1;
 
         const tierTitleContainer = createItemContainer('tier-title', tier.title, tier.color, i, -1, tier, ranking);
-        grid.appendChild(tierTitleContainer.container);
+        tierGrid.appendChild(tierTitleContainer.container);
 
         for (let j = 0; j < tier.content.length; j++) {
             const item = tier.content[j];
 
             const tierContentContainer = createItemContainer('tier-content', item, '', i, j, tier, ranking);
-            grid.appendChild(tierContentContainer.container);
+            tierGrid.appendChild(tierContentContainer.container);
             count++;
         }
 
         while (count < longestTier) {
             const blankItem = document.createElement('div');
-            blankItem.className = 'grid-item';
+            blankItem.className = 'blank-item';
             blankItem.dataset.tierIndex = i;
             blankItem.dataset.itemIndex = count - 1;
 
             blankItem.ondragover = dragOver;
             blankItem.ondragleave = dragLeave;
             blankItem.ondrop = drop;
-            grid.appendChild(blankItem);
+            tierGrid.appendChild(blankItem);
             count++;
         }
     }
@@ -97,7 +99,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     let colorPicker;
 
     if (type === 'tier-title') {
-        input.className = 'color-item';
+        input.className = 'title-item';
         input.type = "text";
         input.value = value;
         input.readOnly = true;
@@ -115,7 +117,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         colorPicker.style.visibility = 'hidden';
         container.appendChild(colorPicker);
     } else {
-        input.className = 'grid-item';
+        input.className = 'content-item';
         input.type = "text";
         input.value = value;
         input.readOnly = true;
@@ -202,7 +204,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         if ((type === 'tier-title') && (tier.title != input.value)) {
             tier.title = input.value;
             saveButtonActive();
-        } else if ((type === 'tier.content') && (tier.content[itemIndex] != input.value)) {
+        } else if ((type === 'tier-content') && (tier.content[itemIndex] != input.value)) {
             tier.content[itemIndex] = input.value;
             saveButtonActive();
         }
@@ -227,7 +229,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         } else {
             const newItem = prompt("Enter new item:");
             if (newItem) { // -> here add validation
-                tier.content.push(newItem);
+                tier.content.splice(itemIndex + 1, 0, newItem);
                 buildRankingGrid(ranking);
                 saveButtonActive();
             }
@@ -311,7 +313,8 @@ function saveButtonActive() {
     saveButton.style.backgroundColor = "var(--accent-color-2)";
 
     const handleClick = async () => {
-        const newRanking = await updateRanking(ranking.id);
+        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking);
+
         localStorage.setItem('ranking', JSON.stringify(newRanking));
         saveButton.style.backgroundColor = "var(--border-color)";
         saveButton.removeEventListener("click", handleClick);
@@ -354,6 +357,33 @@ async function updateRanking(id) {
         return ranking;
     } else {
         alert('Can’t update this ranking');
+        return false;
+    }
+}
+
+async function createRanking(ranking) {
+    const userName = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+
+    const response = await fetch('https://lukas.rip/api/rankings', {
+        method: 'POST', 
+        headers: {
+            "group-key": GROUP_KEY,
+            "Content-Type": "application/json",
+            'authorization': `Basic ${btoa(`${userName}:${password}`)}`,
+        }, body: JSON.stringify({
+            title: ranking.title,
+            description: ranking.description,
+            tiers: ranking.tiers
+        })
+    })
+
+    console.log(response.status);
+    if (response.status === 201) {
+        location.href = "main.html";
+        return true;
+    } else if (response.status === 400) {
+        alert("invalid entries");
         return false;
     }
 }

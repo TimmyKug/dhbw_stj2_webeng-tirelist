@@ -37,7 +37,27 @@ document.getElementById('search-bar').addEventListener('keydown', (event) => {
 });
 
 document.getElementById('new-ranking-button').addEventListener('click', () => {
-    location.href = 'ranking-new.html';
+    const newRanking = {
+        title: 'title',
+        description: '',
+        tiers: [
+            {
+                title: 'tier-1',
+                content: ['item-1', 'item-2'],
+                color: 'var(--border-color)'
+            },
+            {
+                title: 'tier-2',
+                content: ['item-1', 'item-2'],
+                color: 'var(--border-color)'
+            }
+        ],
+        username: localStorage.getItem("username"),
+        createdAt: new Date().toISOString()
+    };
+
+    localStorage.setItem("ranking", JSON.stringify(newRanking));
+    location = 'ranking-edit.html';
 })
 
 document.getElementById('avatar')?.addEventListener('click', () => {

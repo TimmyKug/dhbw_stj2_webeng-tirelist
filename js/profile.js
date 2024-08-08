@@ -22,7 +22,7 @@ async function loadAllUserRankings() {
         const message = document.createElement("p");
 
         message.id ="no-ranking-message";
-        message.textContent = "It looks like there is no ranking yet...";
+        message.textContent = "There is no ranking yet...";
         container.appendChild(message);
     } else {
         for (const ranking of allUserRankings) {
