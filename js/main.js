@@ -1,8 +1,5 @@
 import { GROUP_KEY } from './global.js';
 
-const userName = localStorage.getItem('username');
-const password = localStorage.getItem('password');
-
 document.addEventListener("DOMContentLoaded", loadLastTenRankings);
 
 async function loadLastTenRankings() {

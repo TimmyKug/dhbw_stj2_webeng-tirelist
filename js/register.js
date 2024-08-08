@@ -90,7 +90,6 @@ async function registerUser(name, password, displayName, description) {
             }
         })
     })
-    
     console.log(response.status);
     if (response.status === 201) {
         return true;

@@ -30,15 +30,20 @@ document.getElementById('icon').onclick = () => {
     location = 'main.html';
 };
 
-document.getElementById('search-bar').addEventListener('keydown', (event) => {
+document.getElementById('search-bar').addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
         console.log(document.getElementById('search-bar').value);
+
+        const selectedUser = document.getElementById('search-bar').value;
+        const user = await getUser(selectedUser);
+        localStorage.setItem("user", JSON.stringify(user));
+        location.href = 'profile.html';
     }
 });
 
 document.getElementById('new-ranking-button').addEventListener('click', () => {
     const newRanking = {
-        title: 'title',
+        title: 'My Ranking',
         description: '',
         tiers: [
             {
@@ -108,8 +113,8 @@ async function getUsers() {
     }
 }
 
-async function getUser(username) {
-    const userResponse = await fetch('https://lukas.rip/api/users/' + username, {
+async function getUser(userName) {
+    const userResponse = await fetch('https://lukas.rip/api/users/' + userName, {
         method: 'GET', headers: {
             "group-key": GROUP_KEY
         }

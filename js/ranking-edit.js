@@ -13,6 +13,17 @@ async function loadRanking() {
 
     setVisibility(document.getElementById("edit-container"));
     setVisibility(document.getElementById("delete-ranking"));
+
+    const saveButton = document.getElementById('save-button');
+    saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
+
+    saveButton.addEventListener("click", async () => {
+        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
+        localStorage.setItem('ranking', JSON.stringify(newRanking));
+        saveButton.style.backgroundColor = "var(--border-color)";
+        saveButton.style.pointerEvents = 'none';
+        if (!ranking.id) location = 'main.html';
+    });
 }
 
 function buildRankingDescription(ranking) {
@@ -20,10 +31,13 @@ function buildRankingDescription(ranking) {
     const description = document.getElementById("description");
     const createdAt = document.getElementById("created-at");
     const updatedAt = document.getElementById('updated-at');
-    const username = document.getElementById("username");
+    const displayName = document.getElementById("displayName");
     const remove = document.getElementById("delete-ranking");
     const editTitle = document.createElement('img');
     const editDescription = document.createElement('img');
+
+    setVisibility(editTitle);
+    setVisibility(editDescription);
 
     remove.innerHTML = "DELETE-RANKING";
     remove.addEventListener("click", async () => {
@@ -33,12 +47,12 @@ function buildRankingDescription(ranking) {
 
     title.innerHTML = ranking.title;
     description.innerHTML = "DESCRIPTION<br>" + ranking.description;
-    (ranking.id) ? createdAt.innerHTML = "RANKING-CREATED-AT<br>" + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
-    (ranking.id) ? updatedAt.innerHTML = "RANKING-UPDATED-AT<br>" + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
-    username.innerHTML = "BY<br>" + ranking.username;
+    (ranking.id) ? createdAt.innerHTML = "CREATED-AT<br>" + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
+    (ranking.id) ? updatedAt.innerHTML = "LAST-UPDATED<br>" + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
+    displayName.innerHTML = "BY<br>" + ranking.username;
 
-    editTitle.classList = 'ranking-drop-down-icon';
-    editDescription.classList = 'ranking-drop-down-icon';
+    editTitle.classList = 'edit-icon';
+    editDescription.classList = 'edit-icon';
     title.appendChild(editTitle);
     description.appendChild(editDescription);
 
@@ -58,17 +72,6 @@ function buildRankingDescription(ranking) {
             buildRankingDescription(ranking);
             saveButtonActive();
         }
-    });
-
-    const saveButton = document.getElementById('save-button');
-    saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
-
-    saveButton.addEventListener("click", async () => {
-        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
-        localStorage.setItem('ranking', JSON.stringify(newRanking));
-        buildRankingDescription(newRanking);
-        saveButton.style.backgroundColor = "var(--border-color)";
-        saveButton.style.pointerEvents = 'none';
     });
 }
 
@@ -126,7 +129,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     const container = document.createElement('div');
     const input = document.createElement('input');
     const dropDownContainer = document.createElement('div');
-    const dropDownIcon = document.createElement('img');
+    const editIcon = document.createElement('img');
     const dropDown = document.createElement('div');
     const deleteItem = document.createElement('div');
     const editItem = document.createElement('div');
@@ -171,7 +174,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     dropDownContainer.classList = 'drop-down-container';
     setVisibility(dropDownContainer);
 
-    dropDownIcon.classList = 'ranking-drop-down-icon';
+    editIcon.classList = 'edit-icon';
 
     dropDown.classList = 'ranking-drop-down invisible';
     dropDownContainer.style.zIndex = '0';
@@ -185,7 +188,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     addItem.classList = 'ranking-drop-down-item';
     addItem.textContent = (type === 'tier-title') ? 'Add Tier' : 'Add Item';
 
-    dropDownIcon.addEventListener('click', () => {
+    editIcon.addEventListener('click', () => {
         dropDown.classList.toggle('invisible');
         dropDownContainer.style.zIndex = dropDownContainer.style.zIndex === '1' ? '0' : '1';
     });
@@ -281,7 +284,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
 
     container.appendChild(input);
     container.appendChild(dropDownContainer);
-    dropDownContainer.appendChild(dropDownIcon);
+    dropDownContainer.appendChild(editIcon);
     dropDownContainer.appendChild(dropDown);
     dropDown.appendChild(deleteItem);
     dropDown.appendChild(editItem);

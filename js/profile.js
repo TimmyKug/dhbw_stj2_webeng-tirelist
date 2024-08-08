@@ -49,31 +49,64 @@ async function loadAllUserRankings() {
 }
 
 function buildProfileDescription(user) {
-    const username = document.getElementById("username");
+    const displayName = document.getElementById("displayName");
+    const userName = document.getElementById("userName");
     const description = document.getElementById("description");
-    const createdAt = document.getElementById("createdAt");
-    username.textContent = user.username + "'s Rankings";
+    const createdAt = document.getElementById("created-at");
+    const updatedAt = document.getElementById("updated-at");
+    const editDisplayName = document.createElement("img");
+    const editDescription = document.createElement("img");
+
+    displayName.innerHTML = user.profile.displayName + "'s Rankings";
+    userName.innerHTML = "USER-NAME<br>" + user.username;
     description.innerHTML = "DESCRIPTION<br>" + user.profile.description;
-    createdAt.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('T')[0];
+    createdAt.innerHTML = "TIRELIST-MEMBER SINCE<br>" + user.createdAt.split('.')[0].replace('T', ', ');
+    updatedAt.innerHTML = "LAST-UPDATED<br>" + user.createdAt.split('.')[0].replace('T', ', ');
+
+    editDisplayName.classList = 'edit-icon';
+    editDescription.classList = 'edit-icon';
+
+    displayName.appendChild(editDisplayName);
+    description.appendChild(editDescription);
+
+    editDisplayName.addEventListener('click', async () => {
+        const newDisplayName = prompt('Enter New Display Name:');
+        if (newDisplayName) {
+            user.profile.displayName = newDisplayName;
+            const updatedUser = await updateUser(user, localStorage.getItem("username"), localStorage.getItem("password"));
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            buildProfileDescription(updatedUser);
+            console.log(updatedUser);
+        }
+    });
+
+    editDescription.addEventListener('click', async () => {
+        const newDescription = prompt('Enter New Description:');
+        if (newDescription) {
+            user.profile.description = newDescription;
+            const updatedUser = await updateUser(user, localStorage.getItem("username"), localStorage.getItem("password"));
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            buildProfileDescription(updatedUser);
+        }
+    });
 }
 
-async function deleteRanking(rankingId) {
-    const userName = localStorage.getItem('username');
-    const password = localStorage.getItem('password');
-
-    await fetch('https://lukas.rip/api/rankings/' + rankingId, {
-        method: 'DELETE',
+async function updateUser(user, userName, password) {
+    const response = await fetch('https://lukas.rip/api/users/' + userName, {
+        method: 'PATCH',
         headers: {
+            'Content-Type': 'application/json',
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`,
-        }
-    })
-    
+            'authorization': `Basic ${btoa(userName + ":" + password)}`
+        },
+        body: JSON.stringify(user)
+    });
+
     if (response.status === 200) {
-        console.log("deleted ranking");
-        return true;
+        console.log("updated user");
+        return user;
     } else {
-        console.log("not your ranking to delete");
+        console.log(user);
         return false;
     }
 }
