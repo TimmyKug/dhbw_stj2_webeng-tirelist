@@ -52,8 +52,7 @@ document.getElementById('new-ranking-button').addEventListener('click', () => {
                 color: 'var(--border-color)'
             }
         ],
-        username: localStorage.getItem("username"),
-        createdAt: new Date().toISOString()
+        username: localStorage.getItem("username")
     };
 
     localStorage.setItem("ranking", JSON.stringify(newRanking));
@@ -75,6 +74,7 @@ document.getElementById('log-out')?.addEventListener('click', () => {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
     localStorage.removeItem('user');
+    localStorage.removeItem('ranking');
     location.href = "login.html";
 });
 
@@ -83,6 +83,7 @@ document.getElementById('delete-account')?.addEventListener('click', async () =>
     localStorage.removeItem('username');
     localStorage.removeItem('password');
     localStorage.removeItem('user');
+    localStorage.removeItem('ranking');
     location.href = "login.html";
 });
 
@@ -117,13 +118,3 @@ async function getUser(username) {
     return user;
 }
 
-async function deleteUser(userName, password) {
-    await fetch('https://lukas.rip/api/users/' + userName, {
-        method: 'DELETE',
-        headers: {
-            'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`,
-        }
-    })
-    console.log("deleted user: " + userName)
-}

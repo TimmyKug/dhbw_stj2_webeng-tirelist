@@ -22,19 +22,46 @@ function buildRankingDescription(ranking) {
     const title = document.getElementById("title");
     const description = document.getElementById("description");
     const createdAt = document.getElementById("created-at");
+    const updatedAt = document.getElementById('updated-at');
     const username = document.getElementById("username");
     const remove = document.getElementById("delete-ranking");
+    const editTitle = document.createElement('img');
+    const editDescription = document.createElement('img');
 
     remove.innerHTML = "DELETE-RANKING";
     remove.addEventListener("click", async () => {
-        await deleteRanking(ranking.id);
+        (ranking.id) ? await deleteRanking(ranking.id) : null;
         location.href = "main.html";
     });
 
     title.innerHTML = ranking.title;
     description.innerHTML = "DESCRIPTION<br>" + ranking.description;
-    createdAt.innerHTML = "RANKING-CREATED-AT<br>" + ranking.createdAt.split('T')[0];
+    (ranking.id) ? createdAt.innerHTML = "RANKING-CREATED-AT<br>" + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
+    (ranking.id) ? updatedAt.innerHTML = "RANKING-UPDATED-AT<br>" + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
     username.innerHTML = "BY<br>" + ranking.username;
+
+    editTitle.classList = 'ranking-drop-down-icon';
+    editDescription.classList = 'ranking-drop-down-icon';
+    title.appendChild(editTitle);
+    description.appendChild(editDescription);
+
+    editTitle.addEventListener('click', () => {
+        const newTitle = prompt('Enter New Title:');
+        if (newTitle) {
+            ranking.title = newTitle;
+            buildRankingDescription(ranking);
+            saveButtonActive();
+        }
+    });
+
+    editDescription.addEventListener('click', () => {
+        const newDescription = prompt('Enter New Description:');
+        if (newDescription) {
+            ranking.description = newDescription;
+            buildRankingDescription(ranking);
+            saveButtonActive();
+        }
+    });
 }
 
 function buildRankingGrid(ranking) {
@@ -137,8 +164,6 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     setVisibility(dropDownContainer);
 
     dropDownIcon.classList = 'ranking-drop-down-icon';
-    dropDownIcon.src = "../assets/edit-icon.png";
-    dropDownIcon.alt = 'Icon';
 
     dropDown.classList = 'ranking-drop-down invisible';
     dropDownContainer.style.zIndex = '0';
@@ -313,9 +338,9 @@ function saveButtonActive() {
     saveButton.style.backgroundColor = "var(--accent-color-2)";
 
     const handleClick = async () => {
-        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking);
-
+        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
         localStorage.setItem('ranking', JSON.stringify(newRanking));
+        buildRankingDescription(newRanking);
         saveButton.style.backgroundColor = "var(--border-color)";
         saveButton.removeEventListener("click", handleClick);
     };
@@ -380,9 +405,8 @@ async function createRanking(ranking) {
 
     console.log(response.status);
     if (response.status === 201) {
-        location.href = "main.html";
-        return true;
-    } else if (response.status === 400) {
+        return ranking;
+    } else if (response.status === 401) {
         alert("invalid entries");
         return false;
     }

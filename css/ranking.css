@@ -13,12 +13,18 @@
     gap: 10px;
 }
 
+#title, #description {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
 .tier-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.item-container {
+.item-container, .blank-item {
     display: flex;
     height: 100px;
     max-width: 300px;
@@ -43,6 +49,7 @@
 }
 
 .ranking-drop-down-icon {
+    content: url("../assets/edit-icon.png");
     width: 15px;
     height: 15px;
     cursor: pointer;
@@ -72,12 +79,6 @@
     border: none;
     font-weight: bold;
     text-align: center;
-}
-
-.blank-item {
-    height: 100px;
-    max-width: 300px;
-    background-color: var(--navbar-color);
 }
 
 #delete-ranking {
