@@ -32,12 +32,16 @@ document.getElementById('icon').onclick = () => {
 
 document.getElementById('search-bar').addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
-        console.log(document.getElementById('search-bar').value);
-
         const selectedUser = document.getElementById('search-bar').value;
-        const user = await getUser(selectedUser);
-        localStorage.setItem("user", JSON.stringify(user));
-        location.href = 'profile.html';
+        const userOption = Array.from(document.querySelectorAll('#users option')).find(option => option.value === selectedUser);
+        
+        if (userOption) {
+            const user = JSON.parse(userOption.dataset.user);
+            localStorage.setItem("user", JSON.stringify(user));
+            location.href = 'profile.html';
+        } else {
+            console.log('User not found.');
+        }
     }
 });
 
@@ -109,6 +113,7 @@ async function getUsers() {
         const option = document.createElement('option');
         option.text = user.profile.displayName;
         option.value = user.username;
+        option.dataset.user = JSON.stringify(user);
         userDataList.appendChild(option);
     }
 }
