@@ -42,7 +42,7 @@ async function loadAllUserRankings() {
 
             bottomDiv.addEventListener("click", async () => {
                 localStorage.setItem("ranking", JSON.stringify(ranking));
-                location = 'ranking-edit.html';
+                location = 'ranking.html';
             });
         }
     }

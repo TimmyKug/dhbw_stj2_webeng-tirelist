@@ -65,7 +65,7 @@ document.getElementById('new-ranking-button').addEventListener('click', () => {
     };
 
     localStorage.setItem("ranking", JSON.stringify(newRanking));
-    location = 'ranking-edit.html';
+    location = 'ranking.html';
 })
 
 document.getElementById('avatar')?.addEventListener('click', () => {
