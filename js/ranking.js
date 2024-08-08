@@ -23,6 +23,7 @@ async function loadRanking() {
         saveButton.style.pointerEvents = 'none';
         if (!ranking.id) location = 'main.html';
     });
+    console.log('user is authenticated: ' + isAuthenticated());
 }
 
 function buildRankingDescription(ranking) {
@@ -150,7 +151,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         colorPicker.className = 'ranking-color-picker';
         colorPicker.type = 'color';
         colorPicker.value = color;
-        colorPicker.style.visibility = 'hidden';
+        setVisibility(colorPicker);
         container.appendChild(colorPicker);
     } else {
         input.className = 'content-item';
@@ -211,9 +212,6 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         input.focus();
         input.select();
 
-        if (type === 'tier-title') {
-            colorPicker.style.visibility = 'visible';
-        }
     });
 
     input.addEventListener('keydown', (event) => {
@@ -411,19 +409,15 @@ function isValid(input, id) {
         case 'tier-title':
             isValid = (input.length >= 4) && (input.length <= 60);
             break;
-
         case 'description':
             isValid = input.length <= 300;
             break;
-        
         case 'tiers':
             isValid = input.length > 2;
             break;
-        
         case 'tier-content':
             isValid = input.length > 1;
             break;
-        
         default: isValid = true;
     }
     if (!isValid) alert('This action is not valid');
