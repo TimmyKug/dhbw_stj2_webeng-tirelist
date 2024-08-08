@@ -13,9 +13,6 @@ async function loadRanking() {
 
     setVisibility(document.getElementById("edit-container"));
     setVisibility(document.getElementById("delete-ranking"));
-
-    const saveButton = document.getElementById('save-button');
-    saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
 }
 
 function buildRankingDescription(ranking) {
@@ -61,6 +58,17 @@ function buildRankingDescription(ranking) {
             buildRankingDescription(ranking);
             saveButtonActive();
         }
+    });
+
+    const saveButton = document.getElementById('save-button');
+    saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
+
+    saveButton.addEventListener("click", async () => {
+        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
+        localStorage.setItem('ranking', JSON.stringify(newRanking));
+        buildRankingDescription(newRanking);
+        saveButton.style.backgroundColor = "var(--border-color)";
+        saveButton.style.pointerEvents = 'none';
     });
 }
 
@@ -336,16 +344,7 @@ function setVisibility(element) {
 function saveButtonActive() {
     const saveButton = document.getElementById('save-button');
     saveButton.style.backgroundColor = "var(--accent-color-2)";
-
-    const handleClick = async () => {
-        const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
-        localStorage.setItem('ranking', JSON.stringify(newRanking));
-        buildRankingDescription(newRanking);
-        saveButton.style.backgroundColor = "var(--border-color)";
-        saveButton.removeEventListener("click", handleClick);
-    };
-    saveButton.removeEventListener("click", handleClick);
-    saveButton.addEventListener("click", handleClick);
+    saveButton.style.pointerEvents = 'auto';
 }
 
 async function deleteRanking(id) {
@@ -407,7 +406,7 @@ async function createRanking(ranking) {
     if (response.status === 201) {
         return ranking;
     } else if (response.status === 401) {
-        alert("invalid entries");
+        alert("can´t create ranking");
         return false;
     }
 }

@@ -79,6 +79,7 @@ document.getElementById('log-out')?.addEventListener('click', () => {
 });
 
 document.getElementById('delete-account')?.addEventListener('click', async () => {
+    await deleteAllUserRankings(localStorage.getItem('username'), localStorage.getItem('password'));
     await deleteUser(localStorage.getItem('username'), localStorage.getItem('password'));
     localStorage.removeItem('username');
     localStorage.removeItem('password');
@@ -118,3 +119,43 @@ async function getUser(username) {
     return user;
 }
 
+async function deleteUser(userName, password) {
+    await fetch('https://lukas.rip/api/users/' + userName, {
+        method: 'DELETE',
+        headers: {
+            'group-key': GROUP_KEY,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`,
+        }
+    })
+    console.log("deleted user: " + userName)
+}
+
+async function deleteAllUserRankings(userName, password) {
+    const response = await fetch('https://lukas.rip/api/users/' + userName + '/rankings', {
+        method: 'GET',
+        headers: {
+            "group-key": GROUP_KEY
+        }
+    })
+        
+    const allUserRankings = await response.json();
+    for(const ranking of allUserRankings) await deleteRanking(userName, password, ranking.id);
+}
+
+async function deleteRanking(userName, password, id) {
+    const response = await fetch('https://lukas.rip/api/rankings/' + id, {
+        method: 'DELETE',
+        headers: {
+            'group-key': GROUP_KEY,
+            'authorization': `Basic ${btoa(userName + ":" + password)}`
+        }
+    });
+
+    if (response.status === 204) {
+        console.log("deleted ranking");
+        return true;
+    } else {
+        alert('Can’t delete this ranking, error:' + response.status);
+        return false;
+    }
+}
