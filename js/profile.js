@@ -1,14 +1,14 @@
 import { GROUP_KEY } from './global.js';
 
-document.addEventListener("DOMContentLoaded", loadAllUserRankings);
+document.addEventListener('DOMContentLoaded', loadAllUserRankings);
 
 async function loadAllUserRankings() {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const response = await fetch('https://lukas.rip/api/users/' + user.username + '/rankings', {
         method: 'GET',
         headers: {
-            "group-key": GROUP_KEY
+            'group-key': GROUP_KEY
         }
     })
         
@@ -18,30 +18,30 @@ async function loadAllUserRankings() {
     buildProfileDescription(user);
 
     if (allUserRankings.length === 0) {
-        const container = document.getElementById("main");
-        const message = document.createElement("p");
+        const container = document.getElementById('main');
+        const message = document.createElement('p');
 
-        message.id ="no-ranking-message";
-        message.textContent = "There is no ranking yet...";
+        message.id ='no-ranking-message';
+        message.textContent = 'There is no ranking yet...';
         container.appendChild(message);
     } else {
         for (const ranking of allUserRankings) {
-            const rankingDiv = document.createElement("div");
-            rankingDiv.classList.add("ranking-container");
-            const gridDiv = document.getElementById("rankings-grid");
+            const rankingDiv = document.createElement('div');
+            rankingDiv.classList.add('ranking-container');
+            const gridDiv = document.getElementById('rankings-grid');
             gridDiv.appendChild(rankingDiv);
         
-            const bottomDiv = document.createElement("div");
-            bottomDiv.classList.add("bottom-container");
+            const bottomDiv = document.createElement('div');
+            bottomDiv.classList.add('bottom-container');
             rankingDiv.appendChild(bottomDiv);
     
-            const titleDiv = document.createElement("div");
-            titleDiv.classList.add("title");
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
             titleDiv.textContent = ranking.title;
             bottomDiv.appendChild(titleDiv);
 
-            bottomDiv.addEventListener("click", async () => {
-                localStorage.setItem("ranking", JSON.stringify(ranking));
+            bottomDiv.addEventListener('click', async () => {
+                localStorage.setItem('ranking', JSON.stringify(ranking));
                 location = 'ranking.html';
             });
         }
@@ -49,11 +49,11 @@ async function loadAllUserRankings() {
 }
 
 function buildProfileDescription(user) {
-    const displayName = document.getElementById("display-name");
-    const userName = document.getElementById("userName");
-    const description = document.getElementById("description");
-    const createdAt = document.getElementById("created-at");
-    const updatedAt = document.getElementById("updated-at");
+    const displayName = document.getElementById('display-name');
+    const userName = document.getElementById('userName');
+    const description = document.getElementById('description');
+    const createdAt = document.getElementById('created-at');
+    const updatedAt = document.getElementById('updated-at');
     const editDisplayName = document.getElementById('edit-display-name');
     const editDescription = document.getElementById('edit-description');
 
@@ -80,8 +80,8 @@ function buildProfileDescription(user) {
             }
         });
 
-        displayName.addEventListener("blur", async () => {
-            displayName.style.pointerEvents = "none";
+        displayName.addEventListener('blur', async () => {
+            displayName.style.pointerEvents = 'none';
 
             if (!checkValidity(displayName)) {
                 displayName.value = user.profile.displayName;
@@ -91,14 +91,14 @@ function buildProfileDescription(user) {
             user.profile.displayName = displayName.value;
 
             const requestUser = {
-                password: localStorage.getItem("password"),
+                password: localStorage.getItem('password'),
                 profile: user.profile,
                 createdAt: user.createdAt,
                 updatedAt: user.updatedAt
             };
             
-            await updateUser(requestUser, localStorage.getItem("username"), localStorage.getItem("password"));
-            localStorage.setItem("user", JSON.stringify(user));
+            await updateUser(requestUser, localStorage.getItem('username'), localStorage.getItem('password'));
+            localStorage.setItem('user', JSON.stringify(user));
         });
     });
 
@@ -113,27 +113,27 @@ async function updateUser(user, userName, password) {
         headers: {
             'Content-Type': 'application/json',
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`
+            'authorization': `Basic ${btoa(userName + ':' + password)}`
         },
         body: JSON.stringify(user)
     });
 
     if (response.status === 201) {
-        console.log("Updated user successfully");
+        console.log('Updated user successfully');
     } else {
-        console.log("Failed to update user", response.status);
+        console.log('Failed to update user', response.status);
     }
 }
 
 function isAuthenticated() {
-    const userName = localStorage.getItem("username");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userName = localStorage.getItem('username');
+    const user = JSON.parse(localStorage.getItem('user'));
 
     return (userName === user.username);
 }
 
 function setVisibility(element) {
-    element.style.visibility = isAuthenticated() ? "visible" : "hidden";
+    element.style.visibility = isAuthenticated() ? 'visible' : 'hidden';
 }
 
 const inputElements = document.getElementsByClassName('input-field');
@@ -148,11 +148,11 @@ function checkValidity(target) {
     
     if (isValid(target.value, target.id)) {
         target.classList.remove('invalid');
-        document.getElementById(target.id + "-error-field").classList.add('invisible');
+        document.getElementById(target.id + '-error-field').classList.add('invisible');
         return true;
     } else {
         target.classList.add('invalid');
-        document.getElementById(target.id + "-error-field").classList.remove('invisible');
+        document.getElementById(target.id + '-error-field').classList.remove('invisible');
         return false;
     }
 }

@@ -1,26 +1,26 @@
 export const GROUP_KEY = '2ujgh9kh';
 
-if ((!localStorage.getItem("username") || !localStorage.getItem("password")) && !window.location.href.includes("login.html") && !window.location.href.includes("register.html")) {
+if ((!localStorage.getItem('username') || !localStorage.getItem('password')) && !window.location.href.includes('login.html') && !window.location.href.includes('register.html')) {
     alert('Please log in first');
-    location.href = "login.html";
+    location.href = 'login.html';
 }
 
 const username = localStorage.getItem('username');
 document.getElementById('nav-bar').innerHTML = `
-    <div id="icon"></div>
-    <input id="search-bar" list="users" placeholder="🔎 Search for users...">
-    <datalist id="users"></datalist>
-    <div id="right-container">
-        <button id="new-ranking-button">
-            <img src="../assets/plus-icon.png" alt="Icon">
+    <div id='icon'></div>
+    <input id='search-bar' list='users' placeholder='🔎 Search for users...'>
+    <datalist id='users'></datalist>
+    <div id='right-container'>
+        <button id='new-ranking-button'>
+            <img src='../assets/plus-icon.png' alt='Icon'>
             New Ranking
         </button>
-        ${username ? `<div id="profile-actions">
-            <div id="avatar">${username.at(0).toUpperCase()}</div>
-                <div id="drop-down" class="invisible">
-                    <div id="profile" class="drop-down-item">Profile</div>
-                    <div id="log-out" class="drop-down-item">Log Out</div>       
-                    <div id="delete-account" class="drop-down-item">Delete my account</div>              
+        ${username ? `<div id='profile-actions'>
+            <div id='avatar'>${username.at(0).toUpperCase()}</div>
+                <div id='drop-down' class='invisible'>
+                    <div id='profile' class='drop-down-item'>Profile</div>
+                    <div id='log-out' class='drop-down-item'>Log Out</div>       
+                    <div id='delete-account' class='drop-down-item'>Delete my account</div>              
                 </div>
         </div>` : ''}
     </div>
@@ -37,7 +37,7 @@ document.getElementById('search-bar').addEventListener('keydown', async (event) 
         
         if (userOption) {
             const user = JSON.parse(userOption.dataset.user);
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user));
             location.href = 'profile.html';
         } else {
             console.log('User not found.');
@@ -61,10 +61,10 @@ document.getElementById('new-ranking-button').addEventListener('click', () => {
                 color: 'var(--border-color)'
             }
         ],
-        username: localStorage.getItem("username")
+        username: localStorage.getItem('username')
     };
 
-    localStorage.setItem("ranking", JSON.stringify(newRanking));
+    localStorage.setItem('ranking', JSON.stringify(newRanking));
     location = 'ranking.html';
 })
 
@@ -73,9 +73,9 @@ document.getElementById('avatar')?.addEventListener('click', () => {
 });
 
 document.getElementById('profile')?.addEventListener('click', async () => {
-    const userName = localStorage.getItem("username");
+    const userName = localStorage.getItem('username');
     const user = await getUser(userName);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
     location.href = 'profile.html';
 });
 
@@ -84,7 +84,7 @@ document.getElementById('log-out')?.addEventListener('click', () => {
     localStorage.removeItem('password');
     localStorage.removeItem('user');
     localStorage.removeItem('ranking');
-    location.href = "login.html";
+    location.href = 'login.html';
 });
 
 document.getElementById('delete-account')?.addEventListener('click', async () => {
@@ -94,7 +94,7 @@ document.getElementById('delete-account')?.addEventListener('click', async () =>
     localStorage.removeItem('password');
     localStorage.removeItem('user');
     localStorage.removeItem('ranking');
-    location.href = "login.html";
+    location.href = 'login.html';
 });
 
 getUsers();
@@ -102,7 +102,7 @@ getUsers();
 async function getUsers() {
     const usersResponse = await fetch('https://lukas.rip/api/users', {
         method: 'GET', headers: {
-            "group-key": GROUP_KEY
+            'group-key': GROUP_KEY
         }
     })
     const users = await usersResponse.json();
@@ -121,7 +121,7 @@ async function getUsers() {
 async function getUser(userName) {
     const userResponse = await fetch('https://lukas.rip/api/users/' + userName, {
         method: 'GET', headers: {
-            "group-key": GROUP_KEY
+            'group-key': GROUP_KEY
         }
     })
     const user = await userResponse.json();
@@ -134,17 +134,17 @@ async function deleteUser(userName, password) {
         method: 'DELETE',
         headers: {
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`,
+            'authorization': `Basic ${btoa(userName + ':' + password)}`,
         }
     })
-    console.log("deleted user: " + userName)
+    console.log('deleted user: ' + userName)
 }
 
 async function deleteAllUserRankings(userName, password) {
     const response = await fetch('https://lukas.rip/api/users/' + userName + '/rankings', {
         method: 'GET',
         headers: {
-            "group-key": GROUP_KEY
+            'group-key': GROUP_KEY
         }
     })
         
@@ -157,12 +157,12 @@ async function deleteRanking(userName, password, id) {
         method: 'DELETE',
         headers: {
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`
+            'authorization': `Basic ${btoa(userName + ':' + password)}`
         }
     });
 
     if (response.status === 204) {
-        console.log("deleted ranking");
+        console.log('deleted ranking');
         return true;
     } else {
         alert('Can’t delete this ranking, error:' + response.status);

@@ -7,7 +7,7 @@
 }
 
 #icon {
-    background-image: url("../assets/icon.png");
+    background-image: url('../assets/icon.png');
     background-repeat: no-repeat;
     background-size: cover;
     height: 50px;

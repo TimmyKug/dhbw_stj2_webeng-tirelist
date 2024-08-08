@@ -49,7 +49,7 @@
 }
 
 .edit-icon {
-    content: url("../assets/edit-icon.png");
+    content: url('../assets/edit-icon.png');
     width: 15px;
     height: 15px;
     cursor: pointer;

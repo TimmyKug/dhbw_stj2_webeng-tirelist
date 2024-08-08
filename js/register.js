@@ -17,11 +17,11 @@ function checkValidity(target) {
     
     if (isValid(target.value, target.id)) {
         target.classList.remove('invalid');
-        document.getElementById(target.id + "-error-field").classList.add('invisible');
+        document.getElementById(target.id + '-error-field').classList.add('invisible');
         return true;
     } else {
         target.classList.add('invalid');
-        document.getElementById(target.id + "-error-field").classList.remove('invisible');
+        document.getElementById(target.id + '-error-field').classList.remove('invisible');
         return false;
     }
 }
@@ -46,7 +46,7 @@ function isValid(input, id) {
     return isValid;
 }
 
-document.getElementById("register").addEventListener('click', async () => {
+document.getElementById('register').addEventListener('click', async () => {
     const name = document.getElementById('user-name').value;
     const password = document.getElementById('password').value;
     const displayName = document.getElementById('display-name').value;
@@ -59,7 +59,7 @@ document.getElementById("register").addEventListener('click', async () => {
         }
     }
     if (!valid) {
-        console.log("invalid")
+        console.log('invalid')
         return;
     }
 
@@ -70,17 +70,17 @@ document.getElementById("register").addEventListener('click', async () => {
 
     console.log(`registered user: username: ${name}, password: ${password}, display name: ${displayName}, description: ${description}`);
 
-    localStorage.setItem("username", name);
-    localStorage.setItem("password", password);
+    localStorage.setItem('username', name);
+    localStorage.setItem('password', password);
 
-    window.location.href = "main.html";
+    window.location.href = 'main.html';
 })
 
 async function registerUser(name, password, displayName, description) {
     const response = await fetch('https://lukas.rip/api/users', {
         method: 'POST', headers: {
-            "group-key": GROUP_KEY,
-            "Content-Type": "application/json",
+            'group-key': GROUP_KEY,
+            'Content-Type': 'application/json',
         }, body: JSON.stringify({
             username: name,
             password: password,
@@ -94,10 +94,10 @@ async function registerUser(name, password, displayName, description) {
     if (response.status === 201) {
         return true;
     } else if (response.status === 400) {
-        alert("invalid entries");
+        alert('invalid entries');
         return false;
     } else if (response.status === 409) {
-        alert("A profile with this username already exists")
+        alert('A profile with this username already exists')
         return false;
     }
 }

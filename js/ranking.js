@@ -1,55 +1,54 @@
 import { GROUP_KEY } from './global.js';
 
-const userName = localStorage.getItem("username");
-const password = localStorage.getItem("password");
+const userName = localStorage.getItem('username');
+const password = localStorage.getItem('password');
+const ranking = JSON.parse(localStorage.getItem('ranking'));
 
-const ranking = JSON.parse(localStorage.getItem("ranking"));
-
-document.addEventListener("DOMContentLoaded", loadRanking);
+document.addEventListener('DOMContentLoaded', loadRanking);
 
 async function loadRanking() {
     buildRankingDescription(ranking);
     buildRankingGrid(ranking);
 
-    setVisibility(document.getElementById("edit-container"));
-    setVisibility(document.getElementById("delete-ranking"));
+    setVisibility(document.getElementById('edit-container'));
+    setVisibility(document.getElementById('delete-ranking'));
 
     const saveButton = document.getElementById('save-button');
     saveButton.textContent = (ranking.id) ? 'Save Edits' : 'Create Ranking';
 
-    saveButton.addEventListener("click", async () => {
+    saveButton.addEventListener('click', async () => {
         const newRanking = (ranking.id) ? await updateRanking(ranking.id) : await createRanking(ranking); 
         localStorage.setItem('ranking', JSON.stringify(newRanking));
-        saveButton.style.backgroundColor = "var(--border-color)";
+        saveButton.style.backgroundColor = 'var(--border-color)';
         saveButton.style.pointerEvents = 'none';
         if (!ranking.id) location = 'main.html';
     });
 }
 
 function buildRankingDescription(ranking) {
-    const title = document.getElementById("title");
-    const description = document.getElementById("description");
-    const createdAt = document.getElementById("created-at");
+    const title = document.getElementById('title');
+    const description = document.getElementById('description');
+    const createdAt = document.getElementById('created-at');
     const updatedAt = document.getElementById('updated-at');
-    const username = document.getElementById("username");
-    const remove = document.getElementById("delete-ranking");
+    const username = document.getElementById('username');
+    const remove = document.getElementById('delete-ranking');
     const editTitle = document.createElement('img');
     const editDescription = document.createElement('img');
 
     setVisibility(editTitle);
     setVisibility(editDescription);
 
-    remove.innerHTML = "DELETE-RANKING";
-    remove.addEventListener("click", async () => {
+    remove.innerHTML = 'DELETE-RANKING';
+    remove.addEventListener('click', async () => {
         (ranking.id) ? await deleteRanking(ranking.id) : null;
-        location.href = "main.html";
+        location.href = 'main.html';
     });
 
     title.innerHTML = ranking.title;
-    description.innerHTML = "DESCRIPTION<br>" + ranking.description;
-    (ranking.id) ? createdAt.innerHTML = "CREATED-AT<br>" + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
-    (ranking.id) ? updatedAt.innerHTML = "LAST-UPDATED<br>" + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
-    username.innerHTML = "BY<br>" + ranking.username;
+    description.innerHTML = 'DESCRIPTION<br>' + ranking.description;
+    (ranking.id) ? createdAt.innerHTML = 'CREATED-AT<br>' + ranking.createdAt.split('.')[0].replace('T', ', ') : null;
+    (ranking.id) ? updatedAt.innerHTML = 'LAST-UPDATED<br>' + ranking.updatedAt.split('.')[0].replace('T', ', ') : null;
+    username.innerHTML = 'BY<br>' + ranking.username;
 
     editTitle.classList = 'edit-icon';
     editDescription.classList = 'edit-icon';
@@ -138,12 +137,12 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
 
     if (type === 'tier-title') {
         input.className = 'title-item';
-        input.type = "text";
+        input.type = 'text';
         input.value = value;
-        input.style.pointerEvents = "none";
+        input.style.pointerEvents = 'none';
         input.style.backgroundColor = color;
 
-        container.className = "item-container";
+        container.className = 'item-container';
         container.draggable = false;
         container.style.backgroundColor = color;
 
@@ -155,11 +154,11 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         container.appendChild(colorPicker);
     } else {
         input.className = 'content-item';
-        input.type = "text";
+        input.type = 'text';
         input.value = value;
-        input.style.pointerEvents = "none";
+        input.style.pointerEvents = 'none';
 
-        container.className = "item-container";
+        container.className = 'item-container';
         container.draggable = isAuthenticated() ? true : false;
         container.ondragstart = dragStart;
         container.ondragover = dragOver;
@@ -204,7 +203,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     });
 
     editItem.addEventListener('click', () => {
-        input.style.pointerEvents = "auto";
+        input.style.pointerEvents = 'auto';
         container.draggable = false;
         dropDown.classList.toggle('invisible');
         dropDownContainer.style.zIndex = '0';
@@ -223,8 +222,8 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         }
     });
 
-    input.addEventListener("blur", () => {
-        input.style.pointerEvents = "none";
+    input.addEventListener('blur', () => {
+        input.style.pointerEvents = 'none';
         container.draggable = (type == 'tier-title') ? false : true;
 
         if ((type === 'tier-title') && (tier.title != input.value)) {
@@ -243,13 +242,13 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         buildRankingGrid(ranking);
     });
 
-    addItem.addEventListener("click", () => {
+    addItem.addEventListener('click', () => {
         if (type === 'tier-title') {
-            const newTierTitle = prompt("Enter new tier:");
+            const newTierTitle = prompt('Enter new tier:');
             if (!isValid(newTierTitle, 'tier-title')) return;
 
-            const newItem1 = prompt("A rank requires at least two items. Enter first item:");
-            const newItem2 = prompt("A rank requires at least two items. Enter second item:");
+            const newItem1 = prompt('A rank requires at least two items. Enter first item:');
+            const newItem2 = prompt('A rank requires at least two items. Enter second item:');
 
             if ((newTierTitle) && (newItem1) && (newItem2)) {
                 const newTier = {
@@ -262,7 +261,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
                 saveButtonActive();
             }
         } else {
-            const newItem = prompt("Enter new item:");
+            const newItem = prompt('Enter new item:');
             if (newItem) {
                 tier.content.splice(itemIndex + 1, 0, newItem);
                 buildRankingGrid(ranking);
@@ -332,12 +331,12 @@ function isAuthenticated() {
 }
 
 function setVisibility(element) {
-    element.style.visibility = isAuthenticated() ? "visible" : "hidden";
+    element.style.visibility = isAuthenticated() ? 'visible' : 'hidden';
 }
 
 function saveButtonActive() {
     const saveButton = document.getElementById('save-button');
-    saveButton.style.backgroundColor = "var(--accent-color-2)";
+    saveButton.style.backgroundColor = 'var(--accent-color-2)';
     saveButton.style.pointerEvents = 'auto';
 }
 
@@ -346,12 +345,12 @@ async function deleteRanking(id) {
         method: 'DELETE',
         headers: {
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`
+            'authorization': `Basic ${btoa(userName + ':' + password)}`
         }
     });
 
     if (response.status === 204) {
-        console.log("deleted ranking");
+        console.log('deleted ranking');
         return true;
     } else {
         alert('Can’t delete this ranking, error:' + response.status);
@@ -365,13 +364,13 @@ async function updateRanking(id) {
         headers: {
             'Content-Type': 'application/json',
             'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(userName + ":" + password)}`
+            'authorization': `Basic ${btoa(userName + ':' + password)}`
         },
         body: JSON.stringify(ranking)
     });
 
     if (response.status === 200) {
-        console.log("updated ranking");
+        console.log('updated ranking');
         return ranking;
     } else {
         alert('Can’t update this ranking');
@@ -386,8 +385,8 @@ async function createRanking(ranking) {
     const response = await fetch('https://lukas.rip/api/rankings', {
         method: 'POST', 
         headers: {
-            "group-key": GROUP_KEY,
-            "Content-Type": "application/json",
+            'group-key': GROUP_KEY,
+            'Content-Type': 'application/json',
             'authorization': `Basic ${btoa(`${userName}:${password}`)}`,
         }, body: JSON.stringify({
             title: ranking.title,
@@ -400,7 +399,7 @@ async function createRanking(ranking) {
     if (response.status === 201) {
         return ranking;
     } else if (response.status === 401) {
-        alert("can´t create ranking");
+        alert('can´t create ranking');
         return false;
     }
 }
