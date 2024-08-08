@@ -66,6 +66,9 @@ function buildProfileDescription(user) {
     editDisplayName.classList = 'edit-icon';
     editDescription.classList = 'edit-icon';
 
+    setVisibility(editDisplayName);
+    setVisibility(editDescription);
+
     displayName.appendChild(editDisplayName);
     description.appendChild(editDescription);
 
@@ -73,10 +76,17 @@ function buildProfileDescription(user) {
         const newDisplayName = prompt('Enter New Display Name:');
         if (newDisplayName) {
             user.profile.displayName = newDisplayName;
-            const updatedUser = await updateUser(user, localStorage.getItem("username"), localStorage.getItem("password"));
-            localStorage.setItem("user", JSON.stringify(updatedUser));
-            buildProfileDescription(updatedUser);
-            console.log(updatedUser);
+
+            const requestUser = {
+                password: localStorage.getItem("password"),
+                profile: user.profile,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt
+            }
+            
+            await updateUser(requestUser, localStorage.getItem("username"), localStorage.getItem("password"));
+            localStorage.setItem("user", JSON.stringify(user));
+            buildProfileDescription(user);
         }
     });
 
@@ -84,9 +94,17 @@ function buildProfileDescription(user) {
         const newDescription = prompt('Enter New Description:');
         if (newDescription) {
             user.profile.description = newDescription;
-            const updatedUser = await updateUser(user, localStorage.getItem("username"), localStorage.getItem("password"));
-            localStorage.setItem("user", JSON.stringify(updatedUser));
-            buildProfileDescription(updatedUser);
+            
+            const requestUser = {
+                password: localStorage.getItem("password"),
+                profile: user.profile,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt
+            }
+            
+            await updateUser(requestUser, localStorage.getItem("username"), localStorage.getItem("password"));
+            localStorage.setItem("user", JSON.stringify(user));
+            buildProfileDescription(user);
         }
     });
 }
@@ -104,9 +122,22 @@ async function updateUser(user, userName, password) {
 
     if (response.status === 200) {
         console.log("updated user");
-        return user;
     } else {
         console.log(user);
-        return false;
+    }
+}
+
+function isAuthenticated() {
+    const userName = localStorage.getItem("username");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    return (userName === user.username)
+}
+
+function setVisibility(element) {
+    if (isAuthenticated()) {
+        element.style.visibility = "visible";
+    } else {
+        element.style.visibility = "hidden";
     }
 }
