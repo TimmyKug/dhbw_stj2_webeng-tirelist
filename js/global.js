@@ -1,28 +1,32 @@
 export const GROUP_KEY = '2ujgh9kh';
 
+/*
 if ((!localStorage.getItem('username') || !localStorage.getItem('password')) && !window.location.href.includes('login.html') && !window.location.href.includes('register.html')) {
     alert('Please log in first');
     location.href = 'login.html';
 }
+*/
 
 const username = localStorage.getItem('username');
 document.getElementById('nav-bar').innerHTML = `
     <div id='icon'></div>
     <input id='search-bar' list='users' placeholder='🔎 Search for users...'>
     <datalist id='users'></datalist>
-    <div id='right-container'>
+    ${username ? `<div id='right-container'>
         <button id='new-ranking-button'>
             <img src='../assets/plus-icon.png' alt='Icon'>
             New Ranking
         </button>
-        ${username ? `<div id='profile-actions'>
+        <div id='profile-actions'>
             <div id='avatar'>${username.at(0).toUpperCase()}</div>
                 <div id='drop-down' class='invisible'>
                     <div id='profile' class='drop-down-item'>Profile</div>
                     <div id='log-out' class='drop-down-item'>Log Out</div>       
                     <div id='delete-account' class='drop-down-item'>Delete my account</div>              
                 </div>
-        </div>` : ''}
+        </div>` : `
+         <button id='login-button'>Login</button>
+        `}
     </div>
 `
 
@@ -45,7 +49,7 @@ document.getElementById('search-bar').addEventListener('keydown', async (event) 
     }
 });
 
-document.getElementById('new-ranking-button').addEventListener('click', () => {
+document.getElementById('new-ranking-button')?.addEventListener('click', () => {
     const newRanking = {
         title: 'My Ranking',
         description: '',
@@ -66,7 +70,11 @@ document.getElementById('new-ranking-button').addEventListener('click', () => {
 
     localStorage.setItem('ranking', JSON.stringify(newRanking));
     location = 'ranking.html';
-})
+});
+
+document.getElementById('login-button')?.addEventListener('click', () => {
+    location = 'login.html';
+});
 
 document.getElementById('avatar')?.addEventListener('click', () => {
     document.getElementById('drop-down').classList.toggle('invisible');

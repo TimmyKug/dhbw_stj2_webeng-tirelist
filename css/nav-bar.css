@@ -33,31 +33,36 @@
 #avatar {
     background-color: var(--accent-color-1);
     padding: 12px 16px;
-    border-radius: 20px;
+    border-radius: 30px;
     margin: 20px;
     cursor: pointer;
 }
 
-#new-ranking-button {
+#new-ranking-button, #login-button {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--accent-color-2);
     color: white;
     font-weight: bold;
+    font-size: medium;
     border: none;
     border-radius: 7px;
     min-height: 25%;
     padding: 10px;
-    margin-left: 20px;
     cursor: pointer;
 }
 
 #new-ranking-button img {
     margin-right: 8px; 
-    width: 15px; 
-    height: 15px; 
+    width: 17px; 
+    height: 17px; 
     object-fit: contain; 
+}
+
+#login-button {
+    width: 100px;
+    margin-right: 20px;
 }
 
 #right-container {
