@@ -164,6 +164,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         container.ondragstart = dragStart;
         container.ondragover = dragOver;
         container.ondragleave = dragLeave;
+        container.ondragend = dragEnd;
         container.ondrop = drop;
         container.dataset.tierIndex = tierIndex;
         container.dataset.itemIndex = itemIndex;
@@ -290,6 +291,8 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
 }
 
 function dragStart(e) {
+    const editMenu = e.currentTarget.querySelector('.drop-down-container');
+    if (editMenu) editMenu.style.display = 'none';
     e.dataTransfer.setData('text/plain', e.target.dataset.tierIndex + ',' + e.target.dataset.itemIndex);
     e.currentTarget.style.backgroundColor = '';
 }
@@ -297,6 +300,8 @@ function dragStart(e) {
 function dragOver(e) {
     e.preventDefault();
     e.currentTarget.style.backgroundColor = 'var(--accent-color-2)';
+    const editMenu = e.currentTarget.querySelector('.drop-down-container');
+    if (editMenu) editMenu.style.pointerEvents = 'none';
 }
 
 function dragLeave(e) {
@@ -312,16 +317,21 @@ function drop(e) {
     const toTierIndex = e.target.dataset.tierIndex;
     const toItemIndex = e.target.dataset.itemIndex;
 
-    if (toTierIndex === undefined || toItemIndex === undefined) return;
+    const editMenu = e.currentTarget.querySelector('.drop-down-container');
+    if (editMenu) editMenu.style.pointerEvents = 'auto';
+
     if (!isValid(ranking.tiers[fromTierIndex].content, 'tier-content', 'A tier needs at least one item!')) return;
 
     const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
     ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
-    
-    buildRankingGrid(ranking);
 
     if ((fromTierIndex != toTierIndex) || (fromItemIndex != toItemIndex)) saveButtonActive();
-    
+}
+
+function dragEnd(e) {
+    const editMenu = e.currentTarget.querySelector('.drop-down-container');
+    if (editMenu) editMenu.style.display = 'auto';
+    buildRankingGrid(ranking);
 }
 
 function isAuthenticated() {
