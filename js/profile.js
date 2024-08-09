@@ -1,19 +1,10 @@
 import { GROUP_KEY } from './global.js';
 
-document.addEventListener('DOMContentLoaded', loadAllUserRankings);
+document.addEventListener('DOMContentLoaded', loadProfile);
 
-async function loadAllUserRankings() {
+async function loadProfile() {
     const user = JSON.parse(localStorage.getItem('user'));
-
-    const response = await fetch('https://lukas.rip/api/users/' + user.username + '/rankings', {
-        method: 'GET',
-        headers: {
-            'group-key': GROUP_KEY
-        }
-    })
-        
-    const allUserRankings = await response.json();
-    console.log(allUserRankings);
+    const allUserRankings = await getAllUserRankings(user);
     console.log('user is authenticated: ' + isAuthenticated());
 
     buildProfileDescription(user);
@@ -25,28 +16,32 @@ async function loadAllUserRankings() {
         message.id ='no-ranking-message';
         message.textContent = 'There is no ranking yet...';
         container.appendChild(message);
-    } else {
-        for (const ranking of allUserRankings) {
-            const rankingDiv = document.createElement('div');
-            rankingDiv.classList.add('ranking-container');
-            const gridDiv = document.getElementById('rankings-grid');
-            gridDiv.appendChild(rankingDiv);
-        
-            const bottomDiv = document.createElement('div');
-            bottomDiv.classList.add('bottom-container');
-            rankingDiv.appendChild(bottomDiv);
-    
-            const titleDiv = document.createElement('div');
-            titleDiv.classList.add('title');
-            titleDiv.textContent = ranking.title;
-            bottomDiv.appendChild(titleDiv);
-
-            bottomDiv.addEventListener('click', async () => {
-                localStorage.setItem('ranking', JSON.stringify(ranking));
-                location = 'ranking.html';
-            });
-        }
+        return;
     }
+
+    for (const ranking of allUserRankings) buildRankingCard(ranking);
+}
+
+function buildRankingCard(ranking) {
+    const grid = document.getElementById('rankings-grid');
+    const rankingCard = document.createElement('div');
+    const title = document.createElement('div');
+    const bottomBox = document.createElement('div');
+
+    rankingCard.classList.add('ranking-container');
+    title.classList.add('title');
+    bottomBox.classList.add('bottom-container');
+
+    title.textContent = ranking.title;
+
+    grid.appendChild(rankingCard);
+    rankingCard.appendChild(bottomBox); 
+    bottomBox.appendChild(title);
+
+    bottomBox.addEventListener('click', async () => {
+        localStorage.setItem('ranking', JSON.stringify(ranking));
+        location = 'ranking.html';
+    });
 }
 
 function buildProfileDescription(user) {
@@ -126,6 +121,19 @@ async function updateUser(user, userName, password) {
     } else {
         console.log(user);
     }
+}
+
+async function getAllUserRankings(user) {
+    const response = await fetch('https://lukas.rip/api/users/' + user.username + '/rankings', {
+        method: 'GET',
+        headers: {
+            'group-key': GROUP_KEY
+        }
+    })
+        
+    const allUserRankings = await response.json();
+    console.log(allUserRankings);
+    return allUserRankings;
 }
 
 function isAuthenticated() {

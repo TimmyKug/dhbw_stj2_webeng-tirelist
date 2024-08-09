@@ -371,7 +371,7 @@ async function updateRanking(id) {
         console.log('updated ranking');
         return ranking;
     } else {
-        alert('Can’t update this ranking');
+        alert('Can’t update this ranking, error: ' + response.status);
         return false;
     }
 }
