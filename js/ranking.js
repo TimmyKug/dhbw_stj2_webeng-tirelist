@@ -57,8 +57,8 @@ function buildRankingDescription(ranking) {
     description.appendChild(editDescription);
 
     editTitle.addEventListener('click', () => {
-        const newTitle = prompt('Enter New Title:');
-        if (!isValid(newTitle, 'title')) return;
+        const newTitle = prompt('Enter New Title:\n(The title must be 4-60 characters long)');
+        if (!isValid(newTitle, 'title', 'The title must be 4-60 characters long!')) return;
 
         ranking.title = newTitle;
         buildRankingDescription(ranking);
@@ -67,7 +67,7 @@ function buildRankingDescription(ranking) {
 
     editDescription.addEventListener('click', () => {
         const newDescription = prompt('Enter New Description:');
-        if (!isValid(newDescription, 'description')) return;
+        if (!isValid(newDescription, 'description', 'The description must be less than 300 characters!')) return;
 
         ranking.description = newDescription;
         buildRankingDescription(ranking);
@@ -193,10 +193,10 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
 
     deleteItem.addEventListener('click', () => {
         if (type === 'tier-title') {
-            if (!isValid(ranking.tiers, 'tiers')) return;
+            if (!isValid(ranking.tiers, 'tiers', 'A ranking needs at least two tiers!')) return;
             ranking.tiers.splice(tierIndex, 1)[0];
         } else {
-            if (!isValid(tier.content, 'tier-content')) return;
+            if (!isValid(tier.content, 'tier-content', 'A tier needs at least one element!')) return;
             tier.content.splice(itemIndex, 1)[0];
         }
         buildRankingGrid(ranking);
@@ -225,7 +225,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
         container.draggable = (type == 'tier-title') ? false : true;
 
         if ((type === 'tier-title') && (tier.title != input.value)) {
-            if (!isValid(input.value, 'tier-title')) {
+            if (!isValid(input.value, 'tier-title', 'The title must be 4-60 characters long!')) {
                 buildRankingGrid(ranking);
                 return;
             }
@@ -243,7 +243,7 @@ function createItemContainer(type, value, color, tierIndex, itemIndex, tier, ran
     addItem.addEventListener('click', () => {
         if (type === 'tier-title') {
             const newTierTitle = prompt('Enter new tier:');
-            if (!isValid(newTierTitle, 'tier-title')) return;
+            if (!isValid(newTierTitle, 'tier-title','The title must be 4-60 characters long!')) return;
 
             const newItem1 = prompt('A rank requires at least two items. Enter first item:');
             const newItem2 = prompt('A rank requires at least two items. Enter second item:');
@@ -313,7 +313,7 @@ function drop(e) {
     const toItemIndex = e.target.dataset.itemIndex;
 
     if (toTierIndex === undefined || toItemIndex === undefined) return;
-    if (!isValid(ranking.tiers[fromTierIndex].content, 'tier-content')) return;
+    if (!isValid(ranking.tiers[fromTierIndex].content, 'tier-content', 'A tier needs at least one item!')) return;
 
     const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
     ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
@@ -402,8 +402,11 @@ async function createRanking(ranking) {
     }
 }
 
-function isValid(input, id) {
+function isValid(input, id, message) {
     let isValid;
+
+    if(input === null) return;
+
     switch (id) {
         case 'title':
         case 'tier-title':
@@ -420,6 +423,6 @@ function isValid(input, id) {
             break;
         default: isValid = true;
     }
-    if (!isValid) alert('This action is not valid');
+    if (!isValid) alert('Invalid: ' + message);
     return isValid;
 }

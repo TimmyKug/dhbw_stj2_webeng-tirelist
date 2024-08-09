@@ -70,7 +70,7 @@ function buildProfileDescription(user) {
 
     editDisplayName.addEventListener('click', async () => {
         const newDisplayName = prompt('Display Name:\n(The display-name must be 4-30 characters long)');
-        if (!isValid(newDisplayName, 'profile-display-name')) return;
+        if (!isValid(newDisplayName, 'profile-display-name', 'The display-name must be 4-30 characters long!')) return;
 
         user.profile.displayName = newDisplayName;
 
@@ -88,7 +88,7 @@ function buildProfileDescription(user) {
 
     editDescription.addEventListener('click', async () => {
         const newDescription = prompt('Description:');
-        if (!isValid(newDescription, 'profile-description')) return;
+        if (!isValid(newDescription, 'profile-description', 'The description must be less than 300 characters!')) return;
 
         user.profile.description = newDescription;
             
@@ -147,8 +147,11 @@ function setVisibility(element) {
     element.style.visibility = isAuthenticated() ? 'visible' : 'hidden';
 }
 
-function isValid(input, id) {
+function isValid(input, id, message) {
     let isValid;
+
+    if(input === null) return;
+
     switch (id) {
         case 'profile-display-name':
             isValid = (input.length >= 4) && (input.length <= 60);
@@ -158,6 +161,6 @@ function isValid(input, id) {
             break;
         default: isValid = true;
     }
-    if (!isValid) alert('This action is not valid');
+    if (!isValid) alert('Invalid: ' + message);
     return isValid;
 }
