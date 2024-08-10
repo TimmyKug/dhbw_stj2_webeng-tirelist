@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="finish login page">
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="change logic main.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/global.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/register.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +235,7 @@
       <workItem from="1722795614874" duration="71000" />
       <workItem from="1722796609623" duration="1248000" />
       <workItem from="1722798467850" duration="1455000" />
-      <workItem from="1723284030488" duration="1704000" />
+      <workItem from="1723284030488" duration="4037000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -370,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722444240975</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="change logic main.js">
+      <option name="closed" value="true" />
+      <created>1723285776718</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1723285776718</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,6 +409,7 @@
     <MESSAGE value="add search + profile actions" />
     <MESSAGE value="finish register process" />
     <MESSAGE value="finish login page" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish login page" />
+    <MESSAGE value="change logic main.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="change logic main.js" />
   </component>
 </project>

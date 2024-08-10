@@ -4,7 +4,15 @@ if (localStorage.getItem('username') != null) {
     location.href = 'main.html';
 }
 
-document.getElementById('login').addEventListener('click', async () => {
+document.getElementById('login').addEventListener('click', login);
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+    if (key === 'Enter') {
+        login();
+    }
+})
+
+async function login() {
     const name = document.getElementById('user-name').value;
     const password = document.getElementById('password').value;
 
@@ -19,7 +27,7 @@ document.getElementById('login').addEventListener('click', async () => {
     localStorage.setItem('password', password);
 
     window.location.href = 'main.html';
-})
+}
 
 async function loginUser(name, password) {
     console.log(`${name}: ${password}`);

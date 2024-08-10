@@ -2,48 +2,28 @@ import { GROUP_KEY } from "./global.js";
 
 const lastTenRankings = await getLastTenRankings();
 
-if (lastTenRankings.length === 0) {
-  const container = document.getElementById("main");
-  const header = document.getElementById("header");
-  const message = document.createElement("p");
-
-  header.textContent = "";
-  message.id = "no-ranking-message";
-  message.textContent = "No rankings exist... yet ;)";
-  container.appendChild(message);
-}
-
+const grid = document.getElementById("rankings-grid");
 for (const ranking of lastTenRankings) {
-    buildRankingCard(ranking);
+    grid.appendChild(buildRankingCard(ranking));
 }
 
 function buildRankingCard(ranking) {
-  const grid = document.getElementById("rankings-grid");
   const rankingCard = document.createElement("div");
-  const userName = document.createElement("div");
-  const title = document.createElement("div");
-  const bottomBox = document.createElement("div");
-
   rankingCard.classList.add("ranking-container");
-  userName.classList.add("username");
-  title.classList.add("title");
-  bottomBox.classList.add("bottom-container");
+  rankingCard.innerHTML = `
+    <div class="username">${ranking.username}</div>
+    <div class="bottom-container">
+        <div class="title">${ranking.title}</div>
+    </div>
+  `;
 
-  userName.textContent = ranking.username;
-  title.textContent = ranking.title;
-
-  grid.appendChild(rankingCard);
-  rankingCard.appendChild(userName);
-  rankingCard.appendChild(bottomBox);
-  bottomBox.appendChild(title);
-
-  userName.addEventListener("click", async () => {
+  rankingCard.addEventListener("click", async () => {
     const user = await getUser(ranking.username);
     localStorage.setItem("user", JSON.stringify(user));
     location = "profile.html";
   });
 
-  bottomBox.addEventListener("click", async () => {
+  rankingCard.getElementsByClassName("bottom-container")[0].addEventListener("click", async () => {
     localStorage.setItem("ranking", JSON.stringify(ranking));
     location = "ranking.html";
   });
@@ -57,8 +37,7 @@ async function getUser(username) {
     },
   });
 
-  const user = await userResponse.json();
-  return user;
+  return await userResponse.json();
 }
 
 async function getLastTenRankings() {
@@ -69,6 +48,5 @@ async function getLastTenRankings() {
     },
   });
 
-  const lastTenRankings = await rankingsResponse.json();
-  return lastTenRankings;
+  return await rankingsResponse.json();
 }
