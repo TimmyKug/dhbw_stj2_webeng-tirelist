@@ -1,82 +1,83 @@
 #nav-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--navbar-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--navbar-color);
 }
 
 #icon {
-    background-image: url('../assets/icon.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 50px;
-    width: 210px;
-    margin: 20px;
-    cursor: pointer;
+  background-image: url("../assets/icon.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  width: 210px;
+  margin: 20px;
+  cursor: pointer;
 }
 
 #search-bar {
-    margin: 20px;
-    color: var(--primary-text-color);
-    background-color: var(--navbar-color);
-    border: none;
-    border-bottom: 1px solid var(--primary-text-color);
-    min-width: 15%;
+  margin: 20px;
+  color: var(--primary-text-color);
+  background-color: var(--navbar-color);
+  border: none;
+  border-bottom: 1px solid var(--primary-text-color);
+  min-width: 15%;
 }
 
 #search-bar:focus-visible {
-    outline: none;
-    border-bottom: 2px solid var(--primary-text-color);
+  outline: none;
+  border-bottom: 2px solid var(--primary-text-color);
 }
 
 #avatar {
-    background-color: var(--accent-color-1);
-    padding: 12px 16px;
-    border-radius: 30px;
-    margin: 20px;
-    cursor: pointer;
+  background-color: var(--accent-color-1);
+  padding: 12px 16px;
+  border-radius: 30px;
+  margin: 20px;
+  cursor: pointer;
 }
 
-#new-ranking-button, #login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--accent-color-2);
-    color: white;
-    font-weight: bold;
-    font-size: medium;
-    border: none;
-    border-radius: 7px;
-    min-height: 25%;
-    padding: 10px;
-    cursor: pointer;
+#new-ranking-button,
+#login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color-2);
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  border: none;
+  border-radius: 7px;
+  min-height: 25%;
+  padding: 10px;
+  cursor: pointer;
 }
 
 #new-ranking-button img {
-    margin-right: 8px; 
-    width: 17px; 
-    height: 17px; 
-    object-fit: contain; 
+  margin-right: 8px;
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
 }
 
 #login-button {
-    width: 100px;
-    margin-right: 20px;
+  width: 100px;
+  margin-right: 20px;
 }
 
 #right-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #drop-down {
-    position: absolute;
+  position: absolute;
 }
 
 .drop-down-item {
-    border: 1px solid var(--primary-text-color);
-    cursor: pointer;
-    z-index: 1;
+  border: 1px solid var(--primary-text-color);
+  cursor: pointer;
+  z-index: 1;
 }

@@ -1,118 +1,120 @@
 #main {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  gap: 20px;
 }
 
 #ranking-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0 auto;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  gap: 10px;
 }
 
-#title, #description {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+#title,
+#description {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .tier-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.item-container, .blank-item {
-    display: flex;
-    height: 100px;
-    max-width: 300px;
-    text-align: center;
-    align-content: center;
-    background-color: var(--navbar-color);
-    position: relative;
+.item-container,
+.blank-item {
+  display: flex;
+  height: 100px;
+  max-width: 300px;
+  text-align: center;
+  align-content: center;
+  background-color: var(--navbar-color);
+  position: relative;
 }
 
 .ranking-color-picker {
-    position: absolute;
-    bottom: 1px;
-    left: 1px;
-    cursor: pointer;
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  cursor: pointer;
 }
 
 .drop-down-container {
-    position: absolute;
-    visibility: hidden;
-    top: 10px;
-    right: -30px;
+  position: absolute;
+  visibility: hidden;
+  top: 10px;
+  right: -30px;
 }
 
 .edit-icon {
-    content: url('../assets/edit-icon.png');
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
+  content: url("../assets/edit-icon.png");
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
 }
 
 .ranking-drop-down-item {
-    background-color: var(--border-color);
-    padding: 10px;
-    cursor: pointer;
+  background-color: var(--border-color);
+  padding: 10px;
+  cursor: pointer;
 }
 
 .ranking-drop-down-item:hover {
-    background-color: var(--accent-color-2);
+  background-color: var(--accent-color-2);
 }
 
 .content-item {
-    color: var(--primary-text-color);
-    background-color: transparent;
-    font-size: medium;
-    border: none;
-    text-align: center;
+  color: var(--primary-text-color);
+  background-color: transparent;
+  font-size: medium;
+  border: none;
+  text-align: center;
 }
 
 .title-item {
-    color: var(--primary-text-color);
-    font-size: medium;
-    border: none;
-    font-weight: bold;
-    text-align: center;
+  color: var(--primary-text-color);
+  font-size: medium;
+  border: none;
+  font-weight: bold;
+  text-align: center;
 }
 
 #delete-ranking {
-    color: var(--error-color);
+  color: var(--error-color);
 }
 
 #delete-ranking:hover {
-    color: var(--error-color);
-    text-decoration: underline;
-    cursor: pointer;
+  color: var(--error-color);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 #edit-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 20px;
 }
 
 #save-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: medium;
-    border: none;
-    border-radius: 7px;
-    min-height: 25%;
-    padding: 10px;
-    margin-left: 20px;
-    cursor: pointer;
-    pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  border: none;
+  border-radius: 7px;
+  min-height: 25%;
+  padding: 10px;
+  margin-left: 20px;
+  cursor: pointer;
+  pointer-events: none;
 }

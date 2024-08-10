@@ -1,30 +1,32 @@
 #no-ranking-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    height: 50%;
-    font-size: x-large;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 50%;
+  font-size: x-large;
 }
 
 #profile-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  gap: 20px;
 }
 
-#displayName, #profileName, #description {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+#displayName,
+#profileName,
+#description {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .edit-icon {
-    content: url('../assets/edit-icon.png');
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
+  content: url("../assets/edit-icon.png");
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
 }

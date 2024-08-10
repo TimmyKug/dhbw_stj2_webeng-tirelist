@@ -1,48 +1,49 @@
-import { GROUP_KEY } from './global.js';
+import { GROUP_KEY } from "./global.js";
 
-if (localStorage.getItem('username') != null) {
-    location.href = 'main.html';
+if (localStorage.getItem("username") != null) {
+  location.href = "main.html";
 }
 
-document.getElementById('login').addEventListener('click', login);
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
-    if (key === 'Enter') {
-        login();
-    }
-})
+document.getElementById("login").addEventListener("click", login);
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  if (key === "Enter") {
+    login();
+  }
+});
 
 async function login() {
-    const name = document.getElementById('user-name').value;
-    const password = document.getElementById('password').value;
+  const name = document.getElementById("user-name").value;
+  const password = document.getElementById("password").value;
 
-    const wasSuccessful = await loginUser(name, password);
-    if (!wasSuccessful) {
-        return;
-    }
+  document.querySelector("body").style.cursor = "wait";
+  const wasSuccessful = await loginUser(name, password);
+  document.querySelector("body").style.cursor = "unset";
+  if (!wasSuccessful) {
+    return;
+  }
 
-    console.log(`logged in user: username: ${name}, password: ${password}`);
+  console.log(`logged in user: username: ${name}, password: ${password}`);
 
-    localStorage.setItem('username', name);
-    localStorage.setItem('password', password);
+  localStorage.setItem("username", name);
+  localStorage.setItem("password", password);
 
-    window.location.href = 'main.html';
+  window.location.href = "main.html";
 }
 
 async function loginUser(name, password) {
-    console.log(`${name}: ${password}`);
-    const response = await fetch('https://lukas.rip/api/users/login', {
-        method: 'GET',
-        headers: {
-            'group-key': GROUP_KEY,
-            'authorization': `Basic ${btoa(`${name}:${password}`)}`,
-        }
-    })
-    if (response.status === 200) {
-        return true;
-    } else {
-        alert('Invalid username or password');
-        return false;
-    }
+  console.log(`${name}: ${password}`);
+  const response = await fetch("https://lukas.rip/api/users/login", {
+    method: "GET",
+    headers: {
+      "group-key": GROUP_KEY,
+      authorization: `Basic ${btoa(`${name}:${password}`)}`,
+    },
+  });
+  if (response.status === 200) {
+    return true;
+  } else {
+    alert("Invalid username or password");
+    return false;
+  }
 }
-

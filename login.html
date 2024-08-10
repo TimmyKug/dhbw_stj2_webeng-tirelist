@@ -1,32 +1,34 @@
-<!doctype html>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/nav-bar.css" />
+    <script src="js/login.js" type="module"></script>
+    <script src="js/global.js" type="module"></script>
+  </head>
 
-<head>
-  <meta charset='UTF-8'>
-  <title>Login</title>
-  <link rel='stylesheet' href='css/login.css'>
-  <link rel='stylesheet' href='css/global.css'>
-  <link rel='stylesheet' href='css/nav-bar.css'>
-  <script src='js/login.js' type='module'></script>
-  <script src='js/global.js' type='module'></script>
-</head>
-
-<body>
-    <div id='global-grid' >
-        <div id='nav-bar'></div>
-        <div id='main'>
-            <div id='name-container'>
-                <label for='user-name'>Name: </label>
-                <input id='user-name' type='text' required placeholder='Name'>
-            </div>
-            <div id='password-container'>
-                <label for='password'>Password: </label>
-                <input id='password' type='password' required placeholder='Your Password'>
-            </div>
-            <button id='login'>Login</button>
-            <a href='register.html'>I don't have an account</a>
+  <body>
+    <div id="global-grid">
+      <div id="nav-bar"></div>
+      <div id="main">
+        <div id="name-container">
+          <label for="user-name">Name: </label>
+          <input id="user-name" type="text" required placeholder="Name" />
         </div>
+        <div id="password-container">
+          <label for="password">Password: </label>
+          <input
+            id="password"
+            type="password"
+            required
+            placeholder="Your Password"
+          />
+        </div>
+        <button id="login">Login</button>
+        <a href="register.html">I don't have an account</a>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
