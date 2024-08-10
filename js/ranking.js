@@ -36,7 +36,6 @@ function buildRankingDescription(ranking) {
   setVisibility(editTitle);
   setVisibility(editDescription);
 
-  remove.innerHTML = "Delete Ranking";
   remove.addEventListener("click", async () => {
     ranking.id ? await deleteRanking(ranking.id) : null;
     location.href = "main.html";
