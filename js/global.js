@@ -1,12 +1,5 @@
 export const GROUP_KEY = '2ujgh9kh';
 
-/*
-if ((!localStorage.getItem('username') || !localStorage.getItem('password')) && !window.location.href.includes('login.html') && !window.location.href.includes('register.html')) {
-    alert('Please log in first');
-    location.href = 'login.html';
-}
-*/
-
 const username = localStorage.getItem('username');
 document.getElementById('nav-bar').innerHTML = `
     <div id='icon'></div>

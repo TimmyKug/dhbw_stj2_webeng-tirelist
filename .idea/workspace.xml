@@ -1,40 +1,53 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project version='4'>
-  <component name='AutoImportSettings'>
-    <option name='autoReloadType' value='SELECTIVE' />
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name='ChangeListManager'>
-    <list default='true' id='dd4ccdd5-8889-4994-b3a5-1bb66696ee42' name='Changes' comment='finish login page'>
-      <change beforePath='$PROJECT_DIR$/.idea/workspace.xml' beforeDir='false' afterPath='$PROJECT_DIR$/.idea/workspace.xml' afterDir='false' />
-      <change beforePath='$PROJECT_DIR$/js/register.js' beforeDir='false' afterPath='$PROJECT_DIR$/js/register.js' afterDir='false' />
+  <component name="ChangeListManager">
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="finish login page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/global.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
-    <option name='SHOW_DIALOG' value='false' />
-    <option name='HIGHLIGHT_CONFLICTS' value='true' />
-    <option name='HIGHLIGHT_NON_ACTIVE_CHANGELIST' value='false' />
-    <option name='LAST_RESOLUTION' value='IGNORE' />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name='FileTemplateManagerImpl'>
-    <option name='RECENT_TEMPLATES'>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
       <list>
-        <option value='HTML File' />
-        <option value='JavaScript File' />
-        <option value='CSS File' />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
-  <component name='Git.Settings'>
-    <option name='RECENT_GIT_ROOT_PATH' value='$PROJECT_DIR$' />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name='ProjectColorInfo'>{
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ZeSimme"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ZeSimme/tirelist.git",
+    "accountId": "f7619270-1205-45b2-b275-bf2e768aa547"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
-  <component name='ProjectId' id='2iPu80EFtrDkBY1lysSiUwV7YpT' />
-  <component name='ProjectLevelVcsManager' settingsEditedManually='true' />
-  <component name='ProjectViewState'>
-    <option name='hideEmptyMiddlePackages' value='true' />
-    <option name='showLibraryContents' value='true' />
+  <component name="ProjectId" id="2iPu80EFtrDkBY1lysSiUwV7YpT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
-  <component name='PropertiesComponent'><![CDATA[{
+  <component name="PropertiesComponent">{
   'keyToString': {
     'DefaultHtmlFileTemplate': 'HTML File',
     'JavaScript Debug.index.html.executor': 'Run',
@@ -63,310 +76,310 @@
       'directory'
     ]
   }
-}]]></component>
-  <component name='RecentsManager'>
-    <key name='MoveFile.RECENT_KEYS'>
-      <recent name='$PROJECT_DIR$/js' />
-      <recent name='$PROJECT_DIR$/extras' />
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/extras" />
     </key>
   </component>
-  <component name='RunManager'>
-    <configuration default='true' type='DjangoTestsConfigurationType'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
+  <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name='PYTHONUNBUFFERED' value='1' />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <option name='TARGET' value='' />
-      <option name='SETTINGS_FILE' value='' />
-      <option name='CUSTOM_SETTINGS' value='false' />
-      <option name='USE_OPTIONS' value='false' />
-      <option name='OPTIONS' value='' />
-      <method v='2' />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
     </configuration>
-    <configuration default='true' type='JetRunConfigurationType'>
-      <module name='tirelist' />
-      <method v='2'>
-        <option name='Make' enabled='true' />
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="tirelist" />
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default='true' type='KotlinStandaloneScriptRunConfigurationType'>
-      <module name='tirelist' />
-      <option name='filePath' />
-      <method v='2'>
-        <option name='Make' enabled='true' />
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="tirelist" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default='true' type='PythonConfigurationType' factoryName='Python'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name='PYTHONUNBUFFERED' value='1' />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <option name='SCRIPT_NAME' value='' />
-      <option name='PARAMETERS' value='' />
-      <option name='SHOW_COMMAND_LINE' value='false' />
-      <option name='EMULATE_TERMINAL' value='false' />
-      <option name='MODULE_MODE' value='false' />
-      <option name='REDIRECT_INPUT' value='false' />
-      <option name='INPUT_FILE' value='' />
-      <method v='2' />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
-    <configuration default='true' type='Python.FlaskServer'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <option name='launchJavascriptDebuger' value='false' />
-      <method v='2' />
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
     </configuration>
-    <configuration default='true' type='Tox' factoryName='Tox'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <method v='2' />
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
     </configuration>
-    <configuration default='true' type='docs' factoryName='Docutils task'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <option name='docutils_input_file' value='' />
-      <option name='docutils_output_file' value='' />
-      <option name='docutils_params' value='' />
-      <option name='docutils_task' value='' />
-      <option name='docutils_open_in_browser' value='false' />
-      <method v='2' />
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
     </configuration>
-    <configuration default='true' type='docs' factoryName='Sphinx task'>
-      <module name='tirelist' />
-      <option name='ENV_FILES' value='' />
-      <option name='INTERPRETER_OPTIONS' value='' />
-      <option name='PARENT_ENVS' value='true' />
-      <option name='SDK_HOME' value='' />
-      <option name='WORKING_DIRECTORY' value='' />
-      <option name='IS_MODULE_SDK' value='false' />
-      <option name='ADD_CONTENT_ROOTS' value='true' />
-      <option name='ADD_SOURCE_ROOTS' value='true' />
-      <EXTENSION ID='PythonCoverageRunConfigurationExtension' runner='coverage.py' />
-      <option name='docutils_input_file' value='' />
-      <option name='docutils_output_file' value='' />
-      <option name='docutils_params' value='' />
-      <option name='docutils_task' value='' />
-      <option name='docutils_open_in_browser' value='false' />
-      <method v='2' />
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <module name="tirelist" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
     </configuration>
   </component>
-  <component name='SharedIndexes'>
+  <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value='bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240' />
-        <option value='bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240' />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
       </set>
     </attachedChunks>
   </component>
-  <component name='SpellCheckerSettings' RuntimeDictionaries='0' Folders='0' CustomDictionaries='0' DefaultDictionary='application-level' UseSingleDictionary='true' transferred='true' />
-  <component name='TaskManager'>
-    <task active='true' id='Default' summary='Default task'>
-      <changelist id='dd4ccdd5-8889-4994-b3a5-1bb66696ee42' name='Changes' comment='' />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="" />
       <created>1719404370928</created>
-      <option name='number' value='Default' />
-      <option name='presentableId' value='Default' />
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1719404370928</updated>
-      <workItem from='1719404371986' duration='1217000' />
-      <workItem from='1719405667460' duration='1986000' />
-      <workItem from='1719410045593' duration='258000' />
-      <workItem from='1719410311569' duration='58000' />
-      <workItem from='1719410373856' duration='5304000' />
-      <workItem from='1719830347527' duration='13069000' />
-      <workItem from='1720608262807' duration='13280000' />
-      <workItem from='1721221427470' duration='3739000' />
-      <workItem from='1722410282381' duration='13504000' />
-      <workItem from='1722795614874' duration='71000' />
-      <workItem from='1722796609623' duration='1248000' />
-      <workItem from='1722798467850' duration='1455000' />
+      <workItem from="1719404371986" duration="1217000" />
+      <workItem from="1719405667460" duration="1986000" />
+      <workItem from="1719410045593" duration="258000" />
+      <workItem from="1719410311569" duration="58000" />
+      <workItem from="1719410373856" duration="5304000" />
+      <workItem from="1719830347527" duration="13069000" />
+      <workItem from="1720608262807" duration="13280000" />
+      <workItem from="1721221427470" duration="3739000" />
+      <workItem from="1722410282381" duration="13504000" />
+      <workItem from="1722795614874" duration="71000" />
+      <workItem from="1722796609623" duration="1248000" />
+      <workItem from="1722798467850" duration="1455000" />
+      <workItem from="1723284030488" duration="1704000" />
     </task>
-    <task id='LOCAL-00001' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719404499339</created>
-      <option name='number' value='00001' />
-      <option name='presentableId' value='LOCAL-00001' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
       <updated>1719404499339</updated>
     </task>
-    <task id='LOCAL-00002' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00002" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719404827296</created>
-      <option name='number' value='00002' />
-      <option name='presentableId' value='LOCAL-00002' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
       <updated>1719404827296</updated>
     </task>
-    <task id='LOCAL-00003' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00003" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719404856526</created>
-      <option name='number' value='00003' />
-      <option name='presentableId' value='LOCAL-00003' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
       <updated>1719404856526</updated>
     </task>
-    <task id='LOCAL-00004' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00004" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719405690274</created>
-      <option name='number' value='00004' />
-      <option name='presentableId' value='LOCAL-00004' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
       <updated>1719405690274</updated>
     </task>
-    <task id='LOCAL-00005' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00005" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719405708323</created>
-      <option name='number' value='00005' />
-      <option name='presentableId' value='LOCAL-00005' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
       <updated>1719405708323</updated>
     </task>
-    <task id='LOCAL-00006' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00006" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719405727581</created>
-      <option name='number' value='00006' />
-      <option name='presentableId' value='LOCAL-00006' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
       <updated>1719405727581</updated>
     </task>
-    <task id='LOCAL-00007' summary='Initial Commit'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00007" summary="Initial Commit">
+      <option name="closed" value="true" />
       <created>1719406703910</created>
-      <option name='number' value='00007' />
-      <option name='presentableId' value='LOCAL-00007' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
       <updated>1719406703910</updated>
     </task>
-    <task id='LOCAL-00008' summary='test api'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00008" summary="test api">
+      <option name="closed" value="true" />
       <created>1719407379991</created>
-      <option name='number' value='00008' />
-      <option name='presentableId' value='LOCAL-00008' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
       <updated>1719407379991</updated>
     </task>
-    <task id='LOCAL-00009' summary='test api'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00009" summary="test api">
+      <option name="closed" value="true" />
       <created>1719410144949</created>
-      <option name='number' value='00009' />
-      <option name='presentableId' value='LOCAL-00009' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
       <updated>1719410144949</updated>
     </task>
-    <task id='LOCAL-00010' summary='change index.js to login.js'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00010" summary="change index.js to login.js">
+      <option name="closed" value="true" />
       <created>1719410520795</created>
-      <option name='number' value='00010' />
-      <option name='presentableId' value='LOCAL-00010' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
       <updated>1719410520795</updated>
     </task>
-    <task id='LOCAL-00011' summary='change index to login'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00011" summary="change index to login">
+      <option name="closed" value="true" />
       <created>1719410610401</created>
-      <option name='number' value='00011' />
-      <option name='presentableId' value='LOCAL-00011' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
       <updated>1719410610401</updated>
     </task>
-    <task id='LOCAL-00012' summary='extras directory'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00012" summary="extras directory">
+      <option name="closed" value="true" />
       <created>1719411008157</created>
-      <option name='number' value='00012' />
-      <option name='presentableId' value='LOCAL-00012' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
       <updated>1719411008157</updated>
     </task>
-    <task id='LOCAL-00013' summary='grundgeruest login / register anfang'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00013" summary="grundgeruest login / register anfang">
+      <option name="closed" value="true" />
       <created>1719469060280</created>
-      <option name='number' value='00013' />
-      <option name='presentableId' value='LOCAL-00013' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
       <updated>1719469060280</updated>
     </task>
-    <task id='LOCAL-00014' summary='add logo (zwischending)'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00014" summary="add logo (zwischending)">
+      <option name="closed" value="true" />
       <created>1719840573532</created>
-      <option name='number' value='00014' />
-      <option name='presentableId' value='LOCAL-00014' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
       <updated>1719840573532</updated>
     </task>
-    <task id='LOCAL-00015' summary='add search + profile actions'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00015" summary="add search + profile actions">
+      <option name="closed" value="true" />
       <created>1720617600702</created>
-      <option name='number' value='00015' />
-      <option name='presentableId' value='LOCAL-00015' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
       <updated>1720617600702</updated>
     </task>
-    <task id='LOCAL-00016' summary='finish register process'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00016" summary="finish register process">
+      <option name="closed" value="true" />
       <created>1722440433526</created>
-      <option name='number' value='00016' />
-      <option name='presentableId' value='LOCAL-00016' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
       <updated>1722440433526</updated>
     </task>
-    <task id='LOCAL-00017' summary='finish login page'>
-      <option name='closed' value='true' />
+    <task id="LOCAL-00017" summary="finish login page">
+      <option name="closed" value="true" />
       <created>1722444240975</created>
-      <option name='number' value='00017' />
-      <option name='presentableId' value='LOCAL-00017' />
-      <option name='project' value='LOCAL' />
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
       <updated>1722444240975</updated>
     </task>
-    <option name='localTasksCounter' value='18' />
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
-  <component name='TypeScriptGeneratedFilesManager'>
-    <option name='version' value='3' />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
-  <component name='Vcs.Log.Tabs.Properties'>
-    <option name='TAB_STATES'>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
       <map>
-        <entry key='MAIN'>
+        <entry key="MAIN">
           <value>
             <State />
           </value>
@@ -374,17 +387,17 @@
       </map>
     </option>
   </component>
-  <component name='VcsManagerConfiguration'>
-    <MESSAGE value='Initial Commit' />
-    <MESSAGE value='test api' />
-    <MESSAGE value='change index.js to login.js' />
-    <MESSAGE value='change index to login' />
-    <MESSAGE value='extras directory' />
-    <MESSAGE value='grundgeruest login / register anfang' />
-    <MESSAGE value='add logo (zwischending)' />
-    <MESSAGE value='add search + profile actions' />
-    <MESSAGE value='finish register process' />
-    <MESSAGE value='finish login page' />
-    <option name='LAST_COMMIT_MESSAGE' value='finish login page' />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="test api" />
+    <MESSAGE value="change index.js to login.js" />
+    <MESSAGE value="change index to login" />
+    <MESSAGE value="extras directory" />
+    <MESSAGE value="grundgeruest login / register anfang" />
+    <MESSAGE value="add logo (zwischending)" />
+    <MESSAGE value="add search + profile actions" />
+    <MESSAGE value="finish register process" />
+    <MESSAGE value="finish login page" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish login page" />
   </component>
 </project>
