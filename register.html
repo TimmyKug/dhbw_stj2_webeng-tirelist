@@ -12,19 +12,22 @@
     <div id="global-grid">
       <div id="nav-bar"></div>
       <div id="main">
+        <br />
         <div id="user-name-container">
           <label for="user-name">Name: </label>
           <input
             id="user-name"
             class="input-field"
             type="text"
-            required
             placeholder="User Name"
           />
-          <div id="user-name-error-field" class="error-field invisible">
-            The user-name must be 4-10 characters long and contain only letters
-            and numbers
-          </div>
+          <span id="user-name-error-field" class="error-field invisible">
+            ⓘ
+            <span class="invisible"
+              >The user-name must be 4-10 characters long and contain only
+              letters and numbers</span
+            >
+          </span>
         </div>
         <div id="display-name-container">
           <label for="display-name">Display Name: </label>
@@ -32,12 +35,14 @@
             id="display-name"
             class="input-field"
             type="text"
-            required
             placeholder="Display Name"
           />
-          <div id="display-name-error-field" class="error-field invisible">
-            The display-name must be 4-30 characters long
-          </div>
+          <span id="display-name-error-field" class="error-field invisible">
+            ⓘ
+            <span class="invisible"
+              >The display-name must be 4-30 characters long</span
+            >
+          </span>
         </div>
         <div id="password-container">
           <label for="password">Password: </label>
@@ -45,13 +50,15 @@
             id="password"
             class="input-field"
             type="password"
-            required
             placeholder="Your Password"
           />
-          <div id="password-error-field" class="error-field invisible">
-            The password must be 6-12 characters long and contain at least one
-            letter and one number
-          </div>
+          <span id="password-error-field" class="error-field invisible">
+            ⓘ
+            <span class="invisible"
+              >The password must be 6-12 characters long and contain at least
+              one letter and one number</span
+            >
+          </span>
         </div>
         <div id="description-container">
           <label for="description">Description: </label>

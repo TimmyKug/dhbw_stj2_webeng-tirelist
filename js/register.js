@@ -12,6 +12,15 @@ for (const inputElement of inputElements) {
   });
 }
 
+for (const errorField of document.getElementsByClassName("error-field")) {
+  errorField.addEventListener("mouseenter", (e) => {
+      errorField.children[0].classList.remove("invisible");
+  });
+  errorField.addEventListener("mouseleave", (e) => {
+    errorField.children[0].classList.add("invisible");
+  });
+}
+
 function checkValidity(target) {
   if (isValid(target.value, target.id)) {
     target.classList.remove("invalid");

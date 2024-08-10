@@ -1,6 +1,6 @@
 html,
 body {
-  --background-color: #141414;
+  --background-color: #1f1f1f;
   --navbar-color: #000000;
   --primary-text-color: #e0e0e0;
   --secondary-text-color: #b0b0b0;
@@ -35,10 +35,12 @@ button:active {
   grid-template-rows: 10% 90%;
   height: 100%;
 }
+
 #rankings-grid {
-  display: grid;
+  display: flex;
+  flex-direction: row;
   justify-content: start;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  flex-wrap: wrap;
   gap: 20px;
   margin: 20px;
 }
@@ -46,23 +48,21 @@ button:active {
 .ranking-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: start;
   height: 200px;
-  max-width: 300px;
+  width: 250px;
   border-radius: 10%;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;
-  position: relative;
 }
 
 .bottom-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 33%;
-  width: 100%;
+  flex: 1;
   background-color: var(--navbar-color);
 }
 
@@ -71,21 +71,17 @@ button:active {
 }
 
 .invalid {
-  border: 2px solid var(--error-color) !important;
-}
-.invalid:focus-visible {
-  border: 2px solid var(--error-color) !important;
-}
-.input-field {
-  border: 2px solid var(--button-text-color);
+  border: 2px solid var(--error-color);
 }
 .input-field:focus-visible {
-  border: 2px solid var(--button-text-color);
+  outline: none;
 }
 
 .error-field {
   color: var(--error-color);
+  font-size: small;
+  cursor: pointer;
 }
 .invisible {
-  visibility: hidden;
+  display: none;
 }

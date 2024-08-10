@@ -81,7 +81,7 @@ document.getElementById("avatar")?.addEventListener("click", () => {
   document.getElementById("drop-down").classList.toggle("invisible");
 });
 document.getElementById("main").addEventListener("click", () => {
-  document.getElementById("drop-down").classList.add("invisible");
+  document.getElementById("drop-down")?.classList.add("invisible");
 });
 
 document.getElementById("profile")?.addEventListener("click", async () => {

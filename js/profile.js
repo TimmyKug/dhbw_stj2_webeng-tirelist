@@ -1,25 +1,22 @@
 import { GROUP_KEY } from "./global.js";
 
-document.addEventListener("DOMContentLoaded", loadProfile);
+const user = JSON.parse(localStorage.getItem("user"));
+const allUserRankings = await getAllUserRankings(user);
+console.log("User is authenticated: " + isAuthenticated());
 
-async function loadProfile() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const allUserRankings = await getAllUserRankings(user);
-  console.log("user is authenticated: " + isAuthenticated());
+buildProfileDescription(user);
 
-  buildProfileDescription(user);
+if (allUserRankings.length === 0) {
+  const container = document.getElementById("main");
+  const message = document.createElement("p");
 
-  if (allUserRankings.length === 0) {
-    const container = document.getElementById("main");
-    const message = document.createElement("p");
+  message.id = "no-ranking-message";
+  message.textContent = "There is no ranking yet...";
+  container.appendChild(message);
+}
 
-    message.id = "no-ranking-message";
-    message.textContent = "There is no ranking yet...";
-    container.appendChild(message);
-    return;
-  }
-
-  for (const ranking of allUserRankings) buildRankingCard(ranking);
+for (const ranking of allUserRankings) {
+  buildRankingCard(ranking);
 }
 
 function buildRankingCard(ranking) {
@@ -53,7 +50,7 @@ function buildProfileDescription(user) {
   const editDisplayName = document.createElement("img");
   const editDescription = document.createElement("img");
 
-  displayName.innerHTML = user.profile.displayName + "´s Rankings";
+  displayName.innerHTML = user.profile.displayName + "´s Profile";
   userName.innerHTML = "User name: <br>" + user.username;
   description.innerHTML = "Description: <br>" + user.profile.description;
   createdAt.innerHTML =

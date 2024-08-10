@@ -2,9 +2,13 @@ import { GROUP_KEY } from "./global.js";
 
 const lastTenRankings = await getLastTenRankings();
 
+if (lastTenRankings.length !== 0) {
+  document.getElementById('no-ranking-message').remove();
+}
+
 const grid = document.getElementById("rankings-grid");
 for (const ranking of lastTenRankings) {
-  grid.appendChild(buildRankingCard(ranking));
+    grid.appendChild(buildRankingCard(ranking));
 }
 
 function buildRankingCard(ranking) {
@@ -23,12 +27,11 @@ function buildRankingCard(ranking) {
     location = "profile.html";
   });
 
-  rankingCard
-    .getElementsByClassName("bottom-container")[0]
-    .addEventListener("click", async () => {
-      localStorage.setItem("ranking", JSON.stringify(ranking));
-      location = "ranking.html";
-    });
+  rankingCard.getElementsByClassName("bottom-container")[0].addEventListener("click", async () => {
+    localStorage.setItem("ranking", JSON.stringify(ranking));
+    location = "ranking.html";
+  });
+  return rankingCard;
 }
 
 async function getUser(username) {

@@ -36,7 +36,7 @@ function buildRankingDescription(ranking) {
   setVisibility(editTitle);
   setVisibility(editDescription);
 
-  remove.innerHTML = "DELETE-RANKING";
+  remove.innerHTML = "Delete Ranking";
   remove.addEventListener("click", async () => {
     ranking.id ? await deleteRanking(ranking.id) : null;
     location.href = "main.html";
@@ -416,7 +416,11 @@ function isAuthenticated() {
 }
 
 function setVisibility(element) {
-  element.style.visibility = isAuthenticated() ? "visible" : "hidden";
+  if (isAuthenticated()) {
+    element.classList.remove("invisible");
+  } else {
+    element.classList.add("invisible");
+  }
 }
 
 function saveButtonActive() {
