@@ -406,7 +406,9 @@ function drop(e) {
 
 function dragEnd(e) {
   const editMenu = e.currentTarget.querySelector(".drop-down-container");
-  if (editMenu) editMenu.style.display = "auto";
+  if (editMenu) {
+    editMenu.style.display = "auto";
+  }
   buildRankingGrid(ranking);
 }
 

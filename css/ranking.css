@@ -117,4 +117,5 @@
   margin-left: 20px;
   cursor: pointer;
   pointer-events: none;
+  background-color: var(--border-color);
 }
