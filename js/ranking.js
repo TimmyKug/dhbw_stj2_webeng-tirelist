@@ -385,7 +385,7 @@ async function updateRanking(id) {
   } else {
     alert(
       "One of the following requirements isn't met: \n" +
-        " - Title must be 4-60 characters long\n" +
+        " - All titles must be 4-60 characters long\n" +
         " - Ranking must contain at least 2 tires\n" +
         " - All tires must contain at least 1 item"
     );
@@ -415,7 +415,7 @@ async function createRanking(ranking) {
     return true;
   } else {
     alert("One of the following requirements isn't met: \n" +
-        " - Title must be 4-60 characters long\n" +
+        " - All titles must be 4-60 characters long\n" +
         " - Ranking must contain at least 2 tires\n" +
         " - All tires must contain at least 1 item");
     return false;
