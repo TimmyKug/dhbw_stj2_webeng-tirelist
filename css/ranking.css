@@ -11,7 +11,7 @@
   outline: 3px solid var(--primary-border-color);
   color: var(--primary-text-color);
   padding: 0;
-  font-size: xx-large;
+  font-size: xxx-large;
 }
 #description {
   background-color: var(--navbar-color);
@@ -25,6 +25,7 @@
 #title:disabled,
 #description:disabled {
   background-color: var(--see-through);
+  cursor: not-allowed;
 }
 
 .tier-container {
@@ -86,6 +87,7 @@
     pointer-events: none;
     border: none;
     background-color: rgba(0, 0, 0, 0);
+    cursor: not-allowed;
   }
 }
 .tier-utils {
@@ -117,6 +119,7 @@
     pointer-events: none;
     border: none;
     background-color: rgba(0, 0, 0, 0);
+    cursor: not-allowed;
   }
 }
 #tier-name-display {

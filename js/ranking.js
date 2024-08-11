@@ -9,6 +9,12 @@ document.getElementById("ranking-description").innerHTML = `
       ranking.title
     }" maxlength=60 disabled></input>
     <img id="edit-title-icon" class="edit-icon permission-required" alt="edit icon" />
+    <span id="title-error-field" class="error-field invisible">
+            ⓘ
+            <span class="invisible">
+              The title must be 4-60 characters long
+            </span>
+          </span>
     <br><br>
     <textarea id="description" type="text" value="${
       ranking.description
@@ -48,21 +54,35 @@ for (const editIcon of document.getElementsByClassName("edit-icon")) {
   });
 }
 
+const errorField = document.getElementById("title-error-field");
+errorField.addEventListener("mouseenter", () => {
+  errorField.children[0].classList.remove("invisible");
+});
+errorField.addEventListener("mouseleave", () => {
+  errorField.children[0].classList.add("invisible");
+});
 document.getElementById("title").addEventListener("input", (event) => {
+  const val = event.target.value;
+  if (val.length < 4) {
+    errorField.classList.remove("invisible");
+  } else {
+    errorField.classList.add("invisible");
+  }
   ranking.title = event.target.value;
+  updateRankingData();
 });
 document.getElementById("description").addEventListener("input", (event) => {
   ranking.description = event.target.value;
+  updateRankingData();
 });
 
 document.getElementById("save-button").addEventListener("click", async () => {
   document.body.style.cursor = "wait";
-  if (ranking.id) {
-    await updateRanking(ranking.id);
-  } else {
-    await createRanking(ranking);
-  }
+  const response = ranking.id ? await updateRanking(ranking.id) : await createRanking(ranking)
   document.body.style.cursor = "unset";
+  if (!response) {
+    return;
+  }
   location = "main.html";
 });
 
@@ -361,9 +381,14 @@ async function updateRanking(id) {
 
   if (response.status === 200) {
     console.log("updated ranking");
-    return ranking;
+    return true;
   } else {
-    alert("Can’t update this ranking, error: " + response.status);
+    alert(
+      "One of the following requirements isn't met: \n" +
+        " - Title must be 4-60 characters long\n" +
+        " - Ranking must contain at least 2 tiers\n" +
+        " - Tiers must contain at least 1 item"
+    );
     return false;
   }
 }
@@ -387,35 +412,14 @@ async function createRanking(ranking) {
   });
 
   if (response.status === 201) {
-    return ranking;
-  } else if (response.status === 401) {
-    alert("can´t create ranking");
+    return true;
+  } else {
+    alert("One of the following requirements isn't met: \n" +
+        " - Title must be 4-60 characters long\n" +
+        " - Ranking must contain at least 2 tiers\n" +
+        " - Tiers must contain at least 1 item");
     return false;
   }
-}
-function isValid(input, id, message) {
-  let isValid;
-
-  if (input === null) return;
-
-  switch (id) {
-    case "title":
-      isValid = input.length >= 4;
-      break;
-    case "description":
-      isValid = input.length <= 300;
-      break;
-    case "tiers":
-      isValid = input.length > 2;
-      break;
-    case "tier-content":
-      isValid = input.length > 1;
-      break;
-    default:
-      isValid = false;
-  }
-  if (!isValid) alert("Invalid: " + message);
-  return isValid;
 }
 
 if (!isAuthenticated()) {

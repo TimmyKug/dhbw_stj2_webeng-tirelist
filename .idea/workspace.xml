@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="updated ranking (Schwere Geburt...)">
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="intermediary commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/nav-bar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/nav-bar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/ranking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ranking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/ranking.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +237,7 @@
       <workItem from="1722795614874" duration="71000" />
       <workItem from="1722796609623" duration="1248000" />
       <workItem from="1722798467850" duration="1455000" />
-      <workItem from="1723284030488" duration="68594000" />
+      <workItem from="1723284030488" duration="71480000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -433,7 +431,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723387218214</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="intermediary commit">
+      <option name="closed" value="true" />
+      <created>1723389558841</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1723389558841</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,8 +470,8 @@
     <MESSAGE value="change logic main.js" />
     <MESSAGE value="minor changes to main.js" />
     <MESSAGE value="applied prettier syntax" />
-    <MESSAGE value="intermediary commit" />
     <MESSAGE value="updated ranking (Schwere Geburt...)" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated ranking (Schwere Geburt...)" />
+    <MESSAGE value="intermediary commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="intermediary commit" />
   </component>
 </project>

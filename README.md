@@ -7,3 +7,4 @@
  - Wird ein User gelöscht, werden auch alle seine Rankings gelöscht (dauert aber kurz)
  - Klickt man das Logo kommt mann immer zur Main Seite
  - Das Grid zu programmieren, um die Rankings bearbeiten zu können war die Hölle :)
+ - Drag n Drop yay!!!
