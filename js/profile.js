@@ -6,13 +6,8 @@ console.log("User is authenticated: " + isAuthenticated());
 
 buildProfileDescription(user);
 
-if (allUserRankings.length === 0) {
-  const container = document.getElementById("main");
-  const message = document.createElement("p");
-
-  message.id = "no-ranking-message";
-  message.textContent = "There is no ranking yet...";
-  container.appendChild(message);
+if (allUserRankings.length > 0) {
+  document.getElementById("no-ranking-message").classList.add("invisible-permanent");
 }
 
 for (const ranking of allUserRankings) {
@@ -51,8 +46,8 @@ function buildProfileDescription(user) {
   const editDescription = document.createElement("img");
 
   displayName.innerHTML = user.profile.displayName + "´s Profile";
-  userName.innerHTML = "User name: <br>" + user.username;
-  description.innerHTML = "Description: <br>" + user.profile.description;
+  userName.innerHTML = "User name: " + user.username;
+  description.innerHTML = "Description: " + user.profile.description;
   createdAt.innerHTML =
     "Tirelist member since: <br>" +
     user.createdAt.split(".")[0].replace("T", ", ");
