@@ -7,7 +7,9 @@ console.log("User is authenticated: " + isAuthenticated());
 buildProfileDescription(user);
 
 if (allUserRankings.length > 0) {
-  document.getElementById("no-ranking-message").classList.add("invisible-permanent");
+  document
+    .getElementById("no-ranking-message")
+    .classList.add("invisible-permanent");
 }
 
 for (const ranking of allUserRankings) {

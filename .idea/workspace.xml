@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="fixed ranking creation n°2">
-      <change beforePath="$PROJECT_DIR$/css/ranking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ranking.css" afterDir="false" />
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="updated avatar">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -501,7 +501,23 @@
       <option name="project" value="LOCAL" />
       <updated>1723402736145</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fixed ranking sizing">
+      <option name="closed" value="true" />
+      <created>1723403024267</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1723403024267</updated>
+    </task>
+    <task id="LOCAL-00035" summary="updated avatar">
+      <option name="closed" value="true" />
+      <created>1723403127667</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1723403127667</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,6 +558,8 @@
     <MESSAGE value="updated profile edit-icon" />
     <MESSAGE value="fixed ranking creation" />
     <MESSAGE value="fixed ranking creation n°2" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed ranking creation n°2" />
+    <MESSAGE value="fixed ranking sizing" />
+    <MESSAGE value="updated avatar" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated avatar" />
   </component>
 </project>

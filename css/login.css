@@ -1,21 +1,21 @@
 #login-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
 }
 #labels {
-    flex-direction: column;
-    display: flex;
-    gap: 9px;
+  flex-direction: column;
+  display: flex;
+  gap: 9px;
 }
 #inputs {
-    flex-direction: column;
-    display: flex;
-    gap: 5px;
+  flex-direction: column;
+  display: flex;
+  gap: 5px;
 }
 #actions {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

@@ -2,7 +2,9 @@ import { GROUP_KEY } from "./global.js";
 
 const userName = localStorage.getItem("username");
 const password = localStorage.getItem("password");
-const ranking = JSON.parse(localStorage.getItem("ranking").replace("tier","tire")); // Hauptsache Tire!!! It's not a bug - it's a feature :)
+const ranking = JSON.parse(
+  localStorage.getItem("ranking").replace("tier", "tire")
+); // Hauptsache Tire!!! It's not a bug - it's a feature :)
 
 document.getElementById("ranking-description").innerHTML = `
     <input id="title" type="text" value="${
@@ -78,7 +80,9 @@ document.getElementById("description").addEventListener("input", (event) => {
 
 document.getElementById("save-button").addEventListener("click", async () => {
   document.body.style.cursor = "wait";
-  const response = ranking.id ? await updateRanking(ranking.id) : await createRanking(ranking)
+  const response = ranking.id
+    ? await updateRanking(ranking.id)
+    : await createRanking(ranking);
   document.body.style.cursor = "unset";
   if (!response) {
     return;
@@ -414,10 +418,12 @@ async function createRanking(ranking) {
   if (response.status === 201) {
     return true;
   } else {
-    alert("One of the following requirements isn't met: \n" +
+    alert(
+      "One of the following requirements isn't met: \n" +
         " - All titles must be 4-60 characters long\n" +
         " - Ranking must contain at least 2 tires\n" +
-        " - All tires must contain at least 1 item");
+        " - All tires must contain at least 1 item"
+    );
     return false;
   }
 }

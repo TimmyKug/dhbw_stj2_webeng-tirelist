@@ -96,7 +96,6 @@ button:active {
   }
 }
 
-
 .error-field {
   color: var(--error-color);
   font-size: small;
