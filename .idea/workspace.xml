@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="fixed ranking creation">
-      <change beforePath="$PROJECT_DIR$/js/ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/ranking.js" afterDir="false" />
+    <list default="true" id="dd4ccdd5-8889-4994-b3a5-1bb66696ee42" name="Changes" comment="fixed ranking creation n°2">
+      <change beforePath="$PROJECT_DIR$/css/ranking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ranking.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -493,7 +493,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723402486032</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fixed ranking creation n°2">
+      <option name="closed" value="true" />
+      <created>1723402736145</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1723402736145</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,6 +541,7 @@
     <MESSAGE value="updated ranking-error-alert" />
     <MESSAGE value="updated profile edit-icon" />
     <MESSAGE value="fixed ranking creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed ranking creation" />
+    <MESSAGE value="fixed ranking creation n°2" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed ranking creation n°2" />
   </component>
 </project>
