@@ -55,14 +55,14 @@ document.getElementById("new-ranking-button")?.addEventListener("click", () => {
   const newRanking = {
     title: "My Ranking",
     description: "",
-    tiers: [
+    tires: [
       {
-        title: "tier-1",
+        title: "tire-1",
         content: ["example-item", "example-item"],
         color: "#444444",
       },
       {
-        title: "tier-2",
+        title: "tire-2",
         content: ["example-item", "example-item"],
         color: "#444444",
       },

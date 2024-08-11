@@ -88,32 +88,32 @@ document.getElementById("save-button").addEventListener("click", async () => {
 
 const rankingContainer = document.getElementById("ranking-container");
 
-for (const tier of ranking.tiers) {
-  rankingContainer.appendChild(createTier(tier));
+for (const tire of ranking.tires) {
+  rankingContainer.appendChild(createtire(tire));
 }
-const tierAdder = rankingContainer.appendChild(document.createElement("div"));
-tierAdder.innerHTML = `
-  <div id="tier-name-display">
-    <div class="tier-utils"></div>
-    <div class="tier-name-container">
-      <textarea class="tier-name-field" disabled>+</textarea>
+const tireAdder = rankingContainer.appendChild(document.createElement("div"));
+tireAdder.innerHTML = `
+  <div id="tire-name-display">
+    <div class="tire-utils"></div>
+    <div class="tire-name-container">
+      <textarea class="tire-name-field" disabled>+</textarea>
     </div>
   </div>
 `;
-const itemsContainer = tierAdder.appendChild(document.createElement("div"));
-itemsContainer.classList.add("tier-items-container");
+const itemsContainer = tireAdder.appendChild(document.createElement("div"));
+itemsContainer.classList.add("tire-items-container");
 createItemAdder(itemsContainer);
-tierAdder.classList.add("tier-container", "permission-required");
-tierAdder.children[0].addEventListener(
+tireAdder.classList.add("tire-container", "permission-required");
+tireAdder.children[0].addEventListener(
   "click",
   (event) => {
     rankingContainer.insertBefore(
-      createTier({
-        title: "new tier",
+      createtire({
+        title: "new tire",
         content: ["example-item"],
         color: "#444444",
       }),
-      tierAdder
+      tireAdder
     );
     updateRankingData();
   },
@@ -123,8 +123,8 @@ tierAdder.children[0].addEventListener(
 function createItemAdder(itemsContainer) {
   const itemAdder = itemsContainer.appendChild(document.createElement("div"));
   itemAdder.classList.add(
-    "tier-add-item-container",
-    "tier-item-container",
+    "tire-add-item-container",
+    "tire-item-container",
     "permission-required"
   );
   itemAdder.textContent = "+";
@@ -135,86 +135,86 @@ function createItemAdder(itemsContainer) {
   itemAdder.ondragenter = dragEnterItemAdder;
 }
 
-function createTier(tier) {
-  const tierContainer = document.createElement("div");
-  tierContainer.classList.add("tier-container");
-  const tierName = document.createElement("div");
-  tierName.id = "tier-name-display";
-  const title = tier.title;
-  tierName.innerHTML = `
-    <div class="tier-utils invisible-space permission-required"">
-      <input type="color" class="invisible tier-color-picker" value=${tier.color}></input>
+function createtire(tire) {
+  const tireContainer = document.createElement("div");
+  tireContainer.classList.add("tire-container");
+  const tireName = document.createElement("div");
+  tireName.id = "tire-name-display";
+  const title = tire.title;
+  tireName.innerHTML = `
+    <div class="tire-utils invisible-space permission-required"">
+      <input type="color" class="invisible tire-color-picker" value=${tire.color}></input>
       <img class="brush-icon" alt="brush-icon"></img>
       <img class="edit-icon" alt="edit-icon"></img>
       <img class="trash-icon" alt="trash-icon"></img>
     </div>
-    <div class="tier-name-container">
-      <textarea class="tier-name-field" type="text" disabled>${title}</textarea>
+    <div class="tire-name-container">
+      <textarea class="tire-name-field" type="text" disabled>${title}</textarea>
     </div>
   `;
-  tierName.style.backgroundColor = tier.color;
-  tierContainer.appendChild(tierName);
+  tireName.style.backgroundColor = tire.color;
+  tireContainer.appendChild(tireName);
 
-  const utils = tierContainer.children[0].children[0];
-  tierContainer.children[0].addEventListener("mouseenter", () => {
+  const utils = tireContainer.children[0].children[0];
+  tireContainer.children[0].addEventListener("mouseenter", () => {
     utils.classList.remove("invisible-space");
   });
-  tierContainer.children[0].addEventListener("mouseleave", () => {
+  tireContainer.children[0].addEventListener("mouseleave", () => {
     utils.classList.add("invisible-space");
   });
 
-  const textArea = tierContainer.getElementsByClassName("tier-name-field")[0];
+  const textArea = tireContainer.getElementsByClassName("tire-name-field")[0];
   textArea.addEventListener("input", (e) => {
     updateRankingData();
   });
   const colorPicker =
-    tierContainer.getElementsByClassName("tier-color-picker")[0];
+    tireContainer.getElementsByClassName("tire-color-picker")[0];
   colorPicker.addEventListener("input", (e) => {
-    tierName.style.backgroundColor = e.target.value;
+    tireName.style.backgroundColor = e.target.value;
     updateRankingData();
   });
-  tierContainer
+  tireContainer
     .getElementsByClassName("edit-icon")[0]
     .addEventListener("click", (event) => {
       textArea.disabled = false;
     });
-  tierContainer
+  tireContainer
     .getElementsByClassName("trash-icon")[0]
     .addEventListener("click", (event) => {
-      tierContainer.remove();
+      tireContainer.remove();
       updateRankingData();
     });
-  tierContainer
+  tireContainer
     .getElementsByClassName("brush-icon")[0]
     .addEventListener("click", (event) => {
       colorPicker.click();
     });
 
-  const itemsContainer = tierContainer.appendChild(
+  const itemsContainer = tireContainer.appendChild(
     document.createElement("div")
   );
-  itemsContainer.classList.add("tier-items-container");
-  for (const item of tier.content) {
+  itemsContainer.classList.add("tire-items-container");
+  for (const item of tire.content) {
     itemsContainer.appendChild(createItem(item));
   }
   createItemAdder(itemsContainer);
 
-  return tierContainer;
+  return tireContainer;
 }
 
 function createItem(item) {
   const itemContainer = document.createElement("div");
   itemContainer.innerHTML = `
-      <div class="tier-item-utils invisible-space permission-required">
+      <div class="tire-item-utils invisible-space permission-required">
         <img class="edit-icon" alt="edit-icon"></img>
         <img class="trash-icon" alt="trash-icon"></img>
       </div>
-      <div class="tier-item-name-container">
-        <textarea class="tier-item-name-field" type="text" disabled>${item}</textarea>
+      <div class="tire-item-name-container">
+        <textarea class="tire-item-name-field" type="text" disabled>${item}</textarea>
       </div>
     `;
   const textArea = itemContainer.getElementsByClassName(
-    "tier-item-name-field"
+    "tire-item-name-field"
   )[0];
   textArea.addEventListener("input", () => {
     updateRankingData();
@@ -230,7 +230,7 @@ function createItem(item) {
       itemContainer.remove();
       updateRankingData();
     });
-  itemContainer.classList.add("tier-item-container");
+  itemContainer.classList.add("tire-item-container");
   const utils = itemContainer.children[0];
   itemContainer.addEventListener("mouseenter", () => {
     utils.classList.remove("invisible-space");
@@ -263,7 +263,7 @@ function dragStart(e) {
 
 function createPlaceHolder(current) {
   const placeholder = document.createElement("div");
-  placeholder.classList.add("tier-item-container", "temp");
+  placeholder.classList.add("tire-item-container", "temp");
   placeholder.ondragleave = dragLeave;
   placeholder.ondrop = drop;
   placeholder.ondragover = dragOver;
@@ -326,27 +326,27 @@ function dragEnd(e) {
 }
 
 function updateRankingData() {
-  const tiers = [];
-  for (const tier of rankingContainer.children) {
-    const tierItems = [];
-    for (const item of tier.children[1].children) {
-      tierItems.push(item.children[1]?.children[0]?.value);
+  const tires = [];
+  for (const tire of rankingContainer.children) {
+    const tireItems = [];
+    for (const item of tire.children[1].children) {
+      tireItems.push(item.children[1]?.children[0]?.value);
     }
-    tierItems.pop();
-    tiers.push({
-      title: tier.children[0].children[1].children[0].value,
-      content: tierItems,
+    tireItems.pop();
+    tires.push({
+      title: tire.children[0].children[1].children[0].value,
+      content: tireItems,
       color: rgbToHex(
-        tier.children[0].style.backgroundColor
+        tire.children[0].style.backgroundColor
           .replace("rgb(", "")
           .replace(")", "")
           .split(",")
       ),
     });
   }
-  tiers.pop();
+  tires.pop();
 
-  ranking.tiers = tiers;
+  ranking.tires = tires;
   localStorage.setItem("ranking", JSON.stringify(ranking));
 }
 
@@ -386,8 +386,8 @@ async function updateRanking(id) {
     alert(
       "One of the following requirements isn't met: \n" +
         " - Title must be 4-60 characters long\n" +
-        " - Ranking must contain at least 2 tiers\n" +
-        " - Tiers must contain at least 1 item"
+        " - Ranking must contain at least 2 tires\n" +
+        " - tires must contain at least 1 item"
     );
     return false;
   }
@@ -407,7 +407,7 @@ async function createRanking(ranking) {
     body: JSON.stringify({
       title: ranking.title,
       description: ranking.description,
-      tiers: ranking.tiers,
+      tires: ranking.tires,
     }),
   });
 
@@ -416,8 +416,8 @@ async function createRanking(ranking) {
   } else {
     alert("One of the following requirements isn't met: \n" +
         " - Title must be 4-60 characters long\n" +
-        " - Ranking must contain at least 2 tiers\n" +
-        " - Tiers must contain at least 1 item");
+        " - Ranking must contain at least 2 tires\n" +
+        " - tires must contain at least 1 item");
     return false;
   }
 }

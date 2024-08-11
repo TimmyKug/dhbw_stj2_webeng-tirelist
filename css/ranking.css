@@ -28,15 +28,15 @@
   cursor: not-allowed;
 }
 
-.tier-container {
+.tire-container {
   display: flex;
   flex-direction: row;
   flex: 1;
 }
-.add-tier-container {
+.add-tire-container {
   cursor: pointer;
 }
-.tier-items-container {
+.tire-items-container {
   display: flex;
   flex-direction: row;
   flex: 8;
@@ -44,7 +44,7 @@
   background-color: black;
   flex-wrap: wrap;
 }
-.tier-item-container {
+.tire-item-container {
   background-color: #1c1c1c;
   outline: 1px solid gray;
   flex-direction: column;
@@ -58,7 +58,7 @@
     background-color: #1d2436;
   }
 }
-.tier-item-utils {
+.tire-item-utils {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -67,14 +67,14 @@
   align-items: end;
   width: 100%;
 }
-.tier-item-name-container {
+.tire-item-name-container {
   flex: 4;
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 100%;
 }
-.tier-item-name-field {
+.tire-item-name-field {
   text-align: center;
   resize: none;
   flex: 1;
@@ -90,7 +90,7 @@
     cursor: not-allowed;
   }
 }
-.tier-utils {
+.tire-utils {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -99,14 +99,14 @@
   align-items: end;
   width: 100%;
 }
-.tier-name-container {
+.tire-name-container {
   flex: 4;
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 100%;
 }
-.tier-name-field {
+.tire-name-field {
   text-align: center;
   resize: none;
   flex: 1;
@@ -122,7 +122,7 @@
     cursor: not-allowed;
   }
 }
-#tier-name-display {
+#tire-name-display {
   outline: 1px solid gray;
   display: flex;
   flex: 1;
@@ -135,7 +135,7 @@
   }
 }
 
-.tier-add-item-container {
+.tire-add-item-container {
   background-color: #101010;
 }
 

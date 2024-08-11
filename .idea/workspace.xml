@@ -391,7 +391,7 @@
       <option name="project" value="LOCAL" />
       <updated>1723288483578</updated>
     </task>
-    <task id="LOCAL-00020" summary="applied prettier syntax">
+    <task id="LOCAL-00020" summary="applied prettire syntax">
       <option name="closed" value="true" />
       <created>1723293236177</created>
       <option name="number" value="00020" />
@@ -469,7 +469,7 @@
     <MESSAGE value="finish login page" />
     <MESSAGE value="change logic main.js" />
     <MESSAGE value="minor changes to main.js" />
-    <MESSAGE value="applied prettier syntax" />
+    <MESSAGE value="applied prettire syntax" />
     <MESSAGE value="updated ranking (Schwere Geburt...)" />
     <MESSAGE value="intermediary commit" />
     <option name="LAST_COMMIT_MESSAGE" value="intermediary commit" />
