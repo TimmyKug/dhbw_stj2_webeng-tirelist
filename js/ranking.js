@@ -3,7 +3,7 @@ import { GROUP_KEY } from "./global.js";
 const userName = localStorage.getItem("username");
 const password = localStorage.getItem("password");
 const ranking = JSON.parse(
-  localStorage.getItem("ranking").replace("tier", "tire")
+  localStorage.getItem("ranking")
 ); // Hauptsache Tire!!! It's not a bug - it's a feature :)
 
 document.getElementById("ranking-description").innerHTML = `
@@ -80,6 +80,7 @@ document.getElementById("description").addEventListener("input", (event) => {
 
 document.getElementById("save-button").addEventListener("click", async () => {
   document.body.style.cursor = "wait";
+  console.log(ranking);
   const response = ranking.id
     ? await updateRanking(ranking.id)
     : await createRanking(ranking);
@@ -350,7 +351,7 @@ function updateRankingData() {
   }
   tires.pop();
 
-  ranking.tiers = tires;
+  ranking.tires = tires;
   localStorage.setItem("ranking", JSON.stringify(ranking));
 }
 
@@ -380,7 +381,7 @@ async function updateRanking(id) {
       "group-key": GROUP_KEY,
       authorization: `Basic ${btoa(userName + ":" + password)}`,
     },
-    body: JSON.stringify(ranking),
+    body: JSON.stringify(ranking).replace("tire", "tier"),
   });
 
   if (response.status === 200) {

@@ -30,7 +30,7 @@ function buildRankingCard(ranking) {
   rankingCard
     .getElementsByClassName("bottom-container")[0]
     .addEventListener("click", async () => {
-      localStorage.setItem("ranking", JSON.stringify(ranking));
+      localStorage.setItem("ranking", JSON.stringify(ranking).replace("tier", "tire"));
       location = "ranking.html";
     });
   return rankingCard;

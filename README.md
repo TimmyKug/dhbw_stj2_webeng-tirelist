@@ -8,4 +8,4 @@
  - Klickt man das Logo kommt mann immer zur Main Seite
  - Das Grid zu programmieren, um die Rankings bearbeiten zu können war die Hölle :)
  - Drag n Drop yay!!!
- - Bei Handys/Tablets wird vom Querformat ausgegangen für das responsive Design
+ - Bei allen ranking Objekten wurde tier mit tire ersetzt - It's not a bug, it's a feature!
