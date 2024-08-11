@@ -12,7 +12,7 @@ for (const ranking of lastTenRankings) {
 }
 
 function buildRankingCard(ranking) {
-  const rankingCard = document.createElement("div");
+  const rankingCard = document.createElement("article");
   rankingCard.classList.add("ranking-container");
   rankingCard.innerHTML = `
     <div class="username">${ranking.username}</div>

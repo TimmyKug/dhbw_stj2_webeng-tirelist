@@ -3,7 +3,7 @@ export const GROUP_KEY = "2ujgh9kh";
 const username = localStorage.getItem("username");
 const password = localStorage.getItem("password");
 document.getElementById("nav-bar").innerHTML = `
-    <div id='icon'></div>
+    <img id='icon' src="../assets/icon.png"></img>
     <input id='search-bar' list='users' placeholder='🔎 Search for users...'>
     <datalist id='users'></datalist>
     ${
