@@ -20,6 +20,7 @@
   resize: none;
   height: 100px;
   padding: 0;
+  font-size: x-large;
 }
 
 #title:disabled,
@@ -82,6 +83,7 @@
   color: var(--primary-text-color);
   outline: none;
   border: 2px solid var(--primary-border-color);
+  font-size: x-large;
   &:disabled {
     color: var(--secondary-text-color);
     pointer-events: none;
@@ -114,6 +116,7 @@
   color: var(--primary-text-color);
   outline: none;
   border: 2px solid var(--primary-border-color);
+  font-size: x-large;
   &:disabled {
     color: var(--secondary-text-color);
     pointer-events: none;
@@ -162,21 +165,6 @@
   max-height: 15px;
   max-width: 15px;
   cursor: pointer;
-}
-
-#save-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: medium;
-  border: none;
-  border-radius: 7px;
-  min-height: 25%;
-  padding: 10px;
-  cursor: pointer;
-  background-color: var(--accent-color-2);
 }
 
 #delete-ranking {

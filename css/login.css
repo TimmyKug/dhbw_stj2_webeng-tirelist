@@ -7,10 +7,15 @@
 #labels {
     flex-direction: column;
     display: flex;
-    gap: 5px;
+    gap: 9px;
 }
 #inputs {
     flex-direction: column;
     display: flex;
+    gap: 5px;
+}
+#actions {
+    display: flex;
+    flex-direction: column;
     gap: 5px;
 }

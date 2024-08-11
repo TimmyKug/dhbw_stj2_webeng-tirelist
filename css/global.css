@@ -20,7 +20,7 @@ body {
   background-color: var(--background-color);
   color: var(--primary-text-color);
   font-family: "Arial", sans-serif;
-  font-size: large;
+  font-size: x-large;
 }
 
 a {
@@ -82,20 +82,13 @@ button:active {
 }
 
 .input-field {
+  font-size: x-large;
   background-color: var(--see-through);
   color: var(--primary-text-color);
   border-right: none;
   border-top: none;
   border-left: none;
   border-bottom: 2px solid var(--primary-text-color);
-  &:focus-visible {
-    outline: none;
-  }
-}
-.input-area {
-  background-color: var(--see-through);
-  color: var(--primary-text-color);
-  border: 2px solid var(--primary-text-color);
   &:focus-visible {
     outline: none;
   }
@@ -115,4 +108,19 @@ button:active {
 }
 .invisible-space {
   visibility: hidden;
+}
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color-2);
+  color: white;
+  font-weight: bold;
+  font-size: x-large;
+  border: none;
+  border-radius: 7px;
+  min-height: 25%;
+  padding: 10px;
+  cursor: pointer;
+  max-width: 140px;
 }

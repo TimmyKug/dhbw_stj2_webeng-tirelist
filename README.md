@@ -8,3 +8,4 @@
  - Klickt man das Logo kommt mann immer zur Main Seite
  - Das Grid zu programmieren, um die Rankings bearbeiten zu können war die Hölle :)
  - Drag n Drop yay!!!
+ - Bei Handys/Tablets wird vom Querformat ausgegangen für das responsive Design

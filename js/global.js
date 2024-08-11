@@ -9,7 +9,7 @@ document.getElementById("nav-bar").innerHTML = `
     ${
       username
         ? `<div id='right-container'>
-        <button id='new-ranking-button'>
+        <button id='new-ranking-button' class="primary-button">
             <img src='../assets/plus-icon.png' alt='Icon'>
             New Ranking
         </button>
@@ -22,7 +22,7 @@ document.getElementById("nav-bar").innerHTML = `
                 </div>
         </div>`
         : `
-         <button id='login-button'>Login</button>
+         <button id='login-button' class="primary-button">Login</button>
         `
     }
     </div>
