@@ -14,16 +14,13 @@
     <div id="global-grid">
       <div id="nav-bar"></div>
       <div id="main">
-        <h1 id="title"></h1>
-        <div id="description"></div>
-        <div id="created-at"></div>
-        <div id="updated-at"></div>
-        <div id="username"></div>
-        <div id="delete-ranking" class="invisible">Delete Ranking</div>
+        <div id="ranking-description"></div>
         <div id="ranking-container"></div>
-        <div id="edit-container" class="invisible">
-          <div id="edit-notice">Simply drag and drop to rearrange items</div>
-          <button id="save-button"></button>
+        <div id="edit-container" class="permission-required">
+          <span id="edit-notice">Simply drag and drop to rearrange items</span>
+          <a href="main.html">Cancel</a>
+          <a id="delete-ranking" href="main.html">Delete</a>
+          <button id="save-button">Save</button>
         </div>
       </div>
     </div>

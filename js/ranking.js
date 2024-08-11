@@ -4,430 +4,330 @@ const userName = localStorage.getItem("username");
 const password = localStorage.getItem("password");
 const ranking = JSON.parse(localStorage.getItem("ranking"));
 
-buildRankingDescription(ranking);
-buildRankingGrid(ranking);
+document.getElementById("ranking-description").innerHTML = `
+    <input id="title" type="text" value="${
+      ranking.title
+    }" maxlength=60 disabled></input>
+    <img id="edit-title-icon" class="edit-icon permission-required" alt="edit icon" />
+    <br><br>
+    <textarea id="description" type="text" value="${
+      ranking.description
+    }" maxlength=300 disabled>This is my ranking</textarea>
+    <img id="edit-description-icon" class="edit-icon permission-required" alt="edit icon" />
+    
+    <div id="created-at" class="depends-on-creation">Date created: ${
+      ranking.id
+        ? ranking.createdAt.split(".")[0].replace("T", " ").replaceAll("-", "/")
+        : ""
+    }</div>
+    <div id="last-updated" class="depends-on-creation">Date last updated: ${
+      ranking.id
+        ? ranking.updatedAt.split(".")[0].replace("T", " ").replaceAll("-", "/")
+        : ""
+    }</div>
+    <div id="username">Created by: ${ranking.username}</div>
+`;
 
-setVisibility(document.getElementById("edit-container"));
-setVisibility(document.getElementById("delete-ranking"));
+document
+  .getElementById("delete-ranking")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
+    document.body.style.cursor = "wait";
+    if (ranking.id) {
+      await deleteRanking(ranking.id);
+    }
+    document.body.style.cursor = "unset";
+    location = "main.html";
+  });
 
-const saveButton = document.getElementById("save-button");
-saveButton.textContent = ranking.id ? "Save Edits" : "Create Ranking";
+for (const editIcon of document.getElementsByClassName("edit-icon")) {
+  editIcon.addEventListener("click", () => {
+    document.getElementById(
+      editIcon.id.replace("-icon", "").replace("edit-", "")
+    ).disabled = false;
+  });
+}
 
-saveButton.addEventListener("click", async () => {
-  const newRanking = ranking.id
-    ? await updateRanking(ranking.id)
-    : await createRanking(ranking);
-  localStorage.setItem("ranking", JSON.stringify(newRanking));
-  saveButton.style.backgroundColor = "var(--border-color)";
-  saveButton.style.pointerEvents = "none";
-  if (!ranking.id) location = "main.html";
+document.getElementById("title").addEventListener("input", (event) => {
+  ranking.title = event.target.value;
+});
+document.getElementById("description").addEventListener("input", (event) => {
+  ranking.description = event.target.value;
 });
 
-function buildRankingDescription(ranking) {
-  const title = document.getElementById("title");
-  const description = document.getElementById("description");
-  const createdAt = document.getElementById("created-at");
-  const updatedAt = document.getElementById("updated-at");
-  const username = document.getElementById("username");
-  const remove = document.getElementById("delete-ranking");
-  const editTitle = document.createElement("img");
-  const editDescription = document.createElement("img");
-
-  setVisibility(editTitle);
-  setVisibility(editDescription);
-
-  remove.addEventListener("click", async () => {
-    ranking.id ? await deleteRanking(ranking.id) : null;
-    location.href = "main.html";
-  });
-
-  title.innerHTML = ranking.title;
-  description.innerHTML = "DESCRIPTION<br>" + ranking.description;
-  ranking.id
-    ? (createdAt.innerHTML =
-        "CREATED-AT<br>" + ranking.createdAt.split(".")[0].replace("T", ", "))
-    : null;
-  ranking.id
-    ? (updatedAt.innerHTML =
-        "LAST-UPDATED<br>" + ranking.updatedAt.split(".")[0].replace("T", ", "))
-    : null;
-  username.innerHTML = "BY<br>" + ranking.username;
-
-  editTitle.classList = "edit-icon";
-  editDescription.classList = "edit-icon";
-  title.appendChild(editTitle);
-  description.appendChild(editDescription);
-
-  editTitle.addEventListener("click", () => {
-    const newTitle = prompt(
-      "Enter New Title:\n(The title must be 4-60 characters long)"
-    );
-    if (!isValid(newTitle, "title", "The title must be 4-60 characters long!"))
-      return;
-
-    ranking.title = newTitle;
-    buildRankingDescription(ranking);
-    saveButtonActive();
-  });
-
-  editDescription.addEventListener("click", () => {
-    const newDescription = prompt("Enter New Description:");
-    if (
-      !isValid(
-        newDescription,
-        "description",
-        "The description must be less than 300 characters!"
-      )
-    )
-      return;
-
-    ranking.description = newDescription;
-    buildRankingDescription(ranking);
-    saveButtonActive();
-  });
-}
-
-function buildRankingGrid(ranking) {
-  const rankingContainer = document.getElementById("ranking-container");
-  rankingContainer.innerHTML = "";
-
-  const tiersLength = ranking.tiers.length;
-  let longestTier = 1;
-
-  for (let i = 0; i < tiersLength; i++) {
-    const currentTierLength = ranking.tiers[i].content.length;
-    if (currentTierLength > longestTier) {
-      longestTier = currentTierLength;
-    }
-  }
-  longestTier += 1;
-
-  for (let i = 0; i < tiersLength; i++) {
-    const tierGrid = document.createElement("div");
-    tierGrid.className = "tier-grid";
-    rankingContainer.appendChild(tierGrid);
-
-    const tier = ranking.tiers[i];
-    let count = 1;
-
-    const tierTitleContainer = createItemContainer(
-      "tier-title",
-      tier.title,
-      tier.color,
-      i,
-      -1,
-      tier,
-      ranking
-    );
-    tierGrid.appendChild(tierTitleContainer.container);
-
-    for (let j = 0; j < tier.content.length; j++) {
-      const item = tier.content[j];
-
-      const tierContentContainer = createItemContainer(
-        "tier-content",
-        item,
-        "",
-        i,
-        j,
-        tier,
-        ranking
-      );
-      tierGrid.appendChild(tierContentContainer.container);
-      count++;
-    }
-
-    while (count < longestTier) {
-      const blankItem = document.createElement("div");
-      blankItem.className = "blank-item";
-      blankItem.dataset.tierIndex = i;
-      blankItem.dataset.itemIndex = count - 1;
-
-      blankItem.ondragover = dragOver;
-      blankItem.ondragleave = dragLeave;
-      blankItem.ondrop = drop;
-      tierGrid.appendChild(blankItem);
-      count++;
-    }
-  }
-}
-
-function createItemContainer(
-  type,
-  value,
-  color,
-  tierIndex,
-  itemIndex,
-  tier,
-  ranking
-) {
-  const container = document.createElement("div");
-  const input = document.createElement("input");
-  const dropDownContainer = document.createElement("div");
-  const editIcon = document.createElement("img");
-  const dropDown = document.createElement("div");
-  const deleteItem = document.createElement("div");
-  const editItem = document.createElement("div");
-  const addItem = document.createElement("div");
-  let colorPicker;
-
-  if (type === "tier-title") {
-    input.className = "title-item";
-    input.type = "text";
-    input.value = value;
-    input.style.pointerEvents = "none";
-    input.style.backgroundColor = color;
-
-    container.className = "item-container";
-    container.draggable = false;
-    container.style.backgroundColor = color;
-
-    colorPicker = document.createElement("input");
-    colorPicker.className = "ranking-color-picker";
-    colorPicker.type = "color";
-    colorPicker.value = color;
-    setVisibility(colorPicker);
-    container.appendChild(colorPicker);
+document.getElementById("save-button").addEventListener("click", async () => {
+  document.body.style.cursor = "wait";
+  if (ranking.id) {
+    await updateRanking(ranking.id);
   } else {
-    input.className = "content-item";
-    input.type = "text";
-    input.value = value;
-    input.style.pointerEvents = "none";
-
-    container.className = "item-container";
-    container.draggable = isAuthenticated() ? true : false;
-    container.ondragstart = dragStart;
-    container.ondragover = dragOver;
-    container.ondragleave = dragLeave;
-    container.ondragend = dragEnd;
-    container.ondrop = drop;
-    container.dataset.tierIndex = tierIndex;
-    container.dataset.itemIndex = itemIndex;
+    await createRanking(ranking);
   }
+  document.body.style.cursor = "unset";
+  location = "main.html";
+});
 
-  dropDownContainer.classList = "drop-down-container";
-  setVisibility(dropDownContainer);
+const rankingContainer = document.getElementById("ranking-container");
 
-  editIcon.classList = "edit-icon";
-
-  dropDown.classList = "ranking-drop-down invisible";
-  dropDownContainer.style.zIndex = "0";
-
-  deleteItem.classList = "ranking-drop-down-item";
-  deleteItem.textContent =
-    type === "tier-title" ? "Delete Tier" : "Delete Item";
-
-  editItem.classList = "ranking-drop-down-item";
-  editItem.textContent = type === "tier-title" ? "Edit Tier" : "Edit Item";
-
-  addItem.classList = "ranking-drop-down-item";
-  addItem.textContent = type === "tier-title" ? "Add Tier" : "Add Item";
-
-  editIcon.addEventListener("click", () => {
-    dropDown.classList.toggle("invisible");
-    dropDownContainer.style.zIndex =
-      dropDownContainer.style.zIndex === "1" ? "0" : "1";
-  });
-
-  deleteItem.addEventListener("click", () => {
-    if (type === "tier-title") {
-      if (
-        !isValid(ranking.tiers, "tiers", "A ranking needs at least two tiers!")
-      )
-        return;
-      ranking.tiers.splice(tierIndex, 1)[0];
-    } else {
-      if (
-        !isValid(
-          tier.content,
-          "tier-content",
-          "A tier needs at least one element!"
-        )
-      )
-        return;
-      tier.content.splice(itemIndex, 1)[0];
-    }
-    buildRankingGrid(ranking);
-    saveButtonActive();
-  });
-
-  editItem.addEventListener("click", () => {
-    input.style.pointerEvents = "auto";
-    container.draggable = false;
-    dropDown.classList.toggle("invisible");
-    dropDownContainer.style.zIndex = "0";
-
-    input.focus();
-    input.select();
-  });
-
-  input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      input.blur();
-    }
-  });
-
-  input.addEventListener("blur", () => {
-    input.style.pointerEvents = "none";
-    container.draggable = type == "tier-title" ? false : true;
-
-    if (type === "tier-title" && tier.title != input.value) {
-      if (
-        !isValid(
-          input.value,
-          "tier-title",
-          "The title must be 4-60 characters long!"
-        )
-      ) {
-        buildRankingGrid(ranking);
-        return;
-      }
-
-      tier.title = input.value;
-      saveButtonActive();
-    } else if (
-      type === "tier-content" &&
-      tier.content[itemIndex] != input.value
-    ) {
-      tier.content[itemIndex] = input.value;
-      saveButtonActive();
-    }
-    buildRankingGrid(ranking);
-  });
-
-  addItem.addEventListener("click", () => {
-    if (type === "tier-title") {
-      const newTierTitle = prompt("Enter new tier:");
-      if (
-        !isValid(
-          newTierTitle,
-          "tier-title",
-          "The title must be 4-60 characters long!"
-        )
-      )
-        return;
-
-      const newItem1 = prompt(
-        "A rank requires at least two items. Enter first item:"
-      );
-      const newItem2 = prompt(
-        "A rank requires at least two items. Enter second item:"
-      );
-
-      if (newTierTitle && newItem1 && newItem2) {
-        const newTier = {
-          title: newTierTitle,
-          color: "var(--border-color)",
-          content: [newItem1, newItem2],
-        };
-        ranking.tiers.push(newTier);
-        buildRankingGrid(ranking);
-        saveButtonActive();
-      }
-    } else {
-      const newItem = prompt("Enter new item:");
-      if (newItem) {
-        tier.content.splice(itemIndex + 1, 0, newItem);
-        buildRankingGrid(ranking);
-        saveButtonActive();
-      }
-    }
-  });
-
-  if (type === "tier-title") {
-    colorPicker.addEventListener("blur", () => {
-      if (ranking.tiers[tierIndex].color != colorPicker.value) {
-        ranking.tiers[tierIndex].color = colorPicker.value;
-        buildRankingGrid(ranking);
-        saveButtonActive();
-      }
-    });
-  }
-
-  container.appendChild(input);
-  container.appendChild(dropDownContainer);
-  dropDownContainer.appendChild(editIcon);
-  dropDownContainer.appendChild(dropDown);
-  dropDown.appendChild(deleteItem);
-  dropDown.appendChild(editItem);
-  dropDown.appendChild(addItem);
-
-  return { container, colorPicker };
+for (const tier of ranking.tiers) {
+  rankingContainer.appendChild(createTier(tier));
 }
+const tierAdder = rankingContainer.appendChild(document.createElement("div"));
+tierAdder.innerHTML = `
+  <div id="tier-name-display">
+    <div class="tier-utils"></div>
+    <div class="tier-name-container">
+      <textarea class="tier-name-field" disabled>+</textarea>
+    </div>
+  </div>
+`;
+const itemsContainer = tierAdder.appendChild(document.createElement("div"));
+itemsContainer.classList.add("tier-items-container");
+createItemAdder(itemsContainer);
+tierAdder.classList.add("tier-container", "permission-required");
+tierAdder.children[0].addEventListener(
+  "click",
+  (event) => {
+    rankingContainer.insertBefore(
+      createTier({
+        title: "new tier",
+        content: ["example-item"],
+        color: "#444444",
+      }),
+      tierAdder
+    );
+    updateRankingData();
+  },
+  false
+);
 
-function dragStart(e) {
-  const editMenu = e.currentTarget.querySelector(".drop-down-container");
-  if (editMenu) editMenu.style.display = "none";
-  e.dataTransfer.setData(
-    "text/plain",
-    e.target.dataset.tierIndex + "," + e.target.dataset.itemIndex
+function createItemAdder(itemsContainer) {
+  const itemAdder = itemsContainer.appendChild(document.createElement("div"));
+  itemAdder.classList.add(
+    "tier-add-item-container",
+    "tier-item-container",
+    "permission-required"
   );
-  e.currentTarget.style.backgroundColor = "";
+  itemAdder.textContent = "+";
+  itemAdder.addEventListener("click", () => {
+    itemsContainer.insertBefore(createItem("new-item"), itemAdder);
+    updateRankingData();
+  });
+  itemAdder.ondragenter = dragEnterItemAdder;
 }
 
-function dragOver(e) {
-  e.preventDefault();
-  e.currentTarget.style.backgroundColor = "var(--accent-color-2)";
-  const editMenu = e.currentTarget.querySelector(".drop-down-container");
-  if (editMenu) editMenu.style.pointerEvents = "none";
+function createTier(tier) {
+  const tierContainer = document.createElement("div");
+  tierContainer.classList.add("tier-container");
+  const tierName = document.createElement("div");
+  tierName.id = "tier-name-display";
+  const title = tier.title;
+  tierName.innerHTML = `
+    <div class="tier-utils invisible-space permission-required"">
+      <input type="color" class="invisible tier-color-picker" value=${tier.color}></input>
+      <img class="brush-icon" alt="brush-icon"></img>
+      <img class="edit-icon" alt="edit-icon"></img>
+      <img class="trash-icon" alt="trash-icon"></img>
+    </div>
+    <div class="tier-name-container">
+      <textarea class="tier-name-field" type="text" disabled>${title}</textarea>
+    </div>
+  `;
+  tierName.style.backgroundColor = tier.color;
+  tierContainer.appendChild(tierName);
+
+  const utils = tierContainer.children[0].children[0];
+  tierContainer.children[0].addEventListener("mouseenter", () => {
+    utils.classList.remove("invisible-space");
+  });
+  tierContainer.children[0].addEventListener("mouseleave", () => {
+    utils.classList.add("invisible-space");
+  });
+
+  const textArea = tierContainer.getElementsByClassName("tier-name-field")[0];
+  textArea.addEventListener("input", (e) => {
+    updateRankingData();
+  });
+  const colorPicker =
+    tierContainer.getElementsByClassName("tier-color-picker")[0];
+  colorPicker.addEventListener("input", (e) => {
+    tierName.style.backgroundColor = e.target.value;
+    updateRankingData();
+  });
+  tierContainer
+    .getElementsByClassName("edit-icon")[0]
+    .addEventListener("click", (event) => {
+      textArea.disabled = false;
+    });
+  tierContainer
+    .getElementsByClassName("trash-icon")[0]
+    .addEventListener("click", (event) => {
+      tierContainer.remove();
+      updateRankingData();
+    });
+  tierContainer
+    .getElementsByClassName("brush-icon")[0]
+    .addEventListener("click", (event) => {
+      colorPicker.click();
+    });
+
+  const itemsContainer = tierContainer.appendChild(
+    document.createElement("div")
+  );
+  itemsContainer.classList.add("tier-items-container");
+  for (const item of tier.content) {
+    itemsContainer.appendChild(createItem(item));
+  }
+  createItemAdder(itemsContainer);
+
+  return tierContainer;
+}
+
+function createItem(item) {
+  const itemContainer = document.createElement("div");
+  itemContainer.innerHTML = `
+      <div class="tier-item-utils invisible-space permission-required">
+        <img class="edit-icon" alt="edit-icon"></img>
+        <img class="trash-icon" alt="trash-icon"></img>
+      </div>
+      <div class="tier-item-name-container">
+        <textarea class="tier-item-name-field" type="text" disabled>${item}</textarea>
+      </div>
+    `;
+  const textArea = itemContainer.getElementsByClassName(
+    "tier-item-name-field"
+  )[0];
+  textArea.addEventListener("input", () => {
+    updateRankingData();
+  });
+  itemContainer
+    .getElementsByClassName("edit-icon")[0]
+    .addEventListener("click", (event) => {
+      textArea.disabled = false;
+    });
+  itemContainer
+    .getElementsByClassName("trash-icon")[0]
+    .addEventListener("click", (event) => {
+      itemContainer.remove();
+      updateRankingData();
+    });
+  itemContainer.classList.add("tier-item-container");
+  const utils = itemContainer.children[0];
+  itemContainer.addEventListener("mouseenter", () => {
+    utils.classList.remove("invisible-space");
+  });
+  itemContainer.addEventListener("mouseleave", () => {
+    utils.classList.add("invisible-space");
+  });
+
+  itemContainer.draggable = isAuthenticated();
+  itemContainer.ondragstart = dragStart;
+  itemContainer.ondragenter = dragEnter;
+  itemContainer.ondrop = drop;
+  itemContainer.ondragover = dragOver;
+  itemContainer.ondragend = dragEnd;
+
+  return itemContainer;
+}
+
+let eventTransferData;
+function dragStart(e) {
+  const target = e.currentTarget;
+  eventTransferData = [
+    target.children[1].children[0].value,
+    target.nextSibling,
+  ];
+  setTimeout(() => {
+    e.target.remove();
+  }, 0);
+}
+
+function createPlaceHolder(current) {
+  const placeholder = document.createElement("div");
+  placeholder.classList.add("tier-item-container", "temp");
+  placeholder.ondragleave = dragLeave;
+  placeholder.ondrop = drop;
+  placeholder.ondragover = dragOver;
+  return placeholder;
+}
+function dragEnter(e) {
+  const current = e.currentTarget;
+  const placeholder = createPlaceHolder(current);
+  if (hasPlaceholderBefore(current)) {
+    current.parentElement.insertBefore(placeholder, current.nextSibling);
+  } else {
+    current.parentElement.insertBefore(placeholder, current);
+  }
+}
+function hasPlaceholderBefore(current) {
+  if (current.previousSibling === null) return false;
+  if (current.previousSibling.classList.contains("temp")) return true;
+  return hasPlaceholderBefore(current.previousSibling);
+}
+function dragEnterItemAdder(e) {
+  const current = e.currentTarget;
+  const placeholder = createPlaceHolder(current);
+  if (!hasPlaceholderBefore(current)) {
+    current.parentElement.insertBefore(placeholder, current);
+  }
 }
 
 function dragLeave(e) {
-  e.currentTarget.style.backgroundColor = "";
+  setTimeout(() => {
+    e.target.remove();
+  }, 0);
+}
+function dragOver(e) {
+  e.preventDefault();
 }
 
 function drop(e) {
-  e.preventDefault();
-  e.currentTarget.style.backgroundColor = "";
+  const title = eventTransferData[0];
+  eventTransferData = "";
+  const current = e.currentTarget;
 
-  const data = e.dataTransfer.getData("text/plain").split(",");
-  const [fromTierIndex, fromItemIndex] = data.map(Number);
-  const toTierIndex = e.target.dataset.tierIndex;
-  const toItemIndex = e.target.dataset.itemIndex;
+  const newNode = current.parentElement.insertBefore(
+    createItem(title),
+    current
+  );
+  current.remove();
 
-  const editMenu = e.currentTarget.querySelector(".drop-down-container");
-  if (editMenu) editMenu.style.pointerEvents = "auto";
-
-  if (
-    !isValid(
-      ranking.tiers[fromTierIndex].content,
-      "tier-content",
-      "A tier needs at least one item!"
-    )
-  )
-    return;
-
-  const item = ranking.tiers[fromTierIndex].content.splice(fromItemIndex, 1)[0];
-  ranking.tiers[toTierIndex].content.splice(toItemIndex, 0, item);
-
-  if (fromTierIndex != toTierIndex || fromItemIndex != toItemIndex)
-    saveButtonActive();
+  updateRankingData();
 }
 
 function dragEnd(e) {
-  const editMenu = e.currentTarget.querySelector(".drop-down-container");
-  if (editMenu) {
-    editMenu.style.display = "auto";
+  if (!eventTransferData) {
+    return;
   }
-  buildRankingGrid(ranking);
+  const itemsContainer = eventTransferData[1].parentElement;
+  const newNode = itemsContainer.insertBefore(
+    createItem(eventTransferData[0]),
+    eventTransferData[1]
+  );
 }
 
-function isAuthenticated() {
-  return userName === ranking.username;
-}
-
-function setVisibility(element) {
-  if (isAuthenticated()) {
-    element.classList.remove("invisible");
-  } else {
-    element.classList.add("invisible");
+function updateRankingData() {
+  const tiers = [];
+  for (const tier of rankingContainer.children) {
+    const tierItems = [];
+    for (const item of tier.children[1].children) {
+      tierItems.push(item.children[1]?.children[0]?.value);
+    }
+    tierItems.pop();
+    tiers.push({
+      title: tier.children[0].children[1].children[0].value,
+      content: tierItems,
+      color: rgbToHex(
+        tier.children[0].style.backgroundColor
+          .replace("rgb(", "")
+          .replace(")", "")
+          .split(",")
+      ),
+    });
   }
-}
+  tiers.pop();
 
-function saveButtonActive() {
-  const saveButton = document.getElementById("save-button");
-  saveButton.style.backgroundColor = "var(--accent-color-2)";
-  saveButton.style.pointerEvents = "auto";
+  ranking.tiers = tiers;
+  localStorage.setItem("ranking", JSON.stringify(ranking));
 }
 
 async function deleteRanking(id) {
@@ -486,7 +386,6 @@ async function createRanking(ranking) {
     }),
   });
 
-  console.log(response.status);
   if (response.status === 201) {
     return ranking;
   } else if (response.status === 401) {
@@ -494,7 +393,6 @@ async function createRanking(ranking) {
     return false;
   }
 }
-
 function isValid(input, id, message) {
   let isValid;
 
@@ -502,8 +400,7 @@ function isValid(input, id, message) {
 
   switch (id) {
     case "title":
-    case "tier-title":
-      isValid = input.length >= 4 && input.length <= 60;
+      isValid = input.length >= 4;
       break;
     case "description":
       isValid = input.length <= 300;
@@ -515,8 +412,28 @@ function isValid(input, id, message) {
       isValid = input.length > 1;
       break;
     default:
-      isValid = true;
+      isValid = false;
   }
   if (!isValid) alert("Invalid: " + message);
   return isValid;
+}
+
+if (!isAuthenticated()) {
+  for (const item of document.getElementsByClassName("permission-required")) {
+    item.classList.add("invisible-permanent");
+  }
+}
+
+if (!ranking.id) {
+  for (const item of document.getElementsByClassName("depends-on-creation")) {
+    item.classList.add("invisible-permanent");
+  }
+}
+
+function isAuthenticated() {
+  return userName == ranking.username;
+}
+
+function rgbToHex([r, g, b]) {
+  return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }

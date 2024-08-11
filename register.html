@@ -20,6 +20,7 @@
             class="input-field"
             type="text"
             placeholder="User Name"
+            maxlength="10"
           />
           <span id="user-name-error-field" class="error-field invisible">
             ⓘ
@@ -36,6 +37,7 @@
             class="input-field"
             type="text"
             placeholder="Display Name"
+            maxlength="30"
           />
           <span id="display-name-error-field" class="error-field invisible">
             ⓘ
@@ -51,6 +53,7 @@
             class="input-field"
             type="password"
             placeholder="Your Password"
+            maxlength="12"
           />
           <span id="password-error-field" class="error-field invisible">
             ⓘ
@@ -62,11 +65,12 @@
         </div>
         <div id="description-container">
           <label for="description">Description: </label>
-          <textarea id="description"> </textarea>
+          <textarea id="description" maxlength="300"> </textarea>
         </div>
-        <button id="register">Register</button>
-
-        <a href="login.html">I already have an account</a>
+        <div>
+          <button id="register">Register</button>
+          <a href="login.html">I already have an account</a>
+        </div>
       </div>
     </div>
   </body>

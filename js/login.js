@@ -13,19 +13,19 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function login() {
-  const name = document.getElementById("user-name").value;
+  const username = document.getElementById("user-name").value;
   const password = document.getElementById("password").value;
 
-  document.querySelector("body").style.cursor = "wait";
-  const wasSuccessful = await loginUser(name, password);
+  document.body.style.cursor = "wait";
+  const wasSuccessful = await loginUser(username, password);
   document.querySelector("body").style.cursor = "unset";
   if (!wasSuccessful) {
     return;
   }
 
-  console.log(`logged in user: username: ${name}, password: ${password}`);
+  console.log(`logged in user: username: ${username}, password: ${password}`);
 
-  localStorage.setItem("username", name);
+  localStorage.setItem("username", username.toLowerCase());
   localStorage.setItem("password", password);
 
   window.location.href = "main.html";

@@ -16,8 +16,8 @@
   gap: 20px;
 }
 
-#displayName,
-#profileName,
+#display-name,
+#profile-name,
 #description {
   display: flex;
   flex-direction: row;
@@ -27,6 +27,6 @@
 .edit-icon {
   content: url("../assets/edit-icon.png");
   width: 15px;
-  height: 15px;
+  max-width: 15px;
   cursor: pointer;
 }

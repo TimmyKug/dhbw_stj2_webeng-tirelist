@@ -14,7 +14,7 @@ for (const inputElement of inputElements) {
 
 for (const errorField of document.getElementsByClassName("error-field")) {
   errorField.addEventListener("mouseenter", (e) => {
-      errorField.children[0].classList.remove("invisible");
+    errorField.children[0].classList.remove("invisible");
   });
   errorField.addEventListener("mouseleave", (e) => {
     errorField.children[0].classList.add("invisible");
@@ -71,7 +71,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function register() {
-  const name = document.getElementById("user-name").value;
+  const username = document.getElementById("user-name").value;
   const password = document.getElementById("password").value;
   const displayName = document.getElementById("display-name").value;
   const description = document.getElementById("description").value;
@@ -86,21 +86,23 @@ async function register() {
     return;
   }
 
+  document.body.style.cursor = "wait";
   const wasSuccessful = await registerUser(
-    name,
+    username,
     password,
     displayName,
     description
   );
+  document.body.style.cursor = "unset";
   if (!wasSuccessful) {
     return;
   }
 
   console.log(
-    `registered user: username: ${name}, password: ${password}, display name: ${displayName}, description: ${description}`
+    `registered user: username: ${username}, password: ${password}, display name: ${displayName}, description: ${description}`
   );
 
-  localStorage.setItem("username", name);
+  localStorage.setItem("username", username.toLowerCase());
   localStorage.setItem("password", password);
 
   window.location.href = "main.html";

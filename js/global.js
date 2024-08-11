@@ -1,6 +1,7 @@
 export const GROUP_KEY = "2ujgh9kh";
 
 const username = localStorage.getItem("username");
+const password = localStorage.getItem("password");
 document.getElementById("nav-bar").innerHTML = `
     <div id='icon'></div>
     <input id='search-bar' list='users' placeholder='🔎 Search for users...'>
@@ -57,13 +58,13 @@ document.getElementById("new-ranking-button")?.addEventListener("click", () => {
     tiers: [
       {
         title: "tier-1",
-        content: ["item-1", "item-2"],
-        color: "var(--border-color)",
+        content: ["example-item", "example-item"],
+        color: "#444444",
       },
       {
         title: "tier-2",
-        content: ["item-1", "item-2"],
-        color: "var(--border-color)",
+        content: ["example-item", "example-item"],
+        color: "#444444",
       },
     ],
     username: localStorage.getItem("username"),
@@ -94,26 +95,16 @@ document.getElementById("profile")?.addEventListener("click", async () => {
 document.getElementById("log-out")?.addEventListener("click", () => {
   localStorage.removeItem("username");
   localStorage.removeItem("password");
-  localStorage.removeItem("user");
-  localStorage.removeItem("ranking");
   location.href = "login.html";
 });
 
 document
   .getElementById("delete-account")
   ?.addEventListener("click", async () => {
-    await deleteAllUserRankings(
-      localStorage.getItem("username"),
-      localStorage.getItem("password")
-    );
-    await deleteUser(
-      localStorage.getItem("username"),
-      localStorage.getItem("password")
-    );
+    await deleteAllUserRankings(username, password);
+    await deleteUser(username, password);
     localStorage.removeItem("username");
     localStorage.removeItem("password");
-    localStorage.removeItem("user");
-    localStorage.removeItem("ranking");
     location.href = "login.html";
   });
 
@@ -127,7 +118,6 @@ async function getUsers() {
     },
   });
   const users = await usersResponse.json();
-  console.log(users);
   const userDataList = document.getElementById("users");
   userDataList.innerHTML = "";
   for (const user of users) {
@@ -174,8 +164,10 @@ async function deleteAllUserRankings(userName, password) {
   );
 
   const allUserRankings = await response.json();
-  for (const ranking of allUserRankings)
-    await deleteRanking(userName, password, ranking.id);
+  const deletePromises = allUserRankings.map((ranking) => {
+    return deleteRanking(userName, password, ranking.id);
+  });
+  await Promise.all(deletePromises);
 }
 
 async function deleteRanking(userName, password, id) {
@@ -188,10 +180,8 @@ async function deleteRanking(userName, password, id) {
   });
 
   if (response.status === 204) {
-    console.log("deleted ranking");
-    return true;
+    console.log("deleted ranking with id" + id);
   } else {
     alert("Can’t delete this ranking, error:" + response.status);
-    return false;
   }
 }
