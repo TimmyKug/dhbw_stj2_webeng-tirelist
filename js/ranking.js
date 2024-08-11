@@ -2,7 +2,7 @@ import { GROUP_KEY } from "./global.js";
 
 const userName = localStorage.getItem("username");
 const password = localStorage.getItem("password");
-const ranking = JSON.parse(localStorage.getItem("ranking"));
+const ranking = JSON.parse(localStorage.getItem("ranking").replace("tier","tire")); // Hauptsache Tire!!! It's not a bug - it's a feature :)
 
 document.getElementById("ranking-description").innerHTML = `
     <input id="title" type="text" value="${
