@@ -88,7 +88,7 @@ document.getElementById("save-button").addEventListener("click", async () => {
 
 const rankingContainer = document.getElementById("ranking-container");
 
-for (const tire of ranking.tires) {
+for (const tire of ranking.tiers) {
   rankingContainer.appendChild(createtire(tire));
 }
 const tireAdder = rankingContainer.appendChild(document.createElement("div"));
@@ -346,7 +346,7 @@ function updateRankingData() {
   }
   tires.pop();
 
-  ranking.tires = tires;
+  ranking.tiers = tires;
   localStorage.setItem("ranking", JSON.stringify(ranking));
 }
 
@@ -387,7 +387,7 @@ async function updateRanking(id) {
       "One of the following requirements isn't met: \n" +
         " - Title must be 4-60 characters long\n" +
         " - Ranking must contain at least 2 tires\n" +
-        " - tires must contain at least 1 item"
+        " - All tires must contain at least 1 item"
     );
     return false;
   }
@@ -407,7 +407,7 @@ async function createRanking(ranking) {
     body: JSON.stringify({
       title: ranking.title,
       description: ranking.description,
-      tires: ranking.tires,
+      tiers: ranking.tires,
     }),
   });
 
@@ -417,7 +417,7 @@ async function createRanking(ranking) {
     alert("One of the following requirements isn't met: \n" +
         " - Title must be 4-60 characters long\n" +
         " - Ranking must contain at least 2 tires\n" +
-        " - tires must contain at least 1 item");
+        " - All tires must contain at least 1 item");
     return false;
   }
 }
