@@ -185,3 +185,5 @@ async function deleteRanking(userName, password, id) {
     alert("Can’t delete this ranking, error:" + response.status);
   }
 }
+
+document.getElementById("footer").innerHTML = "Copyright © 2024.All rights reserved | Timothy Kugler and Nico Amann";
