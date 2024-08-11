@@ -88,7 +88,7 @@ document.getElementById("save-button").addEventListener("click", async () => {
 
 const rankingContainer = document.getElementById("ranking-container");
 
-for (const tire of ranking.tiers) {
+for (const tire of ranking.tires) {
   rankingContainer.appendChild(createtire(tire));
 }
 const tireAdder = rankingContainer.appendChild(document.createElement("div"));

@@ -103,7 +103,7 @@ button:active {
   cursor: pointer;
 }
 .invisible-permanent {
-  display: none;
+  display: none !important;
 }
 .invisible {
   display: none;

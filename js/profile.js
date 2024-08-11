@@ -45,7 +45,7 @@ function buildProfileDescription(user) {
   const editDisplayName = document.createElement("img");
   const editDescription = document.createElement("img");
 
-  displayName.innerHTML = user.profile.displayName + "´s Profile";
+  displayName.innerHTML = user.profile.displayName + "´s Profile  ";
   userName.innerHTML = "User name: " + user.username;
   description.innerHTML = "Description: " + user.profile.description;
   createdAt.innerHTML =

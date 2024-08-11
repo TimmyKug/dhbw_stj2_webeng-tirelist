@@ -55,7 +55,7 @@ document.getElementById("new-ranking-button")?.addEventListener("click", () => {
   const newRanking = {
     title: "My Ranking",
     description: "",
-    tiers: [
+    tires: [
       {
         title: "tire-1",
         content: ["example-item", "example-item"],
