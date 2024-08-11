@@ -1,0 +1,16 @@
+#login-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+}
+#labels {
+    flex-direction: column;
+    display: flex;
+    gap: 5px;
+}
+#inputs {
+    flex-direction: column;
+    display: flex;
+    gap: 5px;
+}
